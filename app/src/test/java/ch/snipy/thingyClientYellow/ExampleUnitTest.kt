@@ -1,4 +1,4 @@
-package ch.snipy.thingy_client_yellow
+package ch.snipy.thingyClientYellow
 
 import org.junit.Test
 
