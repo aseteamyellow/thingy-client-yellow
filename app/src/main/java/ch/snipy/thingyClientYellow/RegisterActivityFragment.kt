@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 
 class RegisterActivityFragment : Fragment() {
+
+    lateinit var loginSignal: LoginSignal
 
     companion object {
         fun newInstance(): RegisterActivityFragment {
@@ -19,6 +22,9 @@ class RegisterActivityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        val view = inflater.inflate(R.layout.fragment_register, container, false)
+        val loginButton = view.findViewById<Button>(R.id.sign_in_nav)
+        loginButton.setOnClickListener { _ -> loginSignal.onLoginSignal() }
+        return view
     }
 }
