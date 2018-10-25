@@ -1,9 +1,9 @@
 package ch.snipy.thingyClientYellow
 
 interface RegisterSignal {
-    fun onRegisterSignal()
+    fun registerSignal()
 }
 
 interface LoginSignal {
-    fun onLoginSignal()
+    fun loginSignal()
 }

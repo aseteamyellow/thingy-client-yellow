@@ -21,7 +21,7 @@ class LoginActivityFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         val signUpButton = view.findViewById<Button>(R.id.sign_in_nav)
-        signUpButton.setOnClickListener { _ -> registerSignal.onRegisterSignal() }
+        signUpButton.setOnClickListener { _ -> registerSignal.registerSignal() }
         return view
     }
 }

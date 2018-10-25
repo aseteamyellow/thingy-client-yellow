@@ -24,7 +24,7 @@ class RegisterActivityFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
         val loginButton = view.findViewById<Button>(R.id.sign_in_nav)
-        loginButton.setOnClickListener { _ -> loginSignal.onLoginSignal() }
+        loginButton.setOnClickListener { _ -> loginSignal.loginSignal() }
         return view
     }
 }

@@ -11,7 +11,7 @@ class RegisterLoginActivity : FragmentActivity(), LoginSignal, RegisterSignal {
         setContentView(R.layout.activity_register_login)
     }
 
-    override fun onRegisterSignal() {
+    override fun registerSignal() {
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         val registerFragment = RegisterActivityFragment.newInstance()
@@ -20,7 +20,7 @@ class RegisterLoginActivity : FragmentActivity(), LoginSignal, RegisterSignal {
         transaction.commit()
     }
 
-    override fun onLoginSignal() {
+    override fun loginSignal() {
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         val loginFragment = LoginActivityFragment.newInstance()
