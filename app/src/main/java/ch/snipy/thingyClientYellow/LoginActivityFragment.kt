@@ -8,17 +8,15 @@ import androidx.fragment.app.Fragment
 
 class LoginActivityFragment : Fragment() {
 
+    lateinit var registerSignal : RegisterSignal
+
     companion object {
         fun newInstance(): LoginActivityFragment {
             return LoginActivityFragment()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 }
