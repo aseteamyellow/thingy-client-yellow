@@ -17,7 +17,7 @@ class RegisterLoginActivity : FragmentActivity() {
             .commit()
     }
 
-    fun onSelectFragment(view: View): Unit {
+    fun onSelectFragment(view: View) {
         when (view.id) {
             R.id.sign_up_nav -> {
                 Log.d("Sign up nav", "NAV")
@@ -40,11 +40,11 @@ class RegisterLoginActivity : FragmentActivity() {
 
     fun onClickCreateAccount(view: View) {
         Log.d("on click create account", "CALLBACK")
-        TODO()
+        // TODO
     }
 
     fun onClickSignIn(view: View) {
         Log.d("on click sign in", "CALLBACK")
-        TODO()
+        // TODO
     }
 }
