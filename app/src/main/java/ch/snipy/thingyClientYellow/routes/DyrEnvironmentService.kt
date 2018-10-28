@@ -5,6 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.http.*
 
 interface DyrEnvironmentService {
+    // TODO modidy the routes because they are the same...
     @GET("/{userId}")
     fun getEnvironments(@Path("userId") userId: String): Call<Any>
 
