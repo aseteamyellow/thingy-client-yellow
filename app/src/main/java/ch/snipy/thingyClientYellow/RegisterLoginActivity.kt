@@ -37,4 +37,14 @@ class RegisterLoginActivity : FragmentActivity() {
             }
         }
     }
+
+    fun onClickCreateAccount(view: View) {
+        Log.d("on click create account", "CALLBACK")
+        TODO()
+    }
+
+    fun onClickSignIn(view: View) {
+        Log.d("on click sign in", "CALLBACK")
+        TODO()
+    }
 }
