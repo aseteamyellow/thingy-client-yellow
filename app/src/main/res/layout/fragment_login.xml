@@ -69,7 +69,7 @@
             android:completionHint="@string/prompt_email"/>
 
     <Button
-            android:id="@+id/login_sign_in"
+            android:id="@+id/sign_in_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/action_sign_in"
@@ -90,6 +90,7 @@
             app:layout_constraintTop_toBottomOf="@+id/login_email"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toEndOf="@+id/login_sign_in"
+            app:layout_constraintStart_toEndOf="@+id/sign_in_action"
+            android:onClick="onSelectFragment"
             android:layout_marginStart="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
