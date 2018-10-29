@@ -23,4 +23,6 @@
     <string name="create_account">Create account</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
+    <string name="account_creation_fail">Can\'t create the account</string>
+    <string name="sign_in_fail">Can\'t connect to your Dyr account</string>
 </resources>
