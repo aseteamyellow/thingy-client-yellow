@@ -1,7 +1,18 @@
 package ch.snipy.thingyClientYellow
 
-object Model {
-    data class User(val id: Int?, val email: String)
-    data class Environment(val id: Int?, val name: String)
-    data class Animal(val id: Int?, val name: String)
-}
+import com.google.gson.annotations.SerializedName
+
+data class User(
+    @SerializedName("id") val id: Int?,
+    @SerializedName("email") val email: String
+)
+
+data class Environment(
+    @SerializedName("id") val id: Int?,
+    @SerializedName("name") val name: String
+)
+
+data class Animal(
+    @SerializedName("id") val id: Int?,
+    @SerializedName("name") val name: String
+)
