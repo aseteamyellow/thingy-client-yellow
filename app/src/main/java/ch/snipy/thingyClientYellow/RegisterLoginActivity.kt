@@ -64,7 +64,7 @@ class RegisterLoginActivity : FragmentActivity() {
         }
     }
 
-    fun navigateToMainActivity() {
+    private fun navigateToMainActivity() {
         // TODO
     }
 }
