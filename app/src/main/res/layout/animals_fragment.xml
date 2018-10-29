@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="ch.snipy.thingyClientYellow.animal.AnimalsFragments">
+        tools:context="ch.snipy.thingyClientYellow.animal.AnimalsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/animals_recycler_view"
