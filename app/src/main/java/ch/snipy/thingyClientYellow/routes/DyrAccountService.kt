@@ -3,23 +3,21 @@ package ch.snipy.thingyClientYellow.routes
 import ch.snipy.thingyClientYellow.User
 import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.http.DELETE
-import retrofit2.http.PATCH
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
+
 
 interface DyrAccountService {
     @POST("/register")
-    fun register(): Call<User>
+    fun register(@Body body: User): Call<User>
 
     @POST("/connect")
-    fun connect(): Call<User>
+    fun connect(@Body body: User): Call<User>
 
     @PATCH("/update/{userId}")
-    fun update(@Path("userId") userId: String): Call<User>
+    fun update(@Path("userId") userId: Int): Call<User>
 
     @DELETE("/delete/{userId}")
-    fun delete(@Path("userId") userId: String): Call<Any>
+    fun delete(@Path("userId") userId: Int): Call<String>
 
     companion object Factory {
         fun create(): DyrAccountService {
