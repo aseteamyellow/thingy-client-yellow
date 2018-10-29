@@ -1,7 +1,6 @@
 package ch.snipy.thingyClientYellow.routes
 
 import android.os.Environment
-import ch.snipy.thingyClientYellow.Model
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.http.*
@@ -9,10 +8,10 @@ import retrofit2.http.*
 interface DyrEnvironmentService {
     // TODO modidy the routes because they are the same...
     @GET("/{userId}")
-    fun getEnvironments(@Path("userId") userId: Int): Call<List<Model.Environment>>
+    fun getEnvironments(@Path("userId") userId: Int): Call<List<Environment>>
 
     @GET("/{envId}")
-    fun getEnvironment(@Path("envId") envId: Int): Call<Model.Environment>
+    fun getEnvironment(@Path("envId") envId: Int): Call<Environment>
 
     @POST("/")
     fun createEnvironment(): Call<Environment>
