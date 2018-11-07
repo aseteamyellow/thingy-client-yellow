@@ -3,6 +3,8 @@ package ch.snipy.thingyClientYellow
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
@@ -44,7 +46,17 @@ class RegisterLoginActivity : FragmentActivity() {
     fun onClickCreateAccount(view: View) {
         Log.d("on click create account", "CALLBACK")
 
-        val request = accountService.register().execute()
+        val email = findViewById<EditText>(R.id.create_account_email)
+        val password1 = findViewById<EditText>(R.id.create_account_password_1).text.toString()
+        val password2 = findViewById<EditText>(R.id.create_account_password_2).text.toString()
+
+        if (password1 != password2) {
+            Toast.makeText(applicationContext, getString(R.string.passwords_not_same), Toast.LENGTH_SHORT).show()
+        }
+
+        assert(password1 == password2)
+
+        val request = accountService.register(User(null, null, email.text.toString(), password1)).execute()
         if (request.isSuccessful) {
             navigateToMainActivity()
         } else {
@@ -55,16 +67,18 @@ class RegisterLoginActivity : FragmentActivity() {
     fun onClickSignIn(view: View) {
         Log.d("on click sign in", "CALLBACK")
 
-        val request = accountService.connect().execute()
+        val email = findViewById<AutoCompleteTextView>(R.id.login_email).text.toString()
+        val password = findViewById<EditText>(R.id.login_password).text.toString()
+
+        val request = accountService.connect(User(null, null, email, password)).execute()
         if (request.isSuccessful) {
             navigateToMainActivity()
         } else {
-
             Toast.makeText(applicationContext, R.string.sign_in_fail, Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun navigateToMainActivity() {
-        // TODO
+        Toast.makeText(applicationContext, "MainActivity", Toast.LENGTH_SHORT).show()
     }
 }
