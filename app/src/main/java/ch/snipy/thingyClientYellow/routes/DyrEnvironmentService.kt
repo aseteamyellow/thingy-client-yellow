@@ -6,24 +6,24 @@ import retrofit2.Retrofit
 import retrofit2.http.*
 
 interface DyrEnvironmentService {
-    // TODO modidy the routes because they are the same...
-    @GET("/{userId}")
+
+    @GET("/all/{userId}")
     fun getEnvironments(@Path("userId") userId: Int): Call<List<Environment>>
 
-    @GET("/{envId}")
+    @GET("/one/{envId}")
     fun getEnvironment(@Path("envId") envId: Int): Call<Environment>
 
-    @POST("/")
-    fun createEnvironment(): Call<Environment>
+    @POST("/{userId}")
+    fun createEnvironment(@Path("userId") userId: Int): Call<Environment>
 
     @PATCH("/{envId}")
     fun updateEnvironment(@Path("envId") envId: Int): Call<Environment>
 
     @DELETE("/{envId}")
-    fun deleteEnvironment(@Path("envId") envId: Int): Call<Any>
+    fun deleteEnvironment(@Path("envId") envId: Int): Call<String>
 
     @PUT("/enableNotif/{envId}")
-    fun enableNotification(@Path("envId") envId: Int): Call<Any>
+    fun enableNotification(@Path("envId") envId: Int, @Body body: Map<String, String>): Call<String>
 
     companion object Factory {
         fun create(): DyrEnvironmentService {
