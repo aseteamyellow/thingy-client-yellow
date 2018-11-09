@@ -1,5 +1,7 @@
 package ch.snipy.thingyClientYellow
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import ch.snipy.thingyClientYellow.routes.DyrAccountService
+
 
 class RegisterLoginActivity : FragmentActivity() {
 
@@ -56,11 +59,15 @@ class RegisterLoginActivity : FragmentActivity() {
 
         assert(password1 == password2)
 
-        val request = accountService.register(User(null, null, email.text.toString(), password1)).execute()
-        if (request.isSuccessful) {
-            navigateToMainActivity()
+        if (isNetworkAvailable()) {
+            val request = accountService.register(User(null, null, email.text.toString(), password1)).execute()
+            if (request.isSuccessful) {
+                navigateToMainActivity()
+            } else {
+                Toast.makeText(applicationContext, R.string.account_creation_fail, Toast.LENGTH_SHORT).show()
+            }
         } else {
-            Toast.makeText(applicationContext, R.string.account_creation_fail, Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Not connected to the internet", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -70,7 +77,10 @@ class RegisterLoginActivity : FragmentActivity() {
         val email = findViewById<AutoCompleteTextView>(R.id.login_email).text.toString()
         val password = findViewById<EditText>(R.id.login_password).text.toString()
 
+        Toast.makeText(applicationContext, R.string.sign_in_fail, Toast.LENGTH_SHORT).show()
+
         val request = accountService.connect(User(null, null, email, password)).execute()
+
         if (request.isSuccessful) {
             navigateToMainActivity()
         } else {
@@ -80,5 +90,11 @@ class RegisterLoginActivity : FragmentActivity() {
 
     private fun navigateToMainActivity() {
         Toast.makeText(applicationContext, "MainActivity", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 }

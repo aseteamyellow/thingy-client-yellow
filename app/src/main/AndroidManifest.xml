@@ -17,7 +17,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppTheme.Dyr"
-            tools:ignore="GoogleAppIndexingWarning">
+            tools:ignore="GoogleAppIndexingWarning"
+            android:usesCleartextTraffic="true"
+            >
         <activity
                 android:name=".RegisterLoginActivity"
                 android:label="@string/title_activity_register_login"
