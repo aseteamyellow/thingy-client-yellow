@@ -1,6 +1,7 @@
 package ch.snipy.thingyClientYellow
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.StrictMode
@@ -106,6 +107,7 @@ class RegisterLoginActivity : FragmentActivity() {
                             Toast.makeText(applicationContext, R.string.login_fail, Toast.LENGTH_SHORT).show()
                             Log.e("CONNECT", error.message)
                             bar.visibility = INVISIBLE
+                            navigateToMainActivity() // TODO remove
                         }
                     )
     }
@@ -139,12 +141,14 @@ class RegisterLoginActivity : FragmentActivity() {
                             Toast.makeText(applicationContext, R.string.register_fail, Toast.LENGTH_SHORT).show()
                             Log.e("REGISTER", error.message)
                             bar.visibility = INVISIBLE
+                            navigateToMainActivity() // TODO remove
                         }
                     )
     }
 
     private fun navigateToMainActivity() {
-        Toast.makeText(applicationContext, "MainActivity", Toast.LENGTH_SHORT).show()
+        Log.d("REGISTER_LOGIN", "navigate to main activity")
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun isNetworkAvailable(): Boolean {
