@@ -60,7 +60,7 @@ class RegisterLoginActivity : FragmentActivity() {
     }
 
     fun onClickCreateAccount(view: View) {
-        Log.d("on click create account", "CALLBACK")
+        Log.d("CALLBACK", "on click create account : ${view.id}")
 
         val email = findViewById<EditText>(R.id.create_account_email)
         val password1 = findViewById<EditText>(R.id.create_account_password_1).text.toString()
@@ -70,7 +70,7 @@ class RegisterLoginActivity : FragmentActivity() {
     }
 
     fun onClickSignIn(view: View) {
-        Log.d("on click sign in", "CALLBACK")
+        Log.d("CALLBACK", "on click create account : ${view.id}")
         val email = findViewById<AutoCompleteTextView>(R.id.login_email).text.toString()
         val password = findViewById<EditText>(R.id.login_password).text.toString()
 
