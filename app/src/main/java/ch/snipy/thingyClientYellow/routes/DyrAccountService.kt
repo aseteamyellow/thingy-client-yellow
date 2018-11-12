@@ -2,8 +2,6 @@ package ch.snipy.thingyClientYellow.routes
 
 import ch.snipy.thingyClientYellow.User
 import io.reactivex.Observable
-import io.reactivex.plugins.RxJavaPlugins
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
