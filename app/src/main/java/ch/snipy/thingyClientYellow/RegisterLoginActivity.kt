@@ -3,6 +3,7 @@ package ch.snipy.thingyClientYellow
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Log
 import android.view.View
 import android.widget.AutoCompleteTextView
@@ -19,6 +20,10 @@ class RegisterLoginActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
         setContentView(R.layout.activity_register_login)
         supportFragmentManager.beginTransaction()
             .add(R.id.register_login_activity_frame_layout, RegisterActivityFragment.newInstance())
