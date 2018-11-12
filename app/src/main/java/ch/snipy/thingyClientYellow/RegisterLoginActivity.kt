@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.util.Log
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
@@ -71,7 +74,7 @@ class RegisterLoginActivity : FragmentActivity() {
         val email = findViewById<AutoCompleteTextView>(R.id.login_email).text.toString()
         val password = findViewById<EditText>(R.id.login_password).text.toString()
 
-
+        connect(email, password)
     }
 
     override fun onPause() {
@@ -85,6 +88,9 @@ class RegisterLoginActivity : FragmentActivity() {
             return
         }
 
+        val bar = findViewById<ProgressBar>(R.id.login_progressBar)
+        bar.visibility = VISIBLE
+
         disposable =
                 accountService.connect(User(null, null, email, password))
                     .subscribeOn(Schedulers.io())
@@ -93,11 +99,13 @@ class RegisterLoginActivity : FragmentActivity() {
                         { result ->
                             Toast.makeText(applicationContext, "Connection done !", Toast.LENGTH_SHORT).show()
                             Log.d("REGISTER", result.toString())
+                            bar.visibility = INVISIBLE
                             navigateToMainActivity()
                         },
                         { error ->
-                            Toast.makeText(applicationContext, R.string.sign_up_fail, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, R.string.login_fail, Toast.LENGTH_SHORT).show()
                             Log.e("CONNECT", error.message)
+                            bar.visibility = INVISIBLE
                         }
                     )
     }
@@ -107,6 +115,9 @@ class RegisterLoginActivity : FragmentActivity() {
             Toast.makeText(applicationContext, getString(R.string.internet_error), Toast.LENGTH_SHORT).show()
             return
         }
+
+        val bar = findViewById<ProgressBar>(R.id.register_progressBar)
+        bar.visibility = VISIBLE
 
         if (password1 != password2) {
             Toast.makeText(applicationContext, getString(R.string.passwords_not_same), Toast.LENGTH_SHORT).show()
@@ -121,11 +132,13 @@ class RegisterLoginActivity : FragmentActivity() {
                         { result ->
                             Toast.makeText(applicationContext, "Registration done !", Toast.LENGTH_SHORT).show()
                             Log.d("REGISTER", result.toString())
+                            bar.visibility = INVISIBLE
                             navigateToMainActivity()
                         },
                         { error ->
-                            Toast.makeText(applicationContext, R.string.sign_in_fail, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(applicationContext, R.string.register_fail, Toast.LENGTH_SHORT).show()
                             Log.e("REGISTER", error.message)
+                            bar.visibility = INVISIBLE
                         }
                     )
     }
