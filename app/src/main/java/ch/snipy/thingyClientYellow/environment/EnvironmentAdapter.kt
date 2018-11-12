@@ -1,22 +1,32 @@
 package ch.snipy.thingyClientYellow.environment
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import ch.snipy.thingyClientYellow.Environment
+import ch.snipy.thingyClientYellow.R
+import ch.snipy.thingyClientYellow.environment.EnvironmentAdapter.ViewHolder
+import kotlinx.android.synthetic.main.environment_list_item.view.*
 
-class EnvironmentAdapter(private val dataset: Array<String>) : RecyclerView.Adapter<EnvironmentAdapter.ViewHolder>() {
+class EnvironmentAdapter(private val dataset: List<Environment>, val context: Context) :
+    RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.environment_list_item, parent, false))
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return dataset.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.name.text = dataset.get(position).name
     }
 
-    class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val name: TextView = view.environment_item_name
+    }
 }

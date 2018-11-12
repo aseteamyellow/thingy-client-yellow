@@ -29,4 +29,6 @@
     <string name="internet_error">Not connected to the internet</string>
     <string name="sign_up_fail">Can\'t connect to the server</string>
     <string name="login_fail">Can\'t connect to your Dyr account</string>
+    <string name="example">example</string>
+    <string name="todo">TODO</string>
 </resources>
