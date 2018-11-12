@@ -1,28 +1,31 @@
 package ch.snipy.thingyClientYellow.routes
 
 import ch.snipy.thingyClientYellow.User
+import io.reactivex.Observable
+import io.reactivex.plugins.RxJavaPlugins
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-
 interface DyrAccountService {
     @POST("/register")
-    fun register(@Body body: User): Call<User>
+    fun register(@Body body: User): Observable<User>
 
     @POST("/connect")
-    fun connect(@Body body: User): Call<User>
+    fun connect(@Body body: User): Observable<User>
 
     @PATCH("/update/{userId}")
-    fun update(@Path("userId") userId: Int): Call<User>
+    fun update(@Path("userId") userId: Int): Observable<User>
 
     @DELETE("/delete/{userId}")
-    fun delete(@Path("userId") userId: Int): Call<String>
+    fun delete(@Path("userId") userId: Int): Observable<String>
 
     companion object Factory : DyrServiceFactory {
         fun create(): DyrAccountService {
             val retrofit = Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("$baseUrl/account/")
                 .build()
