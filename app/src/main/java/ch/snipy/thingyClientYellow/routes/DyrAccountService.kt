@@ -23,6 +23,7 @@ interface DyrAccountService {
     companion object Factory : DyrServiceFactory {
         fun create(): DyrAccountService {
             val retrofit = Retrofit.Builder()
+                .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("$baseUrl/account/")

@@ -31,6 +31,7 @@ interface DyrEnvironmentService {
     companion object Factory : DyrServiceFactory {
         fun create(): DyrEnvironmentService {
             val retrofit = Retrofit.Builder()
+                .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("$baseUrl/environment/")
