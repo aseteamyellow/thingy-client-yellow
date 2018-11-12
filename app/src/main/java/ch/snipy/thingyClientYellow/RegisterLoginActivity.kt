@@ -12,11 +12,16 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import ch.snipy.thingyClientYellow.routes.DyrAccountService
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 
 class RegisterLoginActivity : FragmentActivity() {
 
-    val accountService = DyrAccountService.create()
+    val accountService by lazy { DyrAccountService.create() }
+    var disposable: Disposable? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,39 +63,71 @@ class RegisterLoginActivity : FragmentActivity() {
         val password1 = findViewById<EditText>(R.id.create_account_password_1).text.toString()
         val password2 = findViewById<EditText>(R.id.create_account_password_2).text.toString()
 
-        if (password1 != password2) {
-            Toast.makeText(applicationContext, getString(R.string.passwords_not_same), Toast.LENGTH_SHORT).show()
-        }
-
-        assert(password1 == password2)
-
-        if (isNetworkAvailable()) {
-            val request = accountService.register(User(null, null, email.text.toString(), password1)).execute()
-            if (request.isSuccessful) {
-                navigateToMainActivity()
-            } else {
-                Toast.makeText(applicationContext, R.string.account_creation_fail, Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(applicationContext, "Not connected to the internet", Toast.LENGTH_SHORT).show()
-        }
+        register(password1, password2, email.text.toString())
     }
 
     fun onClickSignIn(view: View) {
         Log.d("on click sign in", "CALLBACK")
-
         val email = findViewById<AutoCompleteTextView>(R.id.login_email).text.toString()
         val password = findViewById<EditText>(R.id.login_password).text.toString()
 
-        Toast.makeText(applicationContext, R.string.sign_in_fail, Toast.LENGTH_SHORT).show()
 
-        val request = accountService.connect(User(null, null, email, password)).execute()
+    }
 
-        if (request.isSuccessful) {
-            navigateToMainActivity()
-        } else {
-            Toast.makeText(applicationContext, R.string.sign_in_fail, Toast.LENGTH_SHORT).show()
+    override fun onPause() {
+        super.onPause()
+        disposable?.dispose()
+    }
+
+    private fun connect(email: String, password: String) {
+        if (!isNetworkAvailable()) {
+            Toast.makeText(applicationContext, getString(R.string.internet_error), Toast.LENGTH_SHORT).show()
+            return
         }
+
+        disposable =
+                accountService.connect(User(null, null, email, password))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { result ->
+                            Toast.makeText(applicationContext, "Connection done !", Toast.LENGTH_SHORT).show()
+                            Log.d("REGISTER", result.toString())
+                            navigateToMainActivity()
+                        },
+                        { error ->
+                            Toast.makeText(applicationContext, R.string.sign_up_fail, Toast.LENGTH_SHORT).show()
+                            Log.e("CONNECT", error.message)
+                        }
+                    )
+    }
+
+    private fun register(password1: String, password2: String, email: String) {
+        if (!isNetworkAvailable()) {
+            Toast.makeText(applicationContext, getString(R.string.internet_error), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (password1 != password2) {
+            Toast.makeText(applicationContext, getString(R.string.passwords_not_same), Toast.LENGTH_SHORT).show()
+        }
+        assert(password1 == password2)
+
+        disposable =
+                accountService.register(User(null, null, email, password1))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { result ->
+                            Toast.makeText(applicationContext, "Registration done !", Toast.LENGTH_SHORT).show()
+                            Log.d("REGISTER", result.toString())
+                            navigateToMainActivity()
+                        },
+                        { error ->
+                            Toast.makeText(applicationContext, R.string.sign_in_fail, Toast.LENGTH_SHORT).show()
+                            Log.e("REGISTER", error.message)
+                        }
+                    )
     }
 
     private fun navigateToMainActivity() {
