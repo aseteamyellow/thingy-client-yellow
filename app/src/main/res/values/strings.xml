@@ -31,4 +31,5 @@
     <string name="login_fail">Can\'t connect to your Dyr account</string>
     <string name="example">example</string>
     <string name="todo">TODO</string>
+    <string name="title_activity_main">main_activity_label</string>
 </resources>
