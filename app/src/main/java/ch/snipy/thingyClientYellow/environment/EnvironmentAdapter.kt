@@ -1,6 +1,7 @@
 package ch.snipy.thingyClientYellow.environment
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,8 @@ class EnvironmentAdapter(private val dataset: List<Environment>, val context: Co
     RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.environment_list_item, parent, false))
+        val holder = ViewHolder(LayoutInflater.from(context).inflate(R.layout.environment_list_item, parent, false))
+        return holder
     }
 
     override fun getItemCount(): Int {
@@ -23,10 +25,20 @@ class EnvironmentAdapter(private val dataset: List<Environment>, val context: Co
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = dataset.get(position).name
+        holder.nameTextView.text = dataset[position].name
     }
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.environment_item_name
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+
+        val nameTextView: TextView = view.environment_item_name
+        val image = view.environment_item_logo
+
+        init {
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            Log.d("ENV-ITEM", "$layoutPosition")
+        }
     }
 }
