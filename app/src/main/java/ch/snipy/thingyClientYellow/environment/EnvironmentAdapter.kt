@@ -31,9 +31,7 @@ class EnvironmentAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return dataset.size
-    }
+    override fun getItemCount(): Int = dataset.size
 
     override fun onBindViewHolder(holder: EnvironmentItemViewHolder, position: Int) {
         holder.nameTextView.text = dataset[position].name
