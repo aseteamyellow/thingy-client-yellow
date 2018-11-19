@@ -35,7 +35,7 @@ class EnvironmentsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val rootView = inflater.inflate(R.layout.environments_fragment, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_environments, container, false)
 
         recyclerView = rootView.findViewById<RecyclerView>(R.id.environments_recycler_view).apply {
             setHasFixedSize(true)

@@ -25,7 +25,7 @@ class AnimalsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.animals_fragment, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_animals, container, false)
         viewManager = LinearLayoutManager(activity)
         viewAdapter = AnimalAdapter(
             dataset = arrayOf(
