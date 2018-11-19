@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.environment_list_item.view.*
 
 class EnvironmentAdapter(
     private val dataset: List<Environment>,
-    val context: Context,
+    private val context: Context,
     private val listener: EnvironmentsItemViewListener
 ) :
     RecyclerView.Adapter<EnvironmentItemViewHolder>() {
