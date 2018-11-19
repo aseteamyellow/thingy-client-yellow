@@ -8,16 +8,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 interface DyrAccountService {
-    @POST("/register")
+    @POST("register")
     fun register(@Body body: User): Observable<User>
 
-    @POST("/connect")
+    @POST("connect")
     fun connect(@Body body: User): Observable<User>
 
-    @PATCH("/update/{userId}")
+    @PATCH("update/{userId}")
     fun update(@Path("userId") userId: Int): Observable<User>
 
-    @DELETE("/delete/{userId}")
+    @DELETE("delete/{userId}")
     fun delete(@Path("userId") userId: Int): Observable<String>
 
     companion object Factory : DyrServiceFactory {
