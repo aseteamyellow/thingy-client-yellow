@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import ch.snipy.thingyClientYellow.animal.AnimalFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
 
@@ -33,7 +34,10 @@ class MainActivity : FragmentActivity(),
 
     override fun onAnimalItemClick(view: View, animal: Animal) {
         Log.d("MAIN_ACTIVITY", "onAnimalItemClick : ${animal.id ?: -1}")
-        Toast.makeText(applicationContext, "animal item click", Toast.LENGTH_SHORT).show()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_activity_frame_layout, AnimalFragment.newInstance(animal))
+            .addToBackStack(null)
+            .commit()
     }
 
     fun onClickCreateEnvironment(view: View) {
