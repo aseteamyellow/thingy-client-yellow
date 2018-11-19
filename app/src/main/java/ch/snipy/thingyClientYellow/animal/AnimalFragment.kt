@@ -33,7 +33,7 @@ class AnimalFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val rootView = inflater.inflate(R.layout.fragment_environment_animals, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_animal, container, false)
 
         photo = rootView.findViewById(R.id.animal_photo)
         name = rootView.findViewById(R.id.animal_name)
