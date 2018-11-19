@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Environment
+import ch.snipy.thingyClientYellow.EnvironmentsItemViewListener
 import ch.snipy.thingyClientYellow.R
 import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.disposables.Disposable

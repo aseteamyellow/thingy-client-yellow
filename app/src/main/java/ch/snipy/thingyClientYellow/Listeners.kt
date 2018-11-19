@@ -1,8 +1,11 @@
-package ch.snipy.thingyClientYellow.environment
+package ch.snipy.thingyClientYellow
 
 import android.view.View
-import ch.snipy.thingyClientYellow.Environment
 
 interface EnvironmentsItemViewListener {
     fun onItemClick(view: View, environment: Environment)
+}
+
+interface AnimalsItemViewListener {
+    fun onItemClick(view: View, animal: Animal)
 }

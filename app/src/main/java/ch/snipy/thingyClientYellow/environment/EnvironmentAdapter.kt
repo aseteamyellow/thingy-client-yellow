@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Environment
+import ch.snipy.thingyClientYellow.EnvironmentsItemViewListener
 import ch.snipy.thingyClientYellow.R
 import ch.snipy.thingyClientYellow.environment.EnvironmentAdapter.EnvironmentItemViewHolder
 import kotlinx.android.synthetic.main.environment_list_item.view.*

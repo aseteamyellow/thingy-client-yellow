@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
-import ch.snipy.thingyClientYellow.environment.EnvironmentsItemViewListener
 
 class MainActivity : FragmentActivity(), EnvironmentsItemViewListener {
 
