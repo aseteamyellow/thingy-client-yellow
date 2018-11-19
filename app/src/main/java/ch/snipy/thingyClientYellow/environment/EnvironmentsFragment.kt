@@ -22,7 +22,7 @@ class EnvironmentsFragment : Fragment() {
     // Listener
     private lateinit var listener: EnvironmentsItemViewListener
 
-    // For API call
+    // For API call TODO
     val environmentService by lazy { DyrEnvironmentService.create() }
     var disposable: Disposable? = null
 
@@ -35,6 +35,7 @@ class EnvironmentsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
 
         val rootView = inflater.inflate(R.layout.fragment_environments, container, false)
 
