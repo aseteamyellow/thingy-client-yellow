@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentActivity
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
 
-class MainActivity : FragmentActivity(), EnvironmentsItemViewListener {
+class MainActivity : FragmentActivity(),
+                     EnvironmentsItemViewListener,
+                     AnimalsItemViewListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +23,17 @@ class MainActivity : FragmentActivity(), EnvironmentsItemViewListener {
             .commit()
     }
 
-    override fun onItemClick(view: View, environment: Environment) {
-        Log.d("MAIN_ACTIVITY", "onItemClick : ${environment.id ?: -1}")
+    override fun onEnvironmentItemClick(view: View, environment: Environment) {
+        Log.d("MAIN_ACTIVITY", "onEnvironmentItemClick : ${environment.id ?: -1}")
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_activity_frame_layout, EnvironmentFragment.newInstance(environment))
+            .replace(R.id.main_activity_frame_layout, EnvironmentFragment.newInstance(environment, this))
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onAnimalItemClick(view: View, animal: Animal) {
+        Log.d("MAIN_ACTIVITY", "onAnimalItemClick : ${animal.id ?: -1}")
+        Toast.makeText(applicationContext, "animal item click", Toast.LENGTH_SHORT).show()
     }
 
     fun onClickCreateEnvironment(view: View) {
