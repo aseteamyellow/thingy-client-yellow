@@ -19,7 +19,7 @@ class EnvironmentsFragment : Fragment() {
     // For the recycler view
     private lateinit var recyclerView: RecyclerView
 
-    // Listener
+    // Listener for environment's items
     private lateinit var listener: EnvironmentsItemViewListener
 
     // For API call TODO
