@@ -17,7 +17,7 @@ class AnimalAdapter(
     private val context: Context,
     private val listener: AnimalsItemViewListener
 ) :
-    RecyclerView.Adapter<AnimalAdapter.ViewHolder>() {
+        RecyclerView.Adapter<AnimalAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalAdapter.ViewHolder = ViewHolder(
         LayoutInflater.from(context).inflate(
@@ -40,7 +40,8 @@ class AnimalAdapter(
         val view: View,
         private val listener: AnimalsItemViewListener
     ) :
-        RecyclerView.ViewHolder(view), View.OnClickListener {
+            RecyclerView.ViewHolder(view),
+            View.OnClickListener {
 
         lateinit var animal: Animal
 
@@ -52,7 +53,7 @@ class AnimalAdapter(
         }
 
         override fun onClick(v: View?) {
-            listener.onItemClick(v!!, animal)
+            listener.onAnimalItemClick(v!!, animal)
         }
     }
 }
