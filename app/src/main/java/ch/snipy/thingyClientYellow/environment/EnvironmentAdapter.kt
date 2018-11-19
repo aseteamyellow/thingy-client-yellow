@@ -20,9 +20,14 @@ class EnvironmentAdapter(
     RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val holder =
-            ViewHolder(LayoutInflater.from(context).inflate(R.layout.environment_list_item, parent, false), listener)
-        return holder
+        return ViewHolder(
+            LayoutInflater.from(context).inflate(
+                R.layout.environment_list_item,
+                parent,
+                false
+            ),
+            listener
+        )
     }
 
     override fun getItemCount(): Int {
@@ -44,7 +49,7 @@ class EnvironmentAdapter(
         }
 
         override fun onClick(v: View?) {
-            Log.d("ENV-ITEM", "$layoutPosition")
+            listener.onItemClick(v!!, layoutPosition)
         }
     }
 }

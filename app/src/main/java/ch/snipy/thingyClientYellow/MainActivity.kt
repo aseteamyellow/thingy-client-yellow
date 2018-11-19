@@ -1,6 +1,7 @@
 package ch.snipy.thingyClientYellow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
@@ -18,7 +19,7 @@ class MainActivity : FragmentActivity(), RecyclerViewListener {
     }
 
     override fun onItemClick(view: View, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.d("MAIN_ACTIVITY", "onItemClick : $position")
     }
 
     fun onClickViewEnvironment(view: View) {
