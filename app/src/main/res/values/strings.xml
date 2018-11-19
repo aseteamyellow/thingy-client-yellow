@@ -33,4 +33,6 @@
     <string name="todo">TODO</string>
     <string name="title_activity_main">main_activity_label</string>
     <string name="add">Add</string>
+    <string name="animal_name_example">animal name example</string>
+    <string name="animal_type_example">animal type example</string>
 </resources>
