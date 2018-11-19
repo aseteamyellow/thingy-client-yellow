@@ -13,7 +13,7 @@ import ch.snipy.thingyClientYellow.R
 import kotlinx.android.synthetic.main.animal_list_item.view.*
 
 class AnimalAdapter(
-    private val dataset: Array<Animal>,
+    private val dataset: List<Animal>,
     private val context: Context,
     private val listener: AnimalsItemViewListener
 ) :
