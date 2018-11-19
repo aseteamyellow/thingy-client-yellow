@@ -8,36 +8,47 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Animal
+import ch.snipy.thingyClientYellow.AnimalsItemViewListener
 import ch.snipy.thingyClientYellow.R
 
 class AnimalsFragment : Fragment() {
 
     // For the recycler view
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
 
-    // For API call
-    // TODO
+    // Listener
+    private lateinit var listener: AnimalsItemViewListener
+
+    // For API call TODO
+    // val environmentService by lazy { DyrEnvironmentService.create() }
+    // var disposable: Disposable? = null
 
     companion object {
-        fun newInstance() = AnimalsFragment()
+        fun newInstance(animalsItemViewListener: AnimalsItemViewListener): AnimalsFragment {
+            val fragment = AnimalsFragment()
+            fragment.listener = animalsItemViewListener
+            return fragment
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+
         val rootView = inflater.inflate(R.layout.fragment_environment_animals, container, false)
-        viewManager = LinearLayoutManager(activity)
-        viewAdapter = AnimalAdapter(
-            dataset = arrayOf(
-                Animal(null, "Cat"),
-                Animal(null, "Dog")
-            )
-        ) // TODO call the API
+
 
         recyclerView = rootView.findViewById<RecyclerView>(R.id.animals_recycler_view).apply {
             setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
+            layoutManager = LinearLayoutManager(activity)
+            adapter = AnimalAdapter(
+                dataset = arrayOf(
+                    Animal(null, "Cat"),
+                    Animal(null, "Dog")
+                ),
+                context = context!!,
+                listener = listener
+
+            )
         }
         return rootView
     }
