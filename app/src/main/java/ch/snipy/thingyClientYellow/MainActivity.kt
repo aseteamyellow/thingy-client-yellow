@@ -4,16 +4,29 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
+import ch.snipy.thingyClientYellow.environment.RecyclerViewListener
 
-class MainActivity : FragmentActivity() {
+class MainActivity : FragmentActivity(), RecyclerViewListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // setup the fragment, the first one is to view all the environments
         supportFragmentManager.beginTransaction()
-            .add(R.id.main_activity_frame_layout, EnvironmentsFragment.newInstance())
+            .add(R.id.main_activity_frame_layout, EnvironmentsFragment.newInstance(this))
             .commit()
+    }
+
+    override fun onItemClick(view: View, position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun onClickViewEnvironment(view: View) {
+
+    }
+
+    fun onClickCreateEnvironment(view: View) {
+
     }
 
     // add a new environment

@@ -21,12 +21,19 @@ class EnvironmentsFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    // Listener
+    private lateinit var listener: RecyclerViewListener
+
     // For API call
     val environmentService by lazy { DyrEnvironmentService.create() }
     var disposable: Disposable? = null
 
     companion object {
-        fun newInstance() = EnvironmentsFragment()
+        fun newInstance(recyclerViewListener: RecyclerViewListener): EnvironmentsFragment {
+            val fragment = EnvironmentsFragment()
+            fragment.listener = recyclerViewListener
+            return fragment
+        }
     }
 
     override fun onAttach(context: Context?) {
@@ -37,7 +44,8 @@ class EnvironmentsFragment : Fragment() {
                 Environment(null, "A", "terra", listOf(), 20.0, 15.0, 180.0, false, false, false),
                 Environment(null, "B", "viva", listOf(), 20.0, 15.0, 180.0, false, false, false)
             ),
-            context = context!!
+            context = context!!,
+            listener = listener
         )
     }
 

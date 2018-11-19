@@ -12,11 +12,16 @@ import ch.snipy.thingyClientYellow.R
 import ch.snipy.thingyClientYellow.environment.EnvironmentAdapter.ViewHolder
 import kotlinx.android.synthetic.main.environment_list_item.view.*
 
-class EnvironmentAdapter(private val dataset: List<Environment>, val context: Context) :
+class EnvironmentAdapter(
+    private val dataset: List<Environment>,
+    val context: Context,
+    private val listener: RecyclerViewListener
+) :
     RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val holder = ViewHolder(LayoutInflater.from(context).inflate(R.layout.environment_list_item, parent, false))
+        val holder =
+            ViewHolder(LayoutInflater.from(context).inflate(R.layout.environment_list_item, parent, false), listener)
         return holder
     }
 
@@ -28,7 +33,8 @@ class EnvironmentAdapter(private val dataset: List<Environment>, val context: Co
         holder.nameTextView.text = dataset[position].name
     }
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    class ViewHolder(val view: View, val listener: RecyclerViewListener) : RecyclerView.ViewHolder(view),
+        View.OnClickListener {
 
         val nameTextView: TextView = view.environment_item_name
         val image = view.environment_item_logo
