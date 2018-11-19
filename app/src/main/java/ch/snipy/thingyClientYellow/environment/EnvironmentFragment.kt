@@ -30,11 +30,13 @@ class EnvironmentFragment : Fragment() {
     private lateinit var type: TextView
 
     companion object {
-        fun newInstance(environment: Environment): EnvironmentFragment {
+        fun newInstance(
+            environment: Environment,
+            animalsItemViewListener: AnimalsItemViewListener
+        ): EnvironmentFragment {
             val fragment = EnvironmentFragment()
-            fragment.environment = environment
-            // TODO call service
-
+            fragment.environment = environment // TODO call service ???
+            fragment.listener = animalsItemViewListener
             return fragment
         }
     }
@@ -44,7 +46,7 @@ class EnvironmentFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_environment, container, false)
 
-        recyclerView = rootView.findViewById<RecyclerView>(R.id.animals_recycler_view).apply {
+        recyclerView = rootView.findViewById<RecyclerView>(R.id.environment_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = AnimalAdapter(

@@ -27,7 +27,9 @@ class EnvironmentsFragment : Fragment() {
     var disposable: Disposable? = null
 
     companion object {
-        fun newInstance(recyclerViewListener: EnvironmentsItemViewListener): EnvironmentsFragment {
+        fun newInstance(
+            recyclerViewListener: EnvironmentsItemViewListener
+        ): EnvironmentsFragment {
             val fragment = EnvironmentsFragment()
             fragment.listener = recyclerViewListener
             return fragment

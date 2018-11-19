@@ -17,8 +17,7 @@ class EnvironmentAdapter(
     private val dataset: List<Environment>,
     private val context: Context,
     private val listener: EnvironmentsItemViewListener
-) :
-    RecyclerView.Adapter<EnvironmentItemViewHolder>() {
+) : RecyclerView.Adapter<EnvironmentItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EnvironmentItemViewHolder {
         return EnvironmentItemViewHolder(
@@ -42,8 +41,7 @@ class EnvironmentAdapter(
     class EnvironmentItemViewHolder(
         val view: View,
         private val listener: EnvironmentsItemViewListener
-    ) :
-        RecyclerView.ViewHolder(view),
+    ) : RecyclerView.ViewHolder(view),
         View.OnClickListener {
 
         lateinit var environment: Environment
@@ -55,7 +53,7 @@ class EnvironmentAdapter(
         }
 
         override fun onClick(v: View?) {
-            listener.onItemClick(v!!, environment)
+            listener.onEnvironmentItemClick(v!!, environment)
         }
     }
 }
