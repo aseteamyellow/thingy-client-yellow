@@ -99,7 +99,7 @@ class RegisterLoginActivity : FragmentActivity() {
                     .subscribe(
                         { result ->
                             Toast.makeText(applicationContext, "Connection done !", Toast.LENGTH_SHORT).show()
-                            Log.d("REGISTER", result.toString())
+                            Log.d("CONNECT", result.toString())
                             bar.visibility = INVISIBLE
                             navigateToMainActivity()
                         },
@@ -107,7 +107,6 @@ class RegisterLoginActivity : FragmentActivity() {
                             Toast.makeText(applicationContext, R.string.login_fail, Toast.LENGTH_SHORT).show()
                             Log.e("CONNECT", error.message)
                             bar.visibility = INVISIBLE
-                            navigateToMainActivity() // TODO remove
                         }
                     )
     }
@@ -141,7 +140,6 @@ class RegisterLoginActivity : FragmentActivity() {
                             Toast.makeText(applicationContext, R.string.register_fail, Toast.LENGTH_SHORT).show()
                             Log.e("REGISTER", error.message)
                             bar.visibility = INVISIBLE
-                            navigateToMainActivity() // TODO remove
                         }
                     )
     }
