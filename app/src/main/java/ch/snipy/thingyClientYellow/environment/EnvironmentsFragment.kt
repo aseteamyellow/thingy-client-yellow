@@ -22,14 +22,14 @@ class EnvironmentsFragment : Fragment() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     // Listener
-    private lateinit var listener: RecyclerViewListener
+    private lateinit var listener: EnvironmentsItemViewListener
 
     // For API call
     val environmentService by lazy { DyrEnvironmentService.create() }
     var disposable: Disposable? = null
 
     companion object {
-        fun newInstance(recyclerViewListener: RecyclerViewListener): EnvironmentsFragment {
+        fun newInstance(recyclerViewListener: EnvironmentsItemViewListener): EnvironmentsFragment {
             val fragment = EnvironmentsFragment()
             fragment.listener = recyclerViewListener
             return fragment

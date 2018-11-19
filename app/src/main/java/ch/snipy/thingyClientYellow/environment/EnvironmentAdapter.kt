@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.environment_list_item.view.*
 class EnvironmentAdapter(
     private val dataset: List<Environment>,
     val context: Context,
-    private val listener: RecyclerViewListener
+    private val listener: EnvironmentsItemViewListener
 ) :
     RecyclerView.Adapter<EnvironmentItemViewHolder>() {
 
@@ -42,7 +42,7 @@ class EnvironmentAdapter(
 
     class EnvironmentItemViewHolder(
         val view: View,
-        private val listener: RecyclerViewListener
+        private val listener: EnvironmentsItemViewListener
     ) :
         RecyclerView.ViewHolder(view),
         View.OnClickListener {
@@ -56,7 +56,7 @@ class EnvironmentAdapter(
         }
 
         override fun onClick(v: View?) {
-            listener.onItemClick(v!!, layoutPosition)
+            listener.onItemClick(v!!, environment)
         }
     }
 }
