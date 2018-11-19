@@ -3,8 +3,8 @@ package ch.snipy.thingyClientYellow
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
 import ch.snipy.thingyClientYellow.environment.RecyclerViewListener
 
@@ -21,17 +21,16 @@ class MainActivity : FragmentActivity(), RecyclerViewListener {
 
     override fun onItemClick(view: View, position: Int) {
         Log.d("MAIN_ACTIVITY", "onItemClick : $position")
+        Toast.makeText(applicationContext, "View one environment", Toast.LENGTH_SHORT).show()
+        /*
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_activity_frame_layout,EnvironmentFragment.newInstance())
+            .replace(R.id.main_activity_frame_layout, EnvironmentFragment.newInstance())
             .commit()
-    }
-
-    fun onClickViewEnvironment(view: View) {
-
+         */
     }
 
     fun onClickCreateEnvironment(view: View) {
-
+        Toast.makeText(applicationContext, "Create environment", Toast.LENGTH_SHORT).show()
     }
 
     // add a new environment
