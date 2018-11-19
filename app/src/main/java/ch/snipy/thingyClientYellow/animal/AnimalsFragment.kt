@@ -41,9 +41,10 @@ class AnimalsFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = AnimalAdapter(
-                dataset = arrayOf(
+                dataset = listOf(
                     Animal(null, "Cat"),
-                    Animal(null, "Dog")
+                    Animal(null, "Dog"),
+                    Animal(null, "Bird")
                 ),
                 context = context!!,
                 listener = listener
