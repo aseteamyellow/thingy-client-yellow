@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
+import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
 import ch.snipy.thingyClientYellow.environment.RecyclerViewListener
 
@@ -20,6 +21,9 @@ class MainActivity : FragmentActivity(), RecyclerViewListener {
 
     override fun onItemClick(view: View, position: Int) {
         Log.d("MAIN_ACTIVITY", "onItemClick : $position")
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_activity_frame_layout,EnvironmentFragment.newInstance())
+            .commit()
     }
 
     fun onClickViewEnvironment(view: View) {
