@@ -1,6 +1,5 @@
 package ch.snipy.thingyClientYellow.environment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +17,6 @@ class EnvironmentsFragment : Fragment() {
 
     // For the recycler view
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
 
     // Listener
     private lateinit var listener: EnvironmentsItemViewListener
@@ -36,27 +33,21 @@ class EnvironmentsFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        viewManager = LinearLayoutManager(activity)
-        viewAdapter = EnvironmentAdapter(
-            dataset = listOf(
-                Environment(null, "A", "terra", listOf(), 20.0, 15.0, 180.0, false, false, false),
-                Environment(null, "B", "viva", listOf(), 20.0, 15.0, 180.0, false, false, false)
-            ),
-            context = context!!,
-            listener = listener
-        )
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val rootView = inflater.inflate(R.layout.environments_fragment, container, false)
 
         recyclerView = rootView.findViewById<RecyclerView>(R.id.environments_recycler_view).apply {
             setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
+            layoutManager = LinearLayoutManager(activity)
+            adapter = EnvironmentAdapter(
+                dataset = listOf(
+                    Environment(null, "A", "terra", listOf(), 20.0, 15.0, 180.0, false, false, false),
+                    Environment(null, "B", "viva", listOf(), 20.0, 15.0, 180.0, false, false, false)
+                ),
+                context = context!!,
+                listener = listener
+            )
         }
         return rootView
     }

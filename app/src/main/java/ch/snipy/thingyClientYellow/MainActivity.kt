@@ -18,6 +18,7 @@ class MainActivity : FragmentActivity(), EnvironmentsItemViewListener {
         // setup the fragment, the first one is to view all the environments
         supportFragmentManager.beginTransaction()
             .add(R.id.main_activity_frame_layout, EnvironmentsFragment.newInstance(this))
+            .addToBackStack(null)
             .commit()
     }
 
@@ -25,11 +26,16 @@ class MainActivity : FragmentActivity(), EnvironmentsItemViewListener {
         Log.d("MAIN_ACTIVITY", "onItemClick : ${environment.id ?: -1}")
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_activity_frame_layout, EnvironmentFragment.newInstance(environment))
+            .addToBackStack(null)
             .commit()
     }
 
     fun onClickCreateEnvironment(view: View) {
         Toast.makeText(applicationContext, "Create environment", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
     // add a new environment
