@@ -16,11 +16,11 @@ data class Environment(
     @SerializedName("name") val name: String,
     @SerializedName("env_type") val envType: String,
     @SerializedName("animals") val animals: List<Animal>,
-    @SerializedName("humidity") val humidity: Double,
-    @SerializedName("temperature") val temperature: Double,
-    @SerializedName("luminosity") val luminosity: Double,
+    @SerializedName("humidity") val humidity: Double?,
+    @SerializedName("temperature") val temperature: Double?,
+    @SerializedName("luminosity") val luminosity: Double?,
     @SerializedName("humidity_notif") val humidityNotification: Boolean,
-    @SerializedName("temperature_notif") val temperatureNotification: Boolean,
+    @SerializedName("temperature_notif") val temperatureNotification: Boolean?,
     @SerializedName("luminosity_notif") val luminosityNotification: Boolean
 )
 

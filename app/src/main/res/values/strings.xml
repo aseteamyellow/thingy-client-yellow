@@ -43,4 +43,7 @@
     <string name="vivarium">Vivarium</string>
     <string name="aquarium">Aquarium</string>
     <string name="terrarium">Terrarium</string>
+    <string name="name">Name</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
 </resources>
