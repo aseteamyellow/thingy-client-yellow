@@ -1,6 +1,6 @@
 package ch.snipy.thingyClientYellow.routes
 
-import android.os.Environment
+import ch.snipy.thingyClientYellow.Environment
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
