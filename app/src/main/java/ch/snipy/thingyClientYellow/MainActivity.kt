@@ -3,8 +3,8 @@ package ch.snipy.thingyClientYellow
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import ch.snipy.thingyClientYellow.animal.AnimalFragment
+import ch.snipy.thingyClientYellow.environment.EnvironmentCreationFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
 
@@ -40,9 +40,12 @@ class MainActivity : UserAbstractFragmentActivity(),
             .commit()
     }
 
-    // TODO
     fun onClickCreateEnvironment(view: View) {
-        Toast.makeText(applicationContext, "Create environment", Toast.LENGTH_SHORT).show()
+        Log.d("MAIN_ACTIVITY", "on click create environment")
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_activity_frame_layout, EnvironmentCreationFragment.newInstance())
+            .addToBackStack(null)
+            .commit()
     }
 
 }
