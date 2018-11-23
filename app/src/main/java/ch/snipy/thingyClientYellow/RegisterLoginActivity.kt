@@ -36,7 +36,7 @@ class RegisterLoginActivity : UserAbstractFragmentActivity() {
 
         setContentView(R.layout.activity_register_login)
         supportFragmentManager.beginTransaction()
-            .add(R.id.register_login_activity_frame_layout, RegisterFragment.newInstance())
+            .add(R.id.register_login_activity_frame_layout, LoginFragment.newInstance())
             .commit()
     }
 
