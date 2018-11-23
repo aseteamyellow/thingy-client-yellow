@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.*
 import androidx.fragment.app.Fragment
 import ch.snipy.thingyClientYellow.R
 
@@ -21,6 +18,8 @@ class EnvironmentCreationFragment : Fragment() {
     private lateinit var terrariumRadioButton: RadioButton
 
     private lateinit var name: EditText
+
+    private lateinit var environementTypeImage: ImageView
 
     // Button
     private lateinit var cancelButton: Button
@@ -47,8 +46,22 @@ class EnvironmentCreationFragment : Fragment() {
 
         name = rootView.findViewById(R.id.environment_creation_name)
 
+        environementTypeImage = rootView.findViewById(R.id.environment_creation_image)
+
         cancelButton = rootView.findViewById(R.id.environment_creation_cancel)
         createButton = rootView.findViewById(R.id.environment_creation_create)
+
+        // UI sugar, change the image when the radio button change
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.environment_creation_vivarium_button ->
+                    environementTypeImage.setImageResource(R.drawable.ic_android_red_64dp)
+                R.id.environment_creation_aquarium_button ->
+                    environementTypeImage.setImageResource(R.drawable.ic_android_green_64dp)
+                R.id.environment_creation_terrarium_button ->
+                    environementTypeImage.setImageResource(R.drawable.ic_android_blue_64dp)
+            }
+        }
 
         return rootView
     }
