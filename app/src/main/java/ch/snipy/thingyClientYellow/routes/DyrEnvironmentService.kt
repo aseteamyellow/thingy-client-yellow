@@ -16,7 +16,7 @@ interface DyrEnvironmentService {
     fun getEnvironment(@Path("envId") envId: Int): Observable<Environment>
 
     @POST("{userId}")
-    fun createEnvironment(@Path("userId") userId: Int): Observable<Environment>
+    fun createEnvironment(@Path("userId") userId: Int, @Body body: Environment): Observable<Environment>
 
     @PATCH("{envId}")
     fun updateEnvironment(@Path("envId") envId: Int): Observable<Environment>
