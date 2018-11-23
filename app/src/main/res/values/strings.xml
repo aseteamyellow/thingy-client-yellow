@@ -38,4 +38,6 @@
     <string name="shared_preference">shared_pref_dyr</string>
     <string name="userId">userId</string>
     <string name="tokenId">tokenId</string>
+    <string name="test_email">sylvain.julmy@gmail.com</string>
+    <string name="test_password">123</string>
 </resources>
