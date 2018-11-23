@@ -1,5 +1,6 @@
 package ch.snipy.thingyClientYellow
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,7 +10,7 @@ import androidx.fragment.app.FragmentActivity
 abstract class UserFragmentActivity : FragmentActivity() {
 
     // Current user
-    private lateinit var sharedPref: SharedPreferences
+    lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
@@ -18,9 +19,17 @@ abstract class UserFragmentActivity : FragmentActivity() {
         sharedPref = getPreferences(Context.MODE_PRIVATE)!!
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // init shared preference
+        sharedPref = getPreferences(Context.MODE_PRIVATE)!!
+    }
+
     fun userId(): Int = sharedPref.getInt(getString(R.string.userId), -1)
     fun userToken(): Token = sharedPref.getString(getString(R.string.tokenId), "undefined")!!
 
+    @SuppressLint("ApplySharedPref")
     fun updateSharedPref(user: User?) {
         with(sharedPref.edit()) {
             putInt(getString(R.string.userId), user?.id ?: -1)
