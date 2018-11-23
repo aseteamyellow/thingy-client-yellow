@@ -30,10 +30,10 @@ abstract class UserAbstractFragmentActivity : FragmentActivity() {
     fun userToken(): Token = sharedPref.getString(getString(R.string.tokenId), "undefined")!!
 
     @SuppressLint("ApplySharedPref")
-    fun updateSharedPref(user: User?) {
+    fun updateSharedPref(user: User) {
         with(sharedPref.edit()) {
-            putInt(getString(R.string.userId), user?.id ?: -1)
-            putString(getString(R.string.tokenId), user?.token ?: "undefined")
+            putInt(getString(R.string.userId), user.id ?: -1)
+            putString(getString(R.string.tokenId), user.token ?: "undefined")
             commit()
         }
     }
