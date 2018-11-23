@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
-class RegisterLoginActivity : UserFragmentActivity() {
+class RegisterLoginActivity : UserAbstractFragmentActivity() {
 
     // API call
     private val accountService by lazy { DyrAccountService.create() }

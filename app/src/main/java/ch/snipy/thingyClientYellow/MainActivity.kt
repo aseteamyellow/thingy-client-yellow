@@ -8,7 +8,7 @@ import ch.snipy.thingyClientYellow.animal.AnimalFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
 
-class MainActivity : UserFragmentActivity(),
+class MainActivity : UserAbstractFragmentActivity(),
                      EnvironmentsItemViewListener,
                      AnimalsItemViewListener {
 

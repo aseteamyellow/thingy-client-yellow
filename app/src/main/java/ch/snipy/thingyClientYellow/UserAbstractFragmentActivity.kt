@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.fragment.app.FragmentActivity
 
-abstract class UserFragmentActivity : FragmentActivity() {
+abstract class UserAbstractFragmentActivity : FragmentActivity() {
 
     // Current user
     lateinit var sharedPref: SharedPreferences
