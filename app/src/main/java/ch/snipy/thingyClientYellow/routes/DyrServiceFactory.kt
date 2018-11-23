@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit
 
 interface DyrServiceFactory {
     val baseUrl: String
-        get() = "http://134.21.141.1:8080"
+        get() = "http://134.21.124.156:8080"
     val client: OkHttpClient
         get() = OkHttpClient().newBuilder()
             .connectTimeout(3, TimeUnit.SECONDS)

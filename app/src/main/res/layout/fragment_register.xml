@@ -3,7 +3,7 @@
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   tools:context="ch.snipy.thingyClientYellow.RegisterActivityFragment"
+                                                   tools:context="ch.snipy.thingyClientYellow.RegisterFragment"
                                                    android:id="@+id/constraintLayoutRegisterFragment">
 
     <ImageView
@@ -88,7 +88,8 @@
             android:layout_marginStart="8dp"
             android:onClick="onClickCreateAccount"
             app:layout_constraintEnd_toStartOf="@+id/sign_in_nav"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="8dp"
+            tools:ignore="OnClick"/>
 
     <Button
             android:text="@string/sign_in"
@@ -101,5 +102,6 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toEndOf="@+id/create_account_action"
             android:onClick="onSelectFragment"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            tools:ignore="OnClick"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class LoginActivityFragment : Fragment() {
+class LoginFragment : Fragment() {
 
     companion object {
-        fun newInstance(): LoginActivityFragment {
-            val fragment = LoginActivityFragment()
+        fun newInstance(): LoginFragment {
+            val fragment = LoginFragment()
             return fragment
         }
     }

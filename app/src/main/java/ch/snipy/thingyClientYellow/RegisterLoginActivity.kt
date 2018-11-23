@@ -36,7 +36,7 @@ class RegisterLoginActivity : UserFragmentActivity() {
 
         setContentView(R.layout.activity_register_login)
         supportFragmentManager.beginTransaction()
-            .add(R.id.register_login_activity_frame_layout, RegisterActivityFragment.newInstance())
+            .add(R.id.register_login_activity_frame_layout, RegisterFragment.newInstance())
             .commit()
     }
 
@@ -45,7 +45,7 @@ class RegisterLoginActivity : UserFragmentActivity() {
             R.id.sign_up_nav -> {
                 Log.d("Sign up nav", "NAV")
                 val transaction = supportFragmentManager.beginTransaction()
-                val fragment = RegisterActivityFragment.newInstance()
+                val fragment = RegisterFragment.newInstance()
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 transaction.replace(R.id.register_login_activity_frame_layout, fragment)
                 transaction.commit()
@@ -53,7 +53,7 @@ class RegisterLoginActivity : UserFragmentActivity() {
             R.id.sign_in_nav -> {
                 Log.d("Sign in nav", "NAV")
                 val transaction = supportFragmentManager.beginTransaction()
-                val fragment = LoginActivityFragment.newInstance()
+                val fragment = LoginFragment.newInstance()
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 transaction.replace(R.id.register_login_activity_frame_layout, fragment)
                 transaction.commit()
