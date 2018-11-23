@@ -13,7 +13,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import ch.snipy.thingyClientYellow.routes.DyrAccountService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,17 +20,19 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
-class RegisterLoginActivity : FragmentActivity() {
+class RegisterLoginActivity : UserFragmentActivity() {
 
-    val accountService by lazy { DyrAccountService.create() }
-    var disposable: Disposable? = null
-
+    // API call
+    private val accountService by lazy { DyrAccountService.create() }
+    private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // For network access
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
+
 
         setContentView(R.layout.activity_register_login)
         supportFragmentManager.beginTransaction()
@@ -98,6 +99,7 @@ class RegisterLoginActivity : FragmentActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { result ->
+                            updateSharedPref(result)
                             Toast.makeText(applicationContext, "Connection done !", Toast.LENGTH_SHORT).show()
                             Log.d("CONNECT", result.toString())
                             bar.visibility = INVISIBLE
@@ -131,6 +133,7 @@ class RegisterLoginActivity : FragmentActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { result ->
+                            updateSharedPref(result)
                             Toast.makeText(applicationContext, "Registration done !", Toast.LENGTH_SHORT).show()
                             Log.d("REGISTER", result.toString())
                             bar.visibility = INVISIBLE

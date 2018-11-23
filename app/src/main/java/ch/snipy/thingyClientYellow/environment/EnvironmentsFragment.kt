@@ -1,6 +1,7 @@
 package ch.snipy.thingyClientYellow.environment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Environment
 import ch.snipy.thingyClientYellow.EnvironmentsItemViewListener
+import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
 import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 // Fragment which show all the environments for a specific user
 class EnvironmentsFragment : Fragment() {
@@ -22,9 +26,9 @@ class EnvironmentsFragment : Fragment() {
     // Listener for environment's items
     private lateinit var listener: EnvironmentsItemViewListener
 
-    // For API call TODO
-    val environmentService by lazy { DyrEnvironmentService.create() }
-    var disposable: Disposable? = null
+    // For API call
+    private val environmentService by lazy { DyrEnvironmentService.create() }
+    private var disposable: Disposable? = null
 
     companion object {
         fun newInstance(
@@ -40,6 +44,19 @@ class EnvironmentsFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         val rootView = inflater.inflate(R.layout.fragment_environments, container, false)
+
+        disposable = environmentService.getEnvironments((activity as MainActivity).userId())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    Log.d("ENVIRONMENTS", result.toString())
+                },
+                { error ->
+                    Log.d("ENVIRONMENTS", error.toString())
+                }
+            )
+
 
         recyclerView = rootView.findViewById<RecyclerView>(R.id.environments_recycler_view).apply {
             setHasFixedSize(true)

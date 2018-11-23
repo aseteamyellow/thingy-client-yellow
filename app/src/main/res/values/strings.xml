@@ -35,4 +35,7 @@
     <string name="add">Add</string>
     <string name="animal_name_example">animal name example</string>
     <string name="animal_type_example">animal type example</string>
+    <string name="shared_preference">shared_pref_dyr</string>
+    <string name="userId">userId</string>
+    <string name="tokenId">tokenId</string>
 </resources>
