@@ -29,6 +29,8 @@ class RegisterLoginActivity : UserAbstractFragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        sharedPref = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE)
+
         // For network access
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
@@ -98,7 +100,7 @@ class RegisterLoginActivity : UserAbstractFragmentActivity() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        { result ->
+                        { result: User ->
                             updateSharedPref(result)
                             Toast.makeText(applicationContext, "Connection done !", Toast.LENGTH_SHORT).show()
                             Log.d("CONNECT", result.toString())

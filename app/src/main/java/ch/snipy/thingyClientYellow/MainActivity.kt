@@ -1,5 +1,6 @@
 package ch.snipy.thingyClientYellow
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +17,8 @@ class MainActivity : UserAbstractFragmentActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sharedPref = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE)
 
         // setup the fragment, the first one is to view all the environments
         supportFragmentManager.beginTransaction()
