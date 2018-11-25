@@ -67,8 +67,7 @@ class AnimalCreationFragment : Fragment() {
 
         disposable = animalService.createAnimal(
             environment.id ?: -1, Animal(
-                name = name.text.toString(),
-                type = type.text.toString()
+                name = name.text.toString()
             )
         )
             .subscribeOn(Schedulers.io())
