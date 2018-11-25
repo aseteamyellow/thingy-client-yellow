@@ -53,7 +53,9 @@ class EnvironmentsFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
+                    environments.clear()
                     environments.addAll(result)
+                    recyclerView.adapter?.notifyDataSetChanged()
                 },
                 { error ->
                     Log.e(TAG, error.toString())
