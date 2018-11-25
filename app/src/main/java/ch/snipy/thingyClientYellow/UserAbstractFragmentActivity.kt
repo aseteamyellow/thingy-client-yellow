@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.fragment.app.FragmentActivity
+import ch.snipy.thingyClientYellow.routes.DyrAccountService
 import ch.snipy.thingyClientYellow.routes.DyrAnimalService
 import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.disposables.Disposable
@@ -15,9 +16,12 @@ abstract class UserAbstractFragmentActivity : FragmentActivity() {
     // Current user
     lateinit var sharedPref: SharedPreferences
 
-    // For api call
+    // API call
+    val accountService by lazy { DyrAccountService.create() }
     val environmentService by lazy { DyrEnvironmentService.create() }
     val animalService by lazy { DyrAnimalService.create() }
+
+    // utility to terminate correctly the call to the services
     var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {

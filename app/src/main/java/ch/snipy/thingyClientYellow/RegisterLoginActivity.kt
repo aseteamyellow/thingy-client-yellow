@@ -14,17 +14,12 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
-import ch.snipy.thingyClientYellow.routes.DyrAccountService
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
 class RegisterLoginActivity : UserAbstractFragmentActivity() {
 
-    // API call
-    private val accountService by lazy { DyrAccountService.create() }
-    private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
