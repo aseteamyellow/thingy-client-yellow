@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,7 @@ class EnvironmentFragment : Fragment() {
 
     // button
     private lateinit var addAnimalButton: Button
+    private lateinit var updateEnvironmentButton: ImageButton
 
     // Api call
     private val environmentService by lazy { DyrEnvironmentService.create() }
@@ -101,11 +103,25 @@ class EnvironmentFragment : Fragment() {
         addAnimalButton = rootView.findViewById(R.id.environment_add_animal_button)
         addAnimalButton.setOnClickListener(::onClickCreateAnimal)
 
+        updateEnvironmentButton = rootView.findViewById(R.id.environment_fragment_update_button)
+        updateEnvironmentButton.setOnClickListener(::onClickUpdateEnvironment)
+
         return rootView
     }
 
     private fun onClickCreateAnimal(view: View) {
         Log.d(loggingTag, "create animal button callback, id : ${view.id}")
         (activity as MainActivity).onClickCreateAnimalNavigation(environment)
+    }
+
+    private fun onClickUpdateEnvironment(view: View) {
+        Log.d(loggingTag, "On click update environment from view : ${view.id}")
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.main_activity_frame_layout,
+                EnvironmentUpdateFragment.newInstance(environment)
+            )
+            .addToBackStack(null)
+            .commit()
     }
 }
