@@ -43,5 +43,5 @@ data class Environment(
 data class Animal(
     @SerializedName("id") val id: Int? = null,
     @SerializedName("name") val name: String,
-    @SerializedName("animalType_id") val animalTypeId: Id = 0
+    @SerializedName("animalType_id") val animalTypeId: Id = 1
 )
