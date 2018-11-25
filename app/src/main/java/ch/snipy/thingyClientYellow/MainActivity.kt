@@ -9,6 +9,9 @@ import ch.snipy.thingyClientYellow.animal.AnimalFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentCreationFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 
 class MainActivity : UserAbstractFragmentActivity(),
                      EnvironmentsItemViewListener,
@@ -46,7 +49,7 @@ class MainActivity : UserAbstractFragmentActivity(),
     }
 
     fun onClickCreateEnvironment(view: View) {
-        Log.d(loggingTag, "on click create environment navigation")
+        Log.d(loggingTag, "on click create environment navigation, view id : ${view.id}")
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_activity_frame_layout, EnvironmentCreationFragment.newInstance())
             .addToBackStack(null)
@@ -61,4 +64,27 @@ class MainActivity : UserAbstractFragmentActivity(),
             .commit()
     }
 
+    override fun onAnimalItemDeleteClick(
+        view: View,
+        animal: Animal,
+        onSuccess: (ResponseBody) -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
+        disposable = animalService.deleteAnimal(animalId = animal.id ?: -1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ onSuccess(it) }, { onError(it) })
+    }
+
+    override fun onEnvironmentItemDeleteClick(
+        view: View,
+        environment: Environment,
+        onSuccess: (ResponseBody) -> Unit,
+        onError: (Throwable) -> Unit
+    ) {
+        disposable = environmentService.deleteEnvironment(envId = environment.id ?: -1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ onSuccess(it) }, { onError(it) })
+    }
 }
