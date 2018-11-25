@@ -20,7 +20,7 @@ interface DyrAnimalService {
     fun createAnimal(@Path("envId") environmentId: Id, @Body body: Animal): Observable<Animal>
 
     @PATCH("{animalId}")
-    fun updateAnimal(@Path("animalId") animalId: Id): Observable<Animal>
+    fun updateAnimal(@Path("animalId") animalId: Id, @Body body: Animal): Observable<Animal>
 
     @DELETE("{animalId}")
     fun deleteAnimal(@Path("animalId") animalId: Id): Observable<ResponseBody>
