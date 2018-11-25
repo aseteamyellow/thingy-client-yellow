@@ -54,7 +54,7 @@ class EnvironmentCreationFragment : Fragment() {
 
         radioGroup = rootView.findViewById(R.id.environment_creation_radio_group_type)
 
-        vivariumRadioButton = rootView.findViewById(R.id.environment_creation_vivarium_button)
+        vivariumRadioButton = rootView.findViewById(R.id.environment_creation_aquaterrarium_button)
         aquariumRadioButton = rootView.findViewById(R.id.environment_creation_aquarium_button)
         terrariumRadioButton = rootView.findViewById(R.id.environment_creation_terrarium_button)
 
@@ -71,7 +71,7 @@ class EnvironmentCreationFragment : Fragment() {
         // UI sugar, change the image when the radio button change
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.environment_creation_vivarium_button ->
+                R.id.environment_creation_aquaterrarium_button ->
                     environmentTypeImage.setImageResource(R.drawable.ic_android_red_64dp)
                 R.id.environment_creation_aquarium_button ->
                     environmentTypeImage.setImageResource(R.drawable.ic_android_green_64dp)
@@ -92,9 +92,9 @@ class EnvironmentCreationFragment : Fragment() {
             Environment(
                 name = name.text.toString(),
                 envType = when (radioGroup.checkedRadioButtonId) {
-                    R.id.environment_creation_vivarium_button -> "Vivarium"
-                    R.id.environment_creation_aquarium_button -> "Aquarium"
-                    R.id.environment_creation_terrarium_button -> "Terrarium"
+                    R.id.environment_creation_aquaterrarium_button -> "aquaterrarium"
+                    R.id.environment_creation_aquarium_button -> "aquarium"
+                    R.id.environment_creation_terrarium_button -> "terrarium"
                     else -> "no-type"
                 }
             )
