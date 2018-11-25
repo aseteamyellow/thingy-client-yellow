@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -32,8 +33,8 @@ class AnimalAdapter(
 
     override fun onBindViewHolder(holder: AnimalAdapter.ViewHolder, position: Int) {
         holder.nameTextView.text = dataset[position].name
-        holder.image.setImageResource(R.mipmap.default_animal_logo)
         holder.animal = dataset[position]
+        holder.deleteButton.setOnClickListener { view -> listener.onAnimalItemDeleteClick(view, dataset[position]) }
     }
 
     class ViewHolder(
@@ -47,6 +48,7 @@ class AnimalAdapter(
 
         val nameTextView: TextView = view.animal_item_name
         val image: ImageView = view.animal_item_logo
+        val deleteButton: ImageButton = view.animal_list_item_delete_button
 
         init {
             view.setOnClickListener(this)
