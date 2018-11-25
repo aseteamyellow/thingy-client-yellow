@@ -1,6 +1,7 @@
 package ch.snipy.thingyClientYellow.animal
 
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ch.snipy.thingyClientYellow.Animal
-import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
 import ch.snipy.thingyClientYellow.routes.DyrAnimalService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,16 +46,14 @@ class AnimalUpdateFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val rootView = inflater.inflate(R.layout.fragment_animal_creation, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_animal_update, container, false)
 
         name = rootView.findViewById(R.id.animal_update_name)
 
+        name.text = Editable.Factory.getInstance().newEditable(animal.name)
+
         cancelButton = rootView.findViewById(R.id.animal_update_cancel_button)
-        cancelButton.setOnClickListener {
-            (activity as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_activity_frame_layout, AnimalFragment.newInstance(animal))
-                .commit()
-        }
+        cancelButton.setOnClickListener { _ -> fragmentManager?.popBackStack() }
 
         createButton = rootView.findViewById(R.id.animal_update_update_button)
         createButton.setOnClickListener(::onClickUpdateAnimal)
@@ -70,8 +68,7 @@ class AnimalUpdateFragment : Fragment() {
             animal.id ?: -1,
             Animal(
                 id = animal.id,
-                name = name.text.toString(),
-                animalTypeId = animal.animalTypeId
+                name = name.text.toString()
             )
         )
             .subscribeOn(Schedulers.io())
@@ -80,9 +77,8 @@ class AnimalUpdateFragment : Fragment() {
                 { animal ->
                     Log.d(loggingTag, "animal update success")
                     Toast.makeText(activity, "Animal successfully updated", Toast.LENGTH_SHORT).show()
-                    (activity as MainActivity).supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_activity_frame_layout, AnimalFragment.newInstance(animal))
-                        .commit()
+                    fragmentManager?.popBackStack()
+                    fragmentManager?.popBackStack() // quite ugly
                 },
                 { error ->
                     Log.e(loggingTag, error.toString())
