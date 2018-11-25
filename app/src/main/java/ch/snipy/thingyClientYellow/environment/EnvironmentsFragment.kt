@@ -20,6 +20,9 @@ import io.reactivex.schedulers.Schedulers
 // Fragment which show all the environments for a specific user
 class EnvironmentsFragment : Fragment() {
 
+    // For logging
+    private val TAG = "ENVIRONMENTS_FRAGMENT"
+
     // data container
     private val environments: MutableList<Environment> = mutableListOf()
 
@@ -53,7 +56,7 @@ class EnvironmentsFragment : Fragment() {
                     environments.addAll(result)
                 },
                 { error ->
-                    Log.e("ENVIRONMENTS", error.toString())
+                    Log.e(TAG, error.toString())
                 }
             )
     }
