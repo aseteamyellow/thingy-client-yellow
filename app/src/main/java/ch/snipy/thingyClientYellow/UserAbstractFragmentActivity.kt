@@ -6,11 +6,19 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.fragment.app.FragmentActivity
+import ch.snipy.thingyClientYellow.routes.DyrAnimalService
+import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
+import io.reactivex.disposables.Disposable
 
 abstract class UserAbstractFragmentActivity : FragmentActivity() {
 
     // Current user
     lateinit var sharedPref: SharedPreferences
+
+    // For api call
+    val environmentService by lazy { DyrEnvironmentService.create() }
+    val animalService by lazy { DyrAnimalService.create() }
+    var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
