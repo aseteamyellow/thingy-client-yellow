@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import ch.snipy.thingyClientYellow.animal.AnimalCreationFragment
 import ch.snipy.thingyClientYellow.animal.AnimalFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentCreationFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
@@ -13,6 +14,7 @@ class MainActivity : UserAbstractFragmentActivity(),
                      EnvironmentsItemViewListener,
                      AnimalsItemViewListener {
 
+    private val loggingTag = "MAIN_ACTIVITY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,7 @@ class MainActivity : UserAbstractFragmentActivity(),
     }
 
     override fun onEnvironmentItemClick(view: View, environment: Environment) {
-        Log.d("MAIN_ACTIVITY", "onEnvironmentItemClick : ${environment.id ?: -1}")
+        Log.d(loggingTag, "onEnvironmentItemClick : ${environment.id ?: -1}")
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_activity_frame_layout, EnvironmentFragment.newInstance(environment, this))
             .addToBackStack(null)
@@ -36,7 +38,7 @@ class MainActivity : UserAbstractFragmentActivity(),
     }
 
     override fun onAnimalItemClick(view: View, animal: Animal) {
-        Log.d("MAIN_ACTIVITY", "onAnimalItemClick : ${animal.id ?: -1}")
+        Log.d(loggingTag, "onAnimalItemClick : ${animal.id ?: -1}")
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_activity_frame_layout, AnimalFragment.newInstance(animal))
             .addToBackStack(null)
@@ -44,9 +46,17 @@ class MainActivity : UserAbstractFragmentActivity(),
     }
 
     fun onClickCreateEnvironment(view: View) {
-        Log.d("MAIN_ACTIVITY", "on click create environment")
+        Log.d(loggingTag, "on click create environment navigation")
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_activity_frame_layout, EnvironmentCreationFragment.newInstance())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    fun onClickCreateAnimalNavigation(environment: Environment) {
+        Log.d(loggingTag, "on click create animal navigation")
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_activity_frame_layout, AnimalCreationFragment.newInstance(environment))
             .addToBackStack(null)
             .commit()
     }
