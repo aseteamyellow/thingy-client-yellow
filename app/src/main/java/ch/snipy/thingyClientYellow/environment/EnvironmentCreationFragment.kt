@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 class EnvironmentCreationFragment : Fragment() {
 
     // For logging
-    private val TAG = "ENVIRONMENT_CREATION"
+    private val loggingTag = "ENVIRONMENT_CREATION"
 
     // For API call
     private val environmentService by lazy { DyrEnvironmentService.create() }
@@ -84,7 +84,7 @@ class EnvironmentCreationFragment : Fragment() {
     }
 
     private fun onClickCreateEnvironmentConfirm(view: View) {
-        Log.d(TAG, "create button callback, id : ${view.id}")
+        Log.d(loggingTag, "create button callback, id : ${view.id}")
 
 
         disposable = environmentService.createEnvironment(
@@ -103,12 +103,12 @@ class EnvironmentCreationFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { environment ->
-                    Log.d(TAG, environment.toString())
+                    Log.d(loggingTag, environment.toString())
                     Toast.makeText(activity, "Environment has been successfully created", Toast.LENGTH_SHORT).show()
                     fragmentManager?.popBackStack()
                 },
                 { error ->
-                    Log.e(TAG, error.toString())
+                    Log.e(loggingTag, error.toString())
                 }
             )
     }
