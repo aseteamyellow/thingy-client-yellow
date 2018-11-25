@@ -21,7 +21,7 @@ interface DyrEnvironmentService {
     fun createEnvironment(@Path("userId") userId: Id, @Body body: Environment): Observable<Environment>
 
     @PATCH("{envId}")
-    fun updateEnvironment(@Path("envId") envId: Id): Observable<Environment>
+    fun updateEnvironment(@Path("envId") envId: Id, @Body body: Environment): Observable<Environment>
 
     @DELETE("{envId}")
     fun deleteEnvironment(@Path("envId") envId: Id): Observable<ResponseBody>
