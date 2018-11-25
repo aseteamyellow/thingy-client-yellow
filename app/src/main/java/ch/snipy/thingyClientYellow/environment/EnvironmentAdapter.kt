@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -34,8 +35,13 @@ class EnvironmentAdapter(
 
     override fun onBindViewHolder(holder: EnvironmentItemViewHolder, position: Int) {
         holder.nameTextView.text = dataset[position].name
-        holder.image.setImageResource(R.mipmap.viva_logo)
         holder.environment = dataset[position]
+        holder.deleteButton.setOnClickListener { view ->
+            listener.onEnvironmentItemDeleteClick(
+                view,
+                dataset[position]
+            )
+        }
     }
 
     class EnvironmentItemViewHolder(
@@ -45,8 +51,10 @@ class EnvironmentAdapter(
         View.OnClickListener {
 
         lateinit var environment: Environment
+
         val nameTextView: TextView = view.environment_item_name
         val image: ImageView = view.environment_item_logo
+        val deleteButton: ImageButton = view.environment_list_item_delete_button
 
         init {
             view.setOnClickListener(this)
