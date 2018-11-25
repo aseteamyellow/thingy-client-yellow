@@ -3,6 +3,7 @@ package ch.snipy.thingyClientYellow.routes
 import ch.snipy.thingyClientYellow.Animal
 import ch.snipy.thingyClientYellow.Id
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,7 +23,7 @@ interface DyrAnimalService {
     fun updateAnimal(@Path("animalId") animalId: Id): Observable<Animal>
 
     @DELETE("{animalId}")
-    fun deleteAnimal(@Path("animalId") animalId: Id): Observable<String>
+    fun deleteAnimal(@Path("animalId") animalId: Id): Observable<ResponseBody>
 
     companion object Factory : DyrServiceFactory {
         fun create(): DyrAnimalService {
