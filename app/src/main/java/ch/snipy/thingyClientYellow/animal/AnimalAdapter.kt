@@ -1,12 +1,14 @@
 package ch.snipy.thingyClientYellow.animal
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Animal
 import ch.snipy.thingyClientYellow.AnimalsItemViewListener
@@ -14,11 +16,13 @@ import ch.snipy.thingyClientYellow.R
 import kotlinx.android.synthetic.main.animal_list_item.view.*
 
 class AnimalAdapter(
-    private val dataset: List<Animal>,
+    private val dataset: MutableList<Animal>,
     private val context: Context,
     private val listener: AnimalsItemViewListener
 ) :
         RecyclerView.Adapter<AnimalAdapter.ViewHolder>() {
+
+    private val loggingTag = "ANIMAL_ADAPTER"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalAdapter.ViewHolder = ViewHolder(
         LayoutInflater.from(context).inflate(
@@ -37,7 +41,17 @@ class AnimalAdapter(
         holder.deleteButton.setOnClickListener { view ->
             listener.onAnimalItemDeleteClick(
                 view,
-                dataset[position]
+                dataset[position],
+                { response ->
+                    Log.d(loggingTag, response.string())
+                    Toast.makeText(context, "Animal successfully removed", Toast.LENGTH_SHORT).show()
+                    dataset.removeAt(position)
+                    notifyDataSetChanged()
+                },
+                { error ->
+                    Log.e(loggingTag, error.message)
+                    Toast.makeText(context, "Can't remove item : ${dataset[position]}", Toast.LENGTH_SHORT).show()
+                }
             )
         }
     }
