@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ch.snipy.thingyClientYellow.Animal
 import ch.snipy.thingyClientYellow.AnimalsItemViewListener
 import ch.snipy.thingyClientYellow.Id
 import ch.snipy.thingyClientYellow.R
@@ -20,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 class AnimalsFragment : Fragment() {
 
     // For logging
-    private val TAG = "ANIMALS_FRAGMENT"
+    private val loggingTag = "ANIMALS_FRAGMENT"
 
     // For the recycler view
     private lateinit var recyclerView: RecyclerView
@@ -43,9 +42,6 @@ class AnimalsFragment : Fragment() {
             return fragment
         }
 
-        private lateinit var listener: AnimalsItemViewListener
-
-        // For API call
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -55,10 +51,10 @@ class AnimalsFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
-                    Log.d(TAG, result.toString())
+                    Log.d(loggingTag, result.toString())
                 },
                 { error ->
-                    Log.e(TAG, error.toString())
+                    Log.e(loggingTag, error.toString())
                 }
             )
     }
@@ -73,11 +69,7 @@ class AnimalsFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = AnimalAdapter(
-                dataset = listOf(
-                    Animal(null, "Cat"),
-                    Animal(null, "Dog"),
-                    Animal(null, "Bird")
-                ),
+                dataset = listOf(),
                 context = context!!,
                 listener = listener
 
