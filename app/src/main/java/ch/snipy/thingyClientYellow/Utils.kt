@@ -29,6 +29,6 @@ object Thingy {
 }
 
 // Raspeberry pi 3 IP
-object Raspeberry {
+object Raspberry {
     val ip: IP = Tuple(172, 22, 22, 1)
 }
