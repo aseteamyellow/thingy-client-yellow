@@ -1,6 +1,7 @@
 package ch.snipy.thingyClientYellow.animal
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Animal
 import ch.snipy.thingyClientYellow.AnimalsItemViewListener
+import ch.snipy.thingyClientYellow.Id
 import ch.snipy.thingyClientYellow.R
+import ch.snipy.thingyClientYellow.routes.DyrAnimalService
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class AnimalsFragment : Fragment() {
+
+    // For logging
+    private val TAG = "ANIMALS_FRAGMENT"
 
     // For the recycler view
     private lateinit var recyclerView: RecyclerView
@@ -19,16 +28,39 @@ class AnimalsFragment : Fragment() {
     // Listener
     private lateinit var listener: AnimalsItemViewListener
 
-    // For API call TODO
-    // val environmentService by lazy { DyrEnvironmentService.create() }
-    // var disposable: Disposable? = null
+    // Api call
+    private val animalService by lazy { DyrAnimalService.create() }
+    private var disposable: Disposable? = null
+
+    // current state
+    private var environmentId: Id = -1
 
     companion object {
-        fun newInstance(animalsItemViewListener: AnimalsItemViewListener): AnimalsFragment {
+        fun newInstance(animalsItemViewListener: AnimalsItemViewListener, environmentId: Id): AnimalsFragment {
             val fragment = AnimalsFragment()
             fragment.listener = animalsItemViewListener
+            fragment.environmentId = environmentId
             return fragment
         }
+
+        private lateinit var listener: AnimalsItemViewListener
+
+        // For API call
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        disposable = animalService.getAllAnimals(environmentId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    Log.d(TAG, result.toString())
+                },
+                { error ->
+                    Log.e(TAG, error.toString())
+                }
+            )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
