@@ -20,6 +20,9 @@ import io.reactivex.schedulers.Schedulers
 // Fragment which show all the environments for a specific user
 class EnvironmentsFragment : Fragment() {
 
+    // data container
+    private val environments: MutableList<Environment> = mutableListOf()
+
     // For the recycler view
     private lateinit var recyclerView: RecyclerView
 
@@ -40,32 +43,31 @@ class EnvironmentsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-
-        val rootView = inflater.inflate(R.layout.fragment_environments, container, false)
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         disposable = environmentService.getEnvironments((activity as MainActivity).userId())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
-                    Log.d("ENVIRONMENTS", result.toString())
+                    environments.addAll(result)
                 },
                 { error ->
-                    Log.d("ENVIRONMENTS", error.toString())
+                    Log.e("ENVIRONMENTS", error.toString())
                 }
             )
+    }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+
+        val rootView = inflater.inflate(R.layout.fragment_environments, container, false)
 
         recyclerView = rootView.findViewById<RecyclerView>(R.id.environments_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = EnvironmentAdapter(
-                dataset = listOf(
-                    Environment(name = "A", envType = "terrarium"),
-                    Environment(name = "B", envType = "vivarium")
-                ),
+                dataset = environments,
                 context = context!!,
                 listener = listener
             )
