@@ -63,8 +63,8 @@ class EnvironmentsFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             adapter = EnvironmentAdapter(
                 dataset = listOf(
-                    Environment(null, "A", "terra", listOf(), 20.0, 15.0, 180.0, false, false, false),
-                    Environment(null, "B", "viva", listOf(), 20.0, 15.0, 180.0, false, false, false)
+                    Environment(name = "A", envType = "terrarium"),
+                    Environment(name = "B", envType = "vivarium")
                 ),
                 context = context!!,
                 listener = listener
