@@ -15,7 +15,7 @@ data class User(
 
 data class Environment(
     @SerializedName("id") val id: Id? = null,
-    @SerializedName("pi_camera") val pi_camera: IP = Raspberry.ip,
+    @SerializedName("pi_camera") val piCamera: String = Raspberry.ipString,
     @SerializedName("thingy") val thingy: String = Thingy.name,
 
     @SerializedName("name") val name: String,
