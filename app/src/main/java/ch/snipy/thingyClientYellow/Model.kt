@@ -20,7 +20,7 @@ data class Environment(
 
     @SerializedName("name") val name: String,
     @SerializedName("env_type") val envType: String,
-    @SerializedName("animals") val animals: List<Animal> = listOf(),
+    @SerializedName("animals") val animals: List<Animal>? = null,
 
     @SerializedName("humidity_min") val humidity_min: Double? = null,
     @SerializedName("humidity_max") val humidity_max: Double? = null,
