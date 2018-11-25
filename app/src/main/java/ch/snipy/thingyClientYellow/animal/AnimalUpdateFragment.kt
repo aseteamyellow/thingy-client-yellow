@@ -62,7 +62,14 @@ class AnimalUpdateFragment : Fragment() {
     private fun onClickUpdateAnimal(view: View) {
         Log.d(loggingTag, "update button callback, id : ${view.id}")
 
-        disposable = animalService.updateAnimal(animal.id ?: -1)
+        disposable = animalService.updateAnimal(
+            animal.id ?: -1,
+            Animal(
+                id = animal.id,
+                name = name.text.toString(),
+                animalTypeId = animal.animalTypeId
+            )
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
