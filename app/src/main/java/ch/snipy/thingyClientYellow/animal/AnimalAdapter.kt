@@ -34,7 +34,12 @@ class AnimalAdapter(
     override fun onBindViewHolder(holder: AnimalAdapter.ViewHolder, position: Int) {
         holder.nameTextView.text = dataset[position].name
         holder.animal = dataset[position]
-        holder.deleteButton.setOnClickListener { view -> listener.onAnimalItemDeleteClick(view, dataset[position]) }
+        holder.deleteButton.setOnClickListener { view ->
+            listener.onAnimalItemDeleteClick(
+                view,
+                dataset[position]
+            )
+        }
     }
 
     class ViewHolder(
