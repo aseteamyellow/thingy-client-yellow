@@ -51,7 +51,11 @@ class AnimalUpdateFragment : Fragment() {
         name = rootView.findViewById(R.id.animal_update_name)
 
         cancelButton = rootView.findViewById(R.id.animal_update_cancel_button)
-        cancelButton.setOnClickListener { _ -> fragmentManager?.popBackStack() }
+        cancelButton.setOnClickListener {
+            (activity as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_activity_frame_layout, AnimalFragment.newInstance(animal))
+                .commit()
+        }
 
         createButton = rootView.findViewById(R.id.animal_update_update_button)
         createButton.setOnClickListener(::onClickUpdateAnimal)
