@@ -33,11 +33,11 @@ data class Environment(
     @SerializedName("light_min") val light_min: Double? = null,
     @SerializedName("light_max") val light_max: Double? = null,
 
-    @SerializedName("humidity_notif") val humidityNotification: Boolean = false,
-    @SerializedName("temperature_notif") val temperatureNotification: Boolean = false,
-    @SerializedName("air_quality_notif") val air_qualityNotification: Boolean = false,
-    @SerializedName("air_pressure_notif") val air_pressureNotification: Boolean = false,
-    @SerializedName("light_notif") val lightNotification: Boolean = false
+    @SerializedName("humidity_notif") val humidityNotification: Int = 0,
+    @SerializedName("temperature_notif") val temperatureNotification: Int = 0,
+    @SerializedName("air_quality_notif") val air_qualityNotification: Int = 0,
+    @SerializedName("air_pressure_notif") val air_pressureNotification: Int = 0,
+    @SerializedName("light_notif") val lightNotification: Int = 0
 )
 
 data class Animal(
