@@ -27,7 +27,7 @@ class EnvironmentCreationFragment : Fragment() {
     // UI field
     private lateinit var radioGroup: RadioGroup
 
-    private lateinit var vivariumRadioButton: RadioButton
+    private lateinit var aquaterrarium: RadioButton
     private lateinit var aquariumRadioButton: RadioButton
     private lateinit var terrariumRadioButton: RadioButton
 
@@ -54,7 +54,7 @@ class EnvironmentCreationFragment : Fragment() {
 
         radioGroup = rootView.findViewById(R.id.environment_creation_radio_group_type)
 
-        vivariumRadioButton = rootView.findViewById(R.id.environment_creation_aquaterrarium_button)
+        aquaterrarium = rootView.findViewById(R.id.environment_creation_aquaterrarium_button)
         aquariumRadioButton = rootView.findViewById(R.id.environment_creation_aquarium_button)
         terrariumRadioButton = rootView.findViewById(R.id.environment_creation_terrarium_button)
 
