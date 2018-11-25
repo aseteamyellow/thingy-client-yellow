@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:orientation="vertical"
+                                                   android:id="@+id/environment_update_constraint_layout"
+                                                   tools:context="ch.snipy.thingyClientYellow.environment.EnvironmentUpdateFragment"
+        >
+
+    <ImageView
+            android:layout_width="230dp"
+            android:layout_height="194dp"
+            android:id="@+id/environment_update_image"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_android_red_64dp"
+            android:visibility="visible"/>
+
+    <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/environment_update_image"
+            android:id="@+id/environment_update_radio_group_type"
+            android:layout_marginEnd="8dp"
+            android:visibility="visible">
+
+        <RadioButton
+                android:text="@string/aquaterrarium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/environment_update_aquaterrarium_button"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"/>
+
+        <RadioButton
+                android:text="@string/aquarium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/environment_update_aquarium_button"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"/>
+
+        <RadioButton
+                android:text="@string/terrarium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/environment_update_terrarium_button"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"/>
+    </RadioGroup>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="@string/name"
+            android:ems="10"
+            android:id="@+id/environment_update_name"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/environment_update_radio_group_type"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor"/>
+
+    <Button
+            android:text="@string/update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/environment_update_update_button"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/environment_update_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            app:layout_constraintEnd_toStartOf="@+id/environment_update_cancel_button"
+            android:layout_marginEnd="16dp"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+    <Button
+            android:text="@string/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/environment_update_cancel_button"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/environment_update_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintStart_toEndOf="@+id/environment_update_update_button"
+            android:layout_marginStart="16dp"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
