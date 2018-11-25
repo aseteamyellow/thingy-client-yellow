@@ -10,7 +10,7 @@ import retrofit2.http.*
 
 interface DyrAnimalService {
     @GET("all/{envId}")
-    fun getAllAnimals(@Path("userId") userId: Id): Observable<List<Animal>>
+    fun getAllAnimals(@Path("envId") environmentId: Id): Observable<List<Animal>>
 
     @GET("one/{animalId}")
     fun getOneAnimal(@Path("animalId") animalId: Id): Observable<Animal>
