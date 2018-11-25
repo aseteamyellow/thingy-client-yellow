@@ -58,7 +58,11 @@ class AnimalFragment : Fragment() {
     private fun onClickUpdateAnimal(view: View) {
         Log.d(loggingTag, "On click update animal from view : ${view.id}")
         (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.main_activity_frame_layout, AnimalUpdateFragment.newInstance(animal))
+            .replace(
+                R.id.main_activity_frame_layout,
+                AnimalUpdateFragment.newInstance(animal)
+            )
+            .addToBackStack(null)
             .commit()
     }
 }
