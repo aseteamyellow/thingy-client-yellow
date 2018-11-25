@@ -49,4 +49,5 @@
     <string name="name">Name</string>
     <string name="animal_name">Animal name</string>
     <string name="animal_type">Animal type</string>
+    <string name="update">Update</string>
 </resources>
