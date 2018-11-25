@@ -69,7 +69,7 @@ class AnimalsFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = AnimalAdapter(
-                dataset = listOf(),
+                dataset = mutableListOf(),
                 context = context!!,
                 listener = listener
 

@@ -1,12 +1,14 @@
 package ch.snipy.thingyClientYellow.environment
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Environment
 import ch.snipy.thingyClientYellow.EnvironmentsItemViewListener
@@ -15,10 +17,12 @@ import ch.snipy.thingyClientYellow.environment.EnvironmentAdapter.EnvironmentIte
 import kotlinx.android.synthetic.main.environment_list_item.view.*
 
 class EnvironmentAdapter(
-    private val dataset: List<Environment>,
+    private val dataset: MutableList<Environment>,
     private val context: Context,
     private val listener: EnvironmentsItemViewListener
 ) : RecyclerView.Adapter<EnvironmentItemViewHolder>() {
+
+    private val loggingTag = "ENVIRONMENT_ADAPTER"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EnvironmentItemViewHolder {
         return EnvironmentItemViewHolder(
@@ -39,7 +43,17 @@ class EnvironmentAdapter(
         holder.deleteButton.setOnClickListener { view ->
             listener.onEnvironmentItemDeleteClick(
                 view,
-                dataset[position]
+                dataset[position],
+                { response ->
+                    Log.d(loggingTag, response.string())
+                    Toast.makeText(context, "Animal successfully removed", Toast.LENGTH_SHORT).show()
+                    dataset.removeAt(position)
+                    notifyDataSetChanged()
+                },
+                { error ->
+                    Log.e(loggingTag, error.message)
+                    Toast.makeText(context, "Can't remove item : ${dataset[position]}", Toast.LENGTH_SHORT).show()
+                }
             )
         }
     }
