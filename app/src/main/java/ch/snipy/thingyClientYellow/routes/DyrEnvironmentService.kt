@@ -1,6 +1,7 @@
 package ch.snipy.thingyClientYellow.routes
 
 import ch.snipy.thingyClientYellow.Environment
+import ch.snipy.thingyClientYellow.Id
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -10,22 +11,22 @@ import retrofit2.http.*
 interface DyrEnvironmentService {
 
     @GET("all/{userId}")
-    fun getEnvironments(@Path("userId") userId: Int): Observable<List<Environment>>
+    fun getEnvironments(@Path("userId") userId: Id): Observable<List<Environment>>
 
     @GET("one/{envId}")
-    fun getEnvironment(@Path("envId") envId: Int): Observable<Environment>
+    fun getEnvironment(@Path("envId") envId: Id): Observable<Environment>
 
     @POST("{userId}")
-    fun createEnvironment(@Path("userId") userId: Int, @Body body: Environment): Observable<Environment>
+    fun createEnvironment(@Path("userId") userId: Id, @Body body: Environment): Observable<Environment>
 
     @PATCH("{envId}")
-    fun updateEnvironment(@Path("envId") envId: Int): Observable<Environment>
+    fun updateEnvironment(@Path("envId") envId: Id): Observable<Environment>
 
     @DELETE("{envId}")
-    fun deleteEnvironment(@Path("envId") envId: Int): Observable<String>
+    fun deleteEnvironment(@Path("envId") envId: Id): Observable<String>
 
     @PUT("enableNotif/{envId}")
-    fun enableNotification(@Path("envId") envId: Int, @Body body: Map<String, String>): Observable<String>
+    fun enableNotification(@Path("envId") envId: Id, @Body body: Map<String, String>): Observable<String>
 
     companion object Factory : DyrServiceFactory {
         fun create(): DyrEnvironmentService {
