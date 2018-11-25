@@ -33,7 +33,7 @@ class EnvironmentCreationFragment : Fragment() {
 
     private lateinit var name: EditText
 
-    private lateinit var environementTypeImage: ImageView
+    private lateinit var environmentTypeImage: ImageView
 
     // Button
     private lateinit var cancelButton: Button
@@ -60,7 +60,7 @@ class EnvironmentCreationFragment : Fragment() {
 
         name = rootView.findViewById(R.id.environment_creation_name)
 
-        environementTypeImage = rootView.findViewById(R.id.environment_creation_image)
+        environmentTypeImage = rootView.findViewById(R.id.environment_creation_image)
 
         cancelButton = rootView.findViewById(R.id.environment_creation_cancel)
 
@@ -71,41 +71,38 @@ class EnvironmentCreationFragment : Fragment() {
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.environment_creation_vivarium_button ->
-                    environementTypeImage.setImageResource(R.drawable.ic_android_red_64dp)
+                    environmentTypeImage.setImageResource(R.drawable.ic_android_red_64dp)
                 R.id.environment_creation_aquarium_button ->
-                    environementTypeImage.setImageResource(R.drawable.ic_android_green_64dp)
+                    environmentTypeImage.setImageResource(R.drawable.ic_android_green_64dp)
                 R.id.environment_creation_terrarium_button ->
-                    environementTypeImage.setImageResource(R.drawable.ic_android_blue_64dp)
+                    environmentTypeImage.setImageResource(R.drawable.ic_android_blue_64dp)
             }
         }
 
         return rootView
     }
 
-    fun onClickCreateEnvironmentConfirm(view: View) {
+    private fun onClickCreateEnvironmentConfirm(view: View) {
         Log.d(TAG, "create button callback, id : ${view.id}")
+
+
         disposable = environmentService.createEnvironment(
             (activity as MainActivity).userId(),
             Environment(
-                id = null,
                 name = name.text.toString(),
                 envType = when (radioGroup.checkedRadioButtonId) {
                     R.id.environment_creation_vivarium_button -> "Vivarium"
                     R.id.environment_creation_aquarium_button -> "Aquarium"
                     R.id.environment_creation_terrarium_button -> "Terrarium"
                     else -> "no-type"
-                },
-                animals = listOf(),
-                humidity = null, temperature = null, luminosity = null,
-                humidityNotification = false,
-                temperatureNotification = false,
-                luminosityNotification = false
+                }
             )
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { environment ->
+                    Log.d(TAG, environment.toString())
                     Toast.makeText(activity, "Environment has been successfully created", Toast.LENGTH_SHORT).show()
                     fragmentManager?.popBackStack()
                 },
