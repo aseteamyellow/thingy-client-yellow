@@ -14,30 +14,30 @@ data class User(
 )
 
 data class Environment(
-    @SerializedName("id") val id: Id?,
-    @SerializedName("pi_camera") val pi_camera: IP?,
-    @SerializedName("thingy") val thingy: String,
+    @SerializedName("id") val id: Id? = null,
+    @SerializedName("pi_camera") val pi_camera: IP = Raspberry.ip,
+    @SerializedName("thingy") val thingy: String = Thingy.name,
 
     @SerializedName("name") val name: String,
     @SerializedName("env_type") val envType: String,
-    @SerializedName("animals") val animals: List<Animal>,
+    @SerializedName("animals") val animals: List<Animal> = listOf(),
 
-    @SerializedName("humidity_min") val humidity_min: Double?,
-    @SerializedName("humidity_max") val humidity_max: Double?,
-    @SerializedName("temperature_min") val temperature_min: Double?,
-    @SerializedName("temperature_max") val temperature_max: Double?,
-    @SerializedName("air_quality_min") val air_quality_min: Double?,
-    @SerializedName("air_quality_max") val air_quality_max: Double?,
-    @SerializedName("air_pressure_min") val air_pressure_min: Double?,
-    @SerializedName("air_pressure_max") val air_pressure_max: Double?,
-    @SerializedName("light_min") val light_min: Double?,
-    @SerializedName("light_max") val light_max: Double?,
+    @SerializedName("humidity_min") val humidity_min: Double? = null,
+    @SerializedName("humidity_max") val humidity_max: Double? = null,
+    @SerializedName("temperature_min") val temperature_min: Double? = null,
+    @SerializedName("temperature_max") val temperature_max: Double? = null,
+    @SerializedName("air_quality_min") val air_quality_min: Double? = null,
+    @SerializedName("air_quality_max") val air_quality_max: Double? = null,
+    @SerializedName("air_pressure_min") val air_pressure_min: Double? = null,
+    @SerializedName("air_pressure_max") val air_pressure_max: Double? = null,
+    @SerializedName("light_min") val light_min: Double? = null,
+    @SerializedName("light_max") val light_max: Double? = null,
 
-    @SerializedName("humidity_notif") val humidityNotification: Boolean,
-    @SerializedName("temperature_notif") val temperatureNotification: Boolean,
-    @SerializedName("air_quality_notif") val air_qualityNotification: Boolean,
-    @SerializedName("air_pressure_notif") val air_pressureNotification: Boolean,
-    @SerializedName("light_notif") val lightNotification: Boolean
+    @SerializedName("humidity_notif") val humidityNotification: Boolean = false,
+    @SerializedName("temperature_notif") val temperatureNotification: Boolean = false,
+    @SerializedName("air_quality_notif") val air_qualityNotification: Boolean = false,
+    @SerializedName("air_pressure_notif") val air_pressureNotification: Boolean = false,
+    @SerializedName("light_notif") val lightNotification: Boolean = false
 )
 
 data class Animal(
