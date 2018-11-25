@@ -63,6 +63,7 @@ class EnvironmentCreationFragment : Fragment() {
         environmentTypeImage = rootView.findViewById(R.id.environment_creation_image)
 
         cancelButton = rootView.findViewById(R.id.environment_creation_cancel)
+        cancelButton.setOnClickListener { _ -> fragmentManager?.popBackStack() }
 
         createButton = rootView.findViewById(R.id.environment_creation_create)
         createButton.setOnClickListener(::onClickCreateEnvironmentConfirm)
