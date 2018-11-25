@@ -16,7 +16,7 @@ data class User(
 data class Environment(
     @SerializedName("id") val id: Id?,
     @SerializedName("pi_camera") val pi_camera: IP?,
-    @SerializedName("thingy") val thingy: Id?,
+    @SerializedName("thingy") val thingy: String,
 
     @SerializedName("name") val name: String,
     @SerializedName("env_type") val envType: String,
