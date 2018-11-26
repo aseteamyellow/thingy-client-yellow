@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 
 interface DyrServiceFactory {
     val baseUrl: String
-        get() = "http://192.168.43.33:8080"
+        get() = "http://10.0.2.2:8080"
     val client: OkHttpClient
         get() {
             val logging = HttpLoggingInterceptor()
