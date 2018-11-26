@@ -83,6 +83,8 @@ class EnvironmentCreationFragment : Fragment() {
         return rootView
     }
 
+    // TODO add a progress bar
+
     private fun onClickCreateEnvironmentConfirm(view: View) {
         Log.d(loggingTag, "create button callback, id : ${view.id}")
 
