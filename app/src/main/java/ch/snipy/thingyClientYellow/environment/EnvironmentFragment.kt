@@ -37,6 +37,7 @@ class EnvironmentFragment : Fragment() {
     // button
     private lateinit var addAnimalButton: Button
     private lateinit var updateEnvironmentButton: ImageButton
+    private lateinit var viewVideoButton: Button
 
     // Api call
     private val environmentService by lazy { DyrEnvironmentService.create() }
@@ -103,10 +104,22 @@ class EnvironmentFragment : Fragment() {
         addAnimalButton = rootView.findViewById(R.id.environment_add_animal_button)
         addAnimalButton.setOnClickListener(::onClickCreateAnimal)
 
+        viewVideoButton = rootView.findViewById(R.id.environment_fragment_view_video_button)
+        viewVideoButton.setOnClickListener(::onClickViewVideo)
+
         updateEnvironmentButton = rootView.findViewById(R.id.environment_fragment_update_button)
         updateEnvironmentButton.setOnClickListener(::onClickUpdateEnvironment)
 
+
+
         return rootView
+    }
+
+    private fun onClickViewVideo(view: View) {
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_activity_frame_layout, EnvironmentVideoFragment.newInstance(environment))
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun onClickCreateAnimal(view: View) {
