@@ -50,4 +50,6 @@
     <string name="animal_name">Animal name</string>
     <string name="animal_type">Animal type</string>
     <string name="update">Update</string>
+    <string name="view_video">View video</string>
+    <string name="add_animal">Add Animal</string>
 </resources>
