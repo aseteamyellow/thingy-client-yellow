@@ -52,4 +52,9 @@
     <string name="update">Update</string>
     <string name="view_video">View video</string>
     <string name="add_animal">Add Animal</string>
+    <string name="environmentsMenuEntry">My Environments</string>
+    <string name="animalsMenuEntry">My Animals</string>
+    <string name="favEnvEntry1">My favorite environment 1</string>
+    <string name="settings">Settings</string>
+    <string name="header_title">My header title</string>
 </resources>
