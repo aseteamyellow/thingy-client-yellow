@@ -31,6 +31,10 @@ class EnvironmentVideoFragment : Fragment() {
     private val environmentService by lazy { DyrEnvironmentService.create() }
     private var disposable: Disposable? = null
 
+    private lateinit var videoThread: Thread
+
+    private var isOn = false
+
     companion object {
         fun newInstance(environment: Environment): EnvironmentVideoFragment {
             val fragment = EnvironmentVideoFragment()
@@ -53,22 +57,22 @@ class EnvironmentVideoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        isOn = true
         disposable = environmentService.getEnvironment(environment.id ?: -1)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { environment ->
-                    thread(
+                    videoThread = thread(
                         start = true,
                         isDaemon = true
                     ) {
-                        while (true) {
+                        while (isOn) {
                             val result = URL("http://192.168.43.128:8080").readText()
                             Log.d(loggingTag, result)
                             val bytes = Base64.decode(result, Base64.DEFAULT)
 
-                            (activity as MainActivity).runOnUiThread {
+                            (activity as? MainActivity)?.runOnUiThread {
                                 videoImageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
                             }
 
@@ -79,5 +83,10 @@ class EnvironmentVideoFragment : Fragment() {
                     Log.e(loggingTag, error.message)
                 }
             )
+    }
+
+    override fun onDetach() {
+        isOn = false
+        super.onDetach()
     }
 }
