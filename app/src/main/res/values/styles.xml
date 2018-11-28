@@ -1,24 +1,3 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorAccent</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor">@color/design_default_color_primary</item>
-        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
-    </style>
-
-    <style name="Theme.AppTheme.Dyr" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:colorPrimary">@android:color/holo_orange_dark</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimary</item>
-        <item name="android:colorAccent">@android:color/holo_purple</item>
-        <item name="android:colorBackground">@android:color/background_light</item>
-        <item name="android:textColorPrimary">@android:color/black</item>
-        <item name="android:navigationBarColor">@android:color/holo_blue_light</item>
-        <item name="android:textColorPrimaryInverse">@android:color/white</item>
-        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
-    </style>
-
+    <style name="Theme.MaterialComponents.AppDyr" parent="Theme.MaterialComponents"/>
 </resources>
