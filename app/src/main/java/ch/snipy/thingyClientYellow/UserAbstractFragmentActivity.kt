@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
-import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
 import ch.snipy.thingyClientYellow.routes.DyrAccountService
 import ch.snipy.thingyClientYellow.routes.DyrAnimalService
 import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.disposables.Disposable
 
-abstract class UserAbstractFragmentActivity : FragmentActivity() {
+abstract class UserAbstractFragmentActivity : AppCompatActivity() {
 
     // Current user
     lateinit var sharedPref: SharedPreferences
