@@ -1,3 +1,6 @@
 <resources>
-    <style name="Theme.MaterialComponents.AppDyr" parent="Theme.MaterialComponents"/>
+
+    <style name="Theme.MaterialComponents.AppDyr" parent="Theme.MaterialComponents">
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
