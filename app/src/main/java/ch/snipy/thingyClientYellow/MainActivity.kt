@@ -47,6 +47,11 @@ class MainActivity : UserAbstractFragmentActivity(),
     private fun onSelectDrawerItem(menuItem: MenuItem): Boolean {
         menuItem.isChecked = true
         drawerLayout.closeDrawers()
+
+        when(menuItem.itemId) {
+            // TODO
+        }
+
         return true
     }
 
