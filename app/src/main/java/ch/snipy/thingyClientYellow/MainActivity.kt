@@ -3,12 +3,15 @@ package ch.snipy.thingyClientYellow
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
+import androidx.drawerlayout.widget.DrawerLayout
 import ch.snipy.thingyClientYellow.animal.AnimalCreationFragment
 import ch.snipy.thingyClientYellow.animal.AnimalFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentCreationFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
+import com.google.android.material.navigation.NavigationView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
@@ -19,17 +22,32 @@ class MainActivity : UserAbstractFragmentActivity(),
 
     private val loggingTag = "MAIN_ACTIVITY"
 
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         sharedPref = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE)
 
+        // Drawer
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navigationView = findViewById(R.id.navigation_view)
+
+        navigationView.setNavigationItemSelectedListener(::onSelectDrawerItem)
+
         // setup the fragment, the first one is to view all the environments
         supportFragmentManager.beginTransaction()
             .add(R.id.main_activity_frame_layout, EnvironmentsFragment.newInstance(this))
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun onSelectDrawerItem(menuItem: MenuItem): Boolean {
+        menuItem.isChecked = true
+        drawerLayout.closeDrawers()
+        return true
     }
 
     override fun onEnvironmentItemClick(view: View, environment: Environment) {
@@ -87,4 +105,6 @@ class MainActivity : UserAbstractFragmentActivity(),
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onSuccess(it) }, { onError(it) })
     }
+
+
 }
