@@ -58,4 +58,6 @@
     <string name="settings">Settings</string>
     <string name="header_title">My header title</string>
     <string name="default_notification_channel_id">Channel Id</string>
+    <string name="notification_channel_name">DyrNotificationChannel</string>
+    <string name="notification_channel_description">DyrNotificationForEnvironment</string>
 </resources>
