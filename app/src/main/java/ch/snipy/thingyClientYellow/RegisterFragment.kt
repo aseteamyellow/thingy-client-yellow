@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 
 class RegisterFragment : Fragment() {
 
+    // For logging
+    private val loggingTag = "REGISTER_FRAGMENT"
+
     companion object {
         fun newInstance(): RegisterFragment {
             val fragment = RegisterFragment()
