@@ -1,6 +1,7 @@
 package ch.snipy.thingyClientYellow
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -29,13 +30,17 @@ class MainActivity : UserAbstractFragmentActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Shared preferences for user token and id storage
         sharedPref = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE)
 
         // Drawer
         drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.navigation_view)
 
+        navigationView = findViewById(R.id.navigation_view)
         navigationView.setNavigationItemSelectedListener(::onSelectDrawerItem)
+
+        // Start the notification service
+        startService(Intent(this,DyrNotificationService::class.java))
 
         // setup the fragment, the first one is to view all the environments
         supportFragmentManager.beginTransaction()
