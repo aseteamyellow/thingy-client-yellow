@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group
+            android:id="@+id/nav_menu_group_generals"
+            >
         <item
                 android:id="@+id/nav_menu_item_my_environments"
-                android:title="@string/environmentsMenuEntry"/>
+                android:title="@string/environmentsMenuEntry"
+                android:checked="true"
+                android:checkable="true"
+                />
         <item
                 android:id="@+id/nav_menu_item_my_animals"
-                android:title="@string/animalsMenuEntry"/>
+                android:title="@string/animalsMenuEntry"
+                android:checkable="true"
+                />
+    </group>
+    <group
+            android:id="@+id/nav_menu_group_favorites"
+            >
         <item
                 android:id="@+id/nav_slideshow"
-                android:title="@string/favEnvEntry1"/>
+                android:title="@string/favEnvEntry1"
+                android:checkable="true"
+                />
+    </group>
+    <group
+            android:id="@+id/nav_menu_group_settings"
+            >
         <item
                 android:id="@+id/nav_menu_item_settings"
                 android:icon="@drawable/ic_settings_applications_black_48dp"
-                android:title="@string/settings"/>
+                android:title="@string/settings"
+                android:checkable="true"
+                />
     </group>
 </menu>
