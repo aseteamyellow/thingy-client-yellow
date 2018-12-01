@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_camera"
+                android:id="@+id/nav_menu_item_my_environments"
                 android:title="@string/environmentsMenuEntry"/>
         <item
-                android:id="@+id/nav_gallery"
+                android:id="@+id/nav_menu_item_my_animals"
                 android:title="@string/animalsMenuEntry"/>
         <item
                 android:id="@+id/nav_slideshow"
                 android:title="@string/favEnvEntry1"/>
         <item
-                android:id="@+id/nav_manage"
+                android:id="@+id/nav_menu_item_settings"
                 android:icon="@drawable/ic_settings_applications_black_48dp"
                 android:title="@string/settings"/>
     </group>
