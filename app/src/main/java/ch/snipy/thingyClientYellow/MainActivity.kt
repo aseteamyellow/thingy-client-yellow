@@ -9,6 +9,7 @@ import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import ch.snipy.thingyClientYellow.animal.AnimalCreationFragment
 import ch.snipy.thingyClientYellow.animal.AnimalFragment
+import ch.snipy.thingyClientYellow.animal.AnimalsFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentCreationFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentFragment
 import ch.snipy.thingyClientYellow.environment.EnvironmentsFragment
@@ -40,7 +41,7 @@ class MainActivity : UserAbstractFragmentActivity(),
         navigationView.setNavigationItemSelectedListener(::onSelectDrawerItem)
 
         // Start the notification service
-        startService(Intent(this,DyrNotificationService::class.java))
+        startService(Intent(this, DyrNotificationService::class.java))
 
         // setup the fragment, the first one is to view all the environments
         supportFragmentManager.beginTransaction()
@@ -53,8 +54,31 @@ class MainActivity : UserAbstractFragmentActivity(),
         menuItem.isChecked = true
         drawerLayout.closeDrawers()
 
-        when(menuItem.itemId) {
-            // TODO
+        when (menuItem.itemId) {
+            R.id.nav_menu_item_my_environments ->
+                supportFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.main_activity_frame_layout, EnvironmentsFragment.newInstance(
+                            this
+                        )
+                    )
+                    .addToBackStack(null)
+                    .commit()
+            R.id.nav_menu_item_my_animals ->
+                supportFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.main_activity_frame_layout, AnimalsFragment.newInstance(
+                            this,
+                            1 // TODO
+                        )
+                    )
+                    .addToBackStack(null)
+                    .commit()
+            R.id.nav_menu_item_settings ->
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_activity_frame_layout, SettingsFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit()
         }
 
         return true
