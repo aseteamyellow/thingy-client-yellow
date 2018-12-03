@@ -9,20 +9,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
     // For logging
     private val loggingTag = "SETTINGS_FRAGMENT"
 
-    private lateinit var userMail: EditTextPreference
-    private lateinit var userPassword: EditTextPreference
+    // Current user
+    private lateinit var crtUser: User
+
 
     companion object {
-        fun newInstance(): SettingsFragment {
+        fun newInstance(user: User): SettingsFragment {
             val fragment = SettingsFragment()
+            fragment.crtUser = user
             return fragment
         }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey)
-
-        userMail = findPreference("pref_email") as EditTextPreference
-        userPassword = findPreference("pref_password") as EditTextPreference
     }
 }

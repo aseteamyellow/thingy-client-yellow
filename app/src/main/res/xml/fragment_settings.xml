@@ -4,22 +4,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:fragment="ch.snipy.thingyClientYellow.SettingsFragment"
         >
-    <PreferenceCategory
-            android:key="pref_category_user"
-            android:title="User settings"
-            >
-
-        <EditTextPreference
-                android:key="pref_email"
-                android:title="User email"
-                />
-
-        <EditTextPreference
-                android:key="pref_password"
-                android:title="User password"
-                />
-
-    </PreferenceCategory>
 
     <PreferenceCategory
             android:key="pref_category_notification"
@@ -57,5 +41,9 @@
             android:key="pref_category_server"
             android:title="Server settings"
             >
+        <EditTextPreference
+                android:key="pref_server_ip"
+                android:title="Dyr Server IP Address"
+                />
     </PreferenceCategory>
 </PreferenceScreen>
