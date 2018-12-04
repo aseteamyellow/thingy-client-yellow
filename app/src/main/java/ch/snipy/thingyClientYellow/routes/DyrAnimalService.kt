@@ -10,8 +10,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 interface DyrAnimalService {
+    @GET("{userId}")
+    fun getAllAnimals(@Path("userId") userId: Id) : Observable<List<Animal>>
+
     @GET("all/{envId}")
-    fun getAllAnimals(@Path("envId") environmentId: Id): Observable<List<Animal>>
+    fun getAllAnimalsForAnEnvironment(@Path("envId") environmentId: Id): Observable<List<Animal>>
 
     @GET("one/{animalId}")
     fun getOneAnimal(@Path("animalId") animalId: Id): Observable<Animal>
