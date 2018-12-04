@@ -11,8 +11,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ch.snipy.thingyClientYellow.Animal
+import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
-import ch.snipy.thingyClientYellow.routes.DyrAnimalService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -33,7 +33,7 @@ class AnimalUpdateFragment : Fragment() {
     private lateinit var animal: Animal
 
     // For API call
-    private val animalService by lazy { DyrAnimalService.create() }
+    private val animalService by lazy { ((activity) as MainActivity).animalService }
     private var disposable: Disposable? = null
 
     companion object {

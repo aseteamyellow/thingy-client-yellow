@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.AnimalsItemViewListener
 import ch.snipy.thingyClientYellow.Id
+import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
 import ch.snipy.thingyClientYellow.routes.DyrAnimalService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +29,7 @@ class AnimalsFragment : Fragment() {
     private lateinit var listener: AnimalsItemViewListener
 
     // Api call
-    private val animalService by lazy { DyrAnimalService.create() }
+    private val animalService by lazy { ((activity) as MainActivity).animalService }
     private var disposable: Disposable? = null
 
     // current state

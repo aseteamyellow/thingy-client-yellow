@@ -40,8 +40,8 @@ class EnvironmentFragment : Fragment() {
     private lateinit var viewVideoButton: Button
 
     // Api call
-    private val environmentService by lazy { DyrEnvironmentService.create() }
-    private val animalService by lazy { DyrAnimalService.create() }
+    private val environmentService by lazy { ((activity) as MainActivity).environmentService }
+    private val animalService by lazy { ((activity) as MainActivity).animalService }
     private var disposable: Disposable? = null
 
 

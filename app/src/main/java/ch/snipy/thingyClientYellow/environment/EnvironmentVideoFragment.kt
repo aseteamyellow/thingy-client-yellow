@@ -28,7 +28,7 @@ class EnvironmentVideoFragment : Fragment() {
 
     private lateinit var environment: Environment
 
-    private val environmentService by lazy { DyrEnvironmentService.create() }
+    private val environmentService by lazy { ((activity) as MainActivity).environmentService }
     private var disposable: Disposable? = null
 
     private lateinit var videoThread: Thread

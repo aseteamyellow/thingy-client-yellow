@@ -33,7 +33,7 @@ class EnvironmentsFragment : Fragment() {
     private lateinit var listener: EnvironmentsItemViewListener
 
     // For API call
-    private val environmentService by lazy { DyrEnvironmentService.create() }
+    private val environmentService by lazy { ((activity) as MainActivity).environmentService }
     private var disposable: Disposable? = null
 
     companion object {

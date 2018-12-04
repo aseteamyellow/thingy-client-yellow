@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import ch.snipy.thingyClientYellow.Environment
 import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
-import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -21,7 +20,7 @@ class EnvironmentCreationFragment : Fragment() {
     private val loggingTag = "ENVIRONMENT_CREATION"
 
     // For API call
-    private val environmentService by lazy { DyrEnvironmentService.create() }
+    private val environmentService by lazy { ((activity) as MainActivity).environmentService }
     private var disposable: Disposable? = null
 
     // UI field

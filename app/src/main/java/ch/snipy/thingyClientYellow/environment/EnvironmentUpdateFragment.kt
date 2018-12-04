@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import ch.snipy.thingyClientYellow.Environment
+import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
 import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,7 +40,7 @@ class EnvironmentUpdateFragment : Fragment() {
     private lateinit var environment: Environment
 
     // For API call
-    private val environmentService by lazy { DyrEnvironmentService.create() }
+    private val environmentService by lazy { ((activity) as MainActivity).environmentService }
     private var disposable: Disposable? = null
 
     companion object {
