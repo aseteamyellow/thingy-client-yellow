@@ -21,7 +21,7 @@ interface DyrAccountService {
     fun delete(@Path("userId") userId: Int): Observable<String>
 
     companion object Factory : DyrServiceFactory {
-        fun create(): DyrAccountService {
+        fun create(baseUrl: String): DyrAccountService {
             val retrofit = Retrofit.Builder()
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

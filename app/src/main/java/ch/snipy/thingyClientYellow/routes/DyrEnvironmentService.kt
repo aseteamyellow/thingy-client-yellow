@@ -30,7 +30,7 @@ interface DyrEnvironmentService {
     fun enableNotification(@Path("envId") envId: Id, @Body body: Map<String, String>): Observable<String>
 
     companion object Factory : DyrServiceFactory {
-        fun create(): DyrEnvironmentService {
+        fun create(baseUrl: String): DyrEnvironmentService {
             val retrofit = Retrofit.Builder()
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

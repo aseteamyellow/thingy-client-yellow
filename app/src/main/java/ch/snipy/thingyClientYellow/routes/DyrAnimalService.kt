@@ -29,7 +29,7 @@ interface DyrAnimalService {
     fun deleteAnimal(@Path("animalId") animalId: Id): Observable<ResponseBody>
 
     companion object Factory : DyrServiceFactory {
-        fun create(): DyrAnimalService {
+        fun create(baseUrl: String): DyrAnimalService {
             val retrofit = Retrofit.Builder()
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
