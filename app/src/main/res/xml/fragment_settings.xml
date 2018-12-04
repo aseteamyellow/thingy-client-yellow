@@ -12,7 +12,7 @@
         <EditTextPreference
                 android:key="pref_server_ip"
                 android:title="Dyr Server IP Address"
-                android:summary=""
+                android:summary="163.172.130.246"
                 />
     </PreferenceCategory>
 </PreferenceScreen>
