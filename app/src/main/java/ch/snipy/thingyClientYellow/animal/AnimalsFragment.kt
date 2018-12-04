@@ -46,7 +46,7 @@ class AnimalsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        disposable = animalService.getAllAnimals(environmentId)
+        disposable = animalService.getAllAnimalsForAnEnvironment(environmentId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

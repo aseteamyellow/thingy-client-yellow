@@ -5,9 +5,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
 interface DyrServiceFactory {
-    val baseUrl: String
-        // get() = "http://10.0.2.2:8080"
-        get() = "http://163.172.130.246:8080" // VPS @ UniFR
     val client: OkHttpClient
         get() {
             val logging = HttpLoggingInterceptor()

@@ -7,10 +7,11 @@ typealias Id = Int
 typealias IP = Tuple4<Int, Int, Int, Int>
 
 data class User(
-    @SerializedName("token") val token: Token?,
-    @SerializedName("id") val id: Id?,
+    @SerializedName("token") val token: Token? = null,
+    @SerializedName("id") val id: Id? = null,
     @SerializedName("email") val email: String,
-    @SerializedName("password") val password: String
+    @SerializedName("password") val password: String,
+    @SerializedName("firebase_token") val firebaseToken: Int? = null
 )
 
 data class Environment(
