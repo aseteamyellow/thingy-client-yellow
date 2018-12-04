@@ -29,12 +29,12 @@ interface DyrAnimalService {
     fun deleteAnimal(@Path("animalId") animalId: Id): Observable<ResponseBody>
 
     companion object Factory : DyrServiceFactory {
-        fun create(baseUrl: String): DyrAnimalService {
+        fun create(ipAddress: String = defaultIpAddress): DyrAnimalService {
             val retrofit = Retrofit.Builder()
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("$baseUrl/animal/")
+                .baseUrl("http://$ipAddress/animal/")
                 .build()
             return retrofit.create(DyrAnimalService::class.java)
         }

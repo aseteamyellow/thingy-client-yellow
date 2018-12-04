@@ -30,12 +30,12 @@ interface DyrEnvironmentService {
     fun enableNotification(@Path("envId") envId: Id, @Body body: Map<String, String>): Observable<String>
 
     companion object Factory : DyrServiceFactory {
-        fun create(baseUrl: String): DyrEnvironmentService {
+        fun create(ipAddress: String = defaultIpAddress): DyrEnvironmentService {
             val retrofit = Retrofit.Builder()
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("$baseUrl/environment/")
+                .baseUrl("http://$ipAddress/environment/")
                 .build()
             return retrofit.create(DyrEnvironmentService::class.java)
         }

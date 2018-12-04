@@ -17,14 +17,10 @@ import androidx.fragment.app.FragmentTransaction
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-
 class RegisterLoginActivity : UserAbstractFragmentActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        sharedPref = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE)
 
         // For network access
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()

@@ -17,29 +17,30 @@ abstract class UserAbstractFragmentActivity : AppCompatActivity() {
     lateinit var sharedPref: SharedPreferences
 
     // API call
-    val accountService by lazy { DyrAccountService.create() }
-    val environmentService by lazy { DyrEnvironmentService.create() }
-    val animalService by lazy { DyrAnimalService.create() }
+    lateinit var accountService: DyrAccountService
+    lateinit var environmentService: DyrEnvironmentService
+    lateinit var animalService: DyrAnimalService
 
     // utility to terminate correctly the call to the services
     var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-
-        // init shared preference
-        sharedPref = getPreferences(Context.MODE_PRIVATE)!!
+        init()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // init shared preference
-        sharedPref = getPreferences(Context.MODE_PRIVATE)!!
+        init()
     }
 
     fun userId(): Int = sharedPref.getInt(getString(R.string.userId), -1)
     fun userToken(): Token = sharedPref.getString(getString(R.string.tokenId), "undefined")!!
+
+    private fun init() {
+        // init shared preference
+        sharedPref = getPreferences(Context.MODE_PRIVATE)!!
+    }
 
     @SuppressLint("ApplySharedPref")
     fun updateSharedPref(user: User) {

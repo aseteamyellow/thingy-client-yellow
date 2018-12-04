@@ -21,12 +21,12 @@ interface DyrAccountService {
     fun delete(@Path("userId") userId: Int): Observable<String>
 
     companion object Factory : DyrServiceFactory {
-        fun create(baseUrl: String): DyrAccountService {
+        fun create(ipAddress: String = defaultIpAddress): DyrAccountService {
             val retrofit = Retrofit.Builder()
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("$baseUrl/account/")
+                .baseUrl("http://$ipAddress/account/")
                 .build()
             return retrofit.create(DyrAccountService::class.java)
         }
