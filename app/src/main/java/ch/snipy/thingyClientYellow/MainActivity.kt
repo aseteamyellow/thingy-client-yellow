@@ -31,9 +31,6 @@ class MainActivity : UserAbstractFragmentActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Shared preferences for user token and id storage
-        sharedPref = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE)
-
         // Drawer
         drawerLayout = findViewById(R.id.drawer_layout)
 

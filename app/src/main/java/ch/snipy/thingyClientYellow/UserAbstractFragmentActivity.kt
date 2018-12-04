@@ -39,7 +39,13 @@ abstract class UserAbstractFragmentActivity : AppCompatActivity() {
 
     private fun init() {
         // init shared preference
-        sharedPref = getPreferences(Context.MODE_PRIVATE)!!
+        sharedPref = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE)
+
+        // init retrofit helper
+        // TODO use user defined ip address ?
+        accountService = DyrAccountService.create()
+        environmentService = DyrEnvironmentService.create()
+        animalService = DyrAnimalService.create()
     }
 
     @SuppressLint("ApplySharedPref")
@@ -49,5 +55,6 @@ abstract class UserAbstractFragmentActivity : AppCompatActivity() {
             putString(getString(R.string.tokenId), user.token ?: "undefined")
             commit()
         }
+        assert(sharedPref.getInt(getString(R.string.userId), -1) ?: -1 != -1)
     }
 }
