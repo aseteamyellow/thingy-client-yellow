@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ch.snipy.thingyClientYellow.Animal
 import ch.snipy.thingyClientYellow.AnimalsItemViewListener
-import ch.snipy.thingyClientYellow.Id
 import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
-import ch.snipy.thingyClientYellow.routes.DyrAnimalService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -21,6 +20,9 @@ class AnimalsFragment : Fragment() {
 
     // For logging
     private val loggingTag = "ANIMALS_FRAGMENT"
+
+    // data container
+    private val animals: MutableList<Animal> = mutableListOf()
 
     // For the recycler view
     private lateinit var recyclerView: RecyclerView
@@ -32,14 +34,10 @@ class AnimalsFragment : Fragment() {
     private val animalService by lazy { ((activity) as MainActivity).animalService }
     private var disposable: Disposable? = null
 
-    // current state
-    private var environmentId: Id = -1
-
     companion object {
-        fun newInstance(animalsItemViewListener: AnimalsItemViewListener, environmentId: Id): AnimalsFragment {
+        fun newInstance(animalsItemViewListener: AnimalsItemViewListener): AnimalsFragment {
             val fragment = AnimalsFragment()
             fragment.listener = animalsItemViewListener
-            fragment.environmentId = environmentId
             return fragment
         }
 
@@ -47,12 +45,14 @@ class AnimalsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        disposable = animalService.getAllAnimalsForAnEnvironment(environmentId)
+        disposable = animalService.getAllAnimals(((activity) as MainActivity).userId())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
-                    Log.d(loggingTag, result.toString())
+                    animals.clear()
+                    animals.addAll(result)
+                    recyclerView.adapter?.notifyDataSetChanged()
                 },
                 { error ->
                     Log.e(loggingTag, error.toString())
@@ -70,7 +70,7 @@ class AnimalsFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = AnimalAdapter(
-                dataset = mutableListOf(),
+                dataset = animals,
                 context = context!!,
                 listener = listener
 
