@@ -65,8 +65,7 @@ class MainActivity : UserAbstractFragmentActivity(),
                 supportFragmentManager.beginTransaction()
                     .replace(
                         R.id.main_activity_frame_layout, AnimalsFragment.newInstance(
-                            this,
-                            1 // TODO
+                            this
                         )
                     )
                     .addToBackStack(null)
