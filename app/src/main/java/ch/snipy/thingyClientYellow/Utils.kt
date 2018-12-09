@@ -1,10 +1,24 @@
 package ch.snipy.thingyClientYellow
 
-data class Tuple1<out A>(val _1: A)
-data class Tuple2<out A, out B>(val _1: A, val _2: B)
-data class Tuple3<out A, out B, out C>(val _1: A, val _2: B, val _3: C)
-data class Tuple4<out A, out B, out C, out D>(val _1: A, val _2: B, val _3: C, val _4: D)
-data class Tuple5<out A, out B, out C, out D, out E>(val _1: A, val _2: B, val _3: C, val _4: D, val _5: E)
+data class Tuple1<out A>(val _1: A) {
+    override fun toString(): String = "($_1)"
+}
+
+data class Tuple2<out A, out B>(val _1: A, val _2: B) {
+    override fun toString(): String = "($_1,$_2)"
+}
+
+data class Tuple3<out A, out B, out C>(val _1: A, val _2: B, val _3: C) {
+    override fun toString(): String = "($_1,$_2,$_3)"
+}
+
+data class Tuple4<out A, out B, out C, out D>(val _1: A, val _2: B, val _3: C, val _4: D) {
+    override fun toString(): String = "($_1,$_2,$_2,$_3,$_4)"
+}
+
+data class Tuple5<out A, out B, out C, out D, out E>(val _1: A, val _2: B, val _3: C, val _4: D, val _5: E) {
+    override fun toString(): String = "($_1,$_2,$_3,$_4,$_5)"
+}
 
 object Tuple {
     operator fun <A> invoke(_1: A): Tuple1<A> =
@@ -31,5 +45,5 @@ object Thingy {
 // Raspeberry pi 3 IP
 object Raspberry {
     val ip: IP = Tuple(172, 22, 22, 1)
-    val ipString : String = "${ip._1}.${ip._2}.${ip._3}.${ip._4}"
+    val ipString: String = "${ip._1}.${ip._2}.${ip._3}.${ip._4}"
 }
