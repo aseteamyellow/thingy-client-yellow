@@ -77,4 +77,5 @@
     <string name="ip_camera">Camera</string>
     <string name="userEmailSharedPref">userEmailSharedPref</string>
     <string name="userPasswordSharedPref">userPasswordSharedPref</string>
+    <string name="firebaseData">firebaseOnNewTokenData</string>
 </resources>

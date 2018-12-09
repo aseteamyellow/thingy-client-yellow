@@ -3,9 +3,11 @@ package ch.snipy.thingyClientYellow
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -13,7 +15,11 @@ import com.google.firebase.messaging.RemoteMessage
 
 class DyrNotificationService : FirebaseMessagingService() {
 
+    // For logging
     private val loggingTag = "DYR_NOTIFICATION_SERVICE"
+
+    // to broadcast data to the main activity
+    private lateinit var broadcaster: LocalBroadcastManager
 
     override fun onCreate() {
         super.onCreate()
@@ -31,11 +37,16 @@ class DyrNotificationService : FirebaseMessagingService() {
 
         Log.d(loggingTag, "Create the notification channel")
         createNotificationChannel()
+
+        Log.d(loggingTag, "init the broadcaster")
+        broadcaster = LocalBroadcastManager.getInstance(this)
     }
 
     override fun onNewToken(token: String?) {
         Log.d(loggingTag, "Refreshed token :$token")
-        sendRegistrationToServer(token)
+        val intent = Intent(getString(R.string.firebaseData))
+        intent.putExtra("token", token)
+        broadcaster.sendBroadcast(intent)
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
@@ -61,12 +72,8 @@ class DyrNotificationService : FirebaseMessagingService() {
         val notificationId = 1
 
         with(NotificationManagerCompat.from(this)) {
-            notify(notificationId,notificationBuilder.build())
+            notify(notificationId, notificationBuilder.build())
         }
-    }
-
-    private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement this method to send token to your app server.
     }
 
     private fun createNotificationChannel() {
