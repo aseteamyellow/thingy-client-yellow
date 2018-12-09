@@ -18,7 +18,7 @@ interface DyrAnimalTypeService {
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://$ipAddress/environment/")
+                .baseUrl("http://$ipAddress/")
                 .build()
             return retrofit.create(DyrAnimalTypeService::class.java)
         }
