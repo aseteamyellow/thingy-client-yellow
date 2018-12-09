@@ -11,7 +11,7 @@ data class User(
     @SerializedName("id") val id: Id? = null,
     @SerializedName("email") val email: String,
     @SerializedName("password") val password: String,
-    @SerializedName("firebase_token") val firebaseToken: Int? = null
+    @SerializedName("firebase_token") val firebaseToken: String? = null
 )
 
 data class Environment(
