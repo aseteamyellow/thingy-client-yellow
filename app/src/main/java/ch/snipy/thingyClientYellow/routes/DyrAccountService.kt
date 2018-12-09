@@ -15,7 +15,7 @@ interface DyrAccountService {
     fun connect(@Body body: User): Observable<User>
 
     @PATCH("update/{userId}")
-    fun update(@Path("userId") userId: Int): Observable<User>
+    fun update(@Path("userId") userId: Int, @Body body: User): Observable<User>
 
     @DELETE("delete/{userId}")
     fun delete(@Path("userId") userId: Int): Observable<String>
