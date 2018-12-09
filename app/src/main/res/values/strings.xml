@@ -75,4 +75,6 @@
     <string name="max">max</string>
     <string name="thingy">Thingy</string>
     <string name="ip_camera">Camera</string>
+    <string name="userEmailSharedPref">userEmailSharedPref</string>
+    <string name="userPasswordSharedPref">userPasswordSharedPref</string>
 </resources>
