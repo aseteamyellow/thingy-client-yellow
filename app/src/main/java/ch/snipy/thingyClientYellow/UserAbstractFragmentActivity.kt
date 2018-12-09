@@ -8,6 +8,7 @@ import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import ch.snipy.thingyClientYellow.routes.DyrAccountService
 import ch.snipy.thingyClientYellow.routes.DyrAnimalService
+import ch.snipy.thingyClientYellow.routes.DyrAnimalTypeService
 import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.disposables.Disposable
 
@@ -20,6 +21,7 @@ abstract class UserAbstractFragmentActivity : AppCompatActivity() {
     lateinit var accountService: DyrAccountService
     lateinit var environmentService: DyrEnvironmentService
     lateinit var animalService: DyrAnimalService
+    lateinit var animalTypeService: DyrAnimalTypeService
 
     // utility to terminate correctly the call to the services
     var disposable: Disposable? = null
@@ -46,6 +48,7 @@ abstract class UserAbstractFragmentActivity : AppCompatActivity() {
         accountService = DyrAccountService.create()
         environmentService = DyrEnvironmentService.create()
         animalService = DyrAnimalService.create()
+        animalTypeService = DyrAnimalTypeService.create()
     }
 
     @SuppressLint("ApplySharedPref")
