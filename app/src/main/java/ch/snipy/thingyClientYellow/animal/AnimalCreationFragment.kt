@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 class AnimalCreationFragment : Fragment() {
 
     // For logging
-    private val loggingTag = "ENVIRONMENT_CREATION"
+    private val loggingTag = "ANIMAL_CREATION_FRAGMENT"
 
     // UI field
     private lateinit var name: EditText
@@ -55,7 +55,7 @@ class AnimalCreationFragment : Fragment() {
             .subscribe(
                 { result ->
                     animalsTypes = result
-                    Log.d(loggingTag, result.toString())
+                    Log.d(loggingTag, result.map { Tuple(it.id, it.type) }.toString())
                 },
                 { error ->
                     Log.e(loggingTag, error.toString())
