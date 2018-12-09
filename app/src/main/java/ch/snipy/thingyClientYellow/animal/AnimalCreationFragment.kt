@@ -9,10 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import ch.snipy.thingyClientYellow.Animal
-import ch.snipy.thingyClientYellow.Environment
-import ch.snipy.thingyClientYellow.MainActivity
-import ch.snipy.thingyClientYellow.R
+import ch.snipy.thingyClientYellow.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -33,8 +30,12 @@ class AnimalCreationFragment : Fragment() {
     // The current environment
     private lateinit var environment: Environment
 
+    // types for an animal
+    private lateinit var animalsTypes: List<AnimalType>
+
     // For API call
     private val animalService by lazy { ((activity) as MainActivity).animalService }
+    private val animalTypeService by lazy { ((activity) as MainActivity).animalTypeService }
     private var disposable: Disposable? = null
 
     companion object {
@@ -43,6 +44,23 @@ class AnimalCreationFragment : Fragment() {
             fragment.environment = environment
             return fragment
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        disposable = animalTypeService.getAnimalTypes()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    animalsTypes = result
+                    Log.d(loggingTag, result.toString())
+                },
+                { error ->
+                    Log.e(loggingTag, error.toString())
+                }
+            )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
