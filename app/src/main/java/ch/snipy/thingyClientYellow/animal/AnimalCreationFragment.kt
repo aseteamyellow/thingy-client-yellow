@@ -95,7 +95,8 @@ class AnimalCreationFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         disposable = animalService.createAnimal(
             environment.id ?: -1, Animal(
-                name = name.text.toString()
+                name = name.text.toString(),
+                animalTypeId = spinner.selectedItemPosition
             )
         )
             .subscribeOn(Schedulers.io())
