@@ -2,6 +2,7 @@ package ch.snipy.thingyClientYellow.routes
 
 import ch.snipy.thingyClientYellow.User
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +19,7 @@ interface DyrAccountService {
     fun update(@Path("userId") userId: Int, @Body body: User): Observable<User>
 
     @DELETE("delete/{userId}")
-    fun delete(@Path("userId") userId: Int): Observable<String>
+    fun delete(@Path("userId") userId: Int): Observable<ResponseBody>
 
     companion object Factory : DyrServiceFactory {
         fun create(ipAddress: String = defaultIpAddress): DyrAccountService {
