@@ -38,7 +38,8 @@ abstract class UserAbstractFragmentActivity : AppCompatActivity() {
 
     fun userId(): Int = sharedPref.getInt(getString(R.string.userId), -1)
     fun userToken(): Token = sharedPref.getString(getString(R.string.tokenId), "undefined")!!
-    fun userEmail(): String = sharedPref.getString("userEmail","undefined")!!
+    fun userEmail(): String = sharedPref.getString(getString(R.string.userEmailSharedPref), "undefined")!!
+    fun userPassword(): String = sharedPref.getString(getString(R.string.userPasswordSharedPref), "undefined")!!
 
     private fun init() {
         // init shared preference
@@ -57,7 +58,8 @@ abstract class UserAbstractFragmentActivity : AppCompatActivity() {
         with(sharedPref.edit()) {
             putInt(getString(R.string.userId), user.id ?: -1)
             putString(getString(R.string.tokenId), user.token ?: "undefined")
-            putString("userEmail", user.email)
+            putString(getString(R.string.userEmailSharedPref), user.email)
+            putString(getString(R.string.userPasswordSharedPref), user.password)
             commit()
         }
         assert(sharedPref.getInt(getString(R.string.userId), -1) ?: -1 != -1)
