@@ -22,6 +22,7 @@ import okhttp3.ResponseBody
 
 class MainActivity : UserAbstractFragmentActivity(),
                      EnvironmentsItemViewListener,
+                     NewTokenListener,
                      AnimalsItemViewListener {
 
     private val loggingTag = "MAIN_ACTIVITY"
@@ -145,6 +146,29 @@ class MainActivity : UserAbstractFragmentActivity(),
     fun setUserMenu() {
         //findViewById<TextView>(R.id.header_title).text = "Connected as " + userId().toString()
         navigationView.getHeaderView(0).findViewById<TextView>(R.id.header_title).text = "Connected as " + userEmail()
+    }
+
+    override fun onNewToken(token: String?) {
+        disposable = accountService.update(
+            userId(), User(
+                token = userToken(),
+                id = userId(),
+                email = userEmail(),
+                password = userPassword(),
+                firebaseToken = token
+            )
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { user ->
+                    updateSharedPref(user)
+                    Log.d(loggingTag, "update the user : " + user.toString())
+                },
+                { error ->
+                    Log.e(loggingTag, error.toString())
+                }
+            )
     }
 
 }
