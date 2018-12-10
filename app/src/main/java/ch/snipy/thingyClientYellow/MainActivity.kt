@@ -1,14 +1,17 @@
 package ch.snipy.thingyClientYellow
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import ch.snipy.thingyClientYellow.animal.AnimalCreationFragment
 import ch.snipy.thingyClientYellow.animal.AnimalFragment
 import ch.snipy.thingyClientYellow.animal.AnimalsFragment
@@ -22,7 +25,6 @@ import okhttp3.ResponseBody
 
 class MainActivity : UserAbstractFragmentActivity(),
                      EnvironmentsItemViewListener,
-                     NewTokenListener,
                      AnimalsItemViewListener {
 
     private val loggingTag = "MAIN_ACTIVITY"
@@ -39,6 +41,12 @@ class MainActivity : UserAbstractFragmentActivity(),
 
         navigationView = findViewById(R.id.navigation_view)
         navigationView.setNavigationItemSelectedListener(::onSelectDrawerItem)
+
+        // filter the broadcast
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+            mainActivityBroacastReceiver,
+            IntentFilter(getString(R.string.firebaseData))
+        )
 
         // Start the notification service
         startService(Intent(this, DyrNotificationService::class.java))
@@ -148,11 +156,9 @@ class MainActivity : UserAbstractFragmentActivity(),
         navigationView.getHeaderView(0).findViewById<TextView>(R.id.header_title).text = "Connected as " + userEmail()
     }
 
-    override fun onNewToken(token: String?) {
+    fun onNewToken(token: String?) {
         disposable = accountService.update(
             userId(), User(
-                token = userToken(),
-                id = userId(),
                 email = userEmail(),
                 password = userPassword(),
                 firebaseToken = token
@@ -171,4 +177,12 @@ class MainActivity : UserAbstractFragmentActivity(),
             )
     }
 
+    private val mainActivityBroacastReceiver = object : BroadcastReceiver() {
+        // From broadcastReceiver
+        override fun onReceive(context: Context?, intent: Intent?) {
+            onNewToken(
+                intent?.extras?.getString("token")
+            )
+        }
+    }
 }
