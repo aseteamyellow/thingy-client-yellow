@@ -30,9 +30,10 @@ class DyrNotificationService : FirebaseMessagingService() {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener {
                 if (!it.isSuccessful) {
-                    Log.w(loggingTag, "getInstaceId failed", it.exception)
+                    Log.w(loggingTag, "getInstanceId failed", it.exception)
                 }
                 Log.d(loggingTag, "Token : ${it.result?.token}")
+                onNewToken(it.result?.token)
             }
 
         Log.d(loggingTag, "Create the notification channel")
