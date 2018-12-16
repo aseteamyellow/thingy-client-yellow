@@ -1,5 +1,6 @@
 package ch.snipy.thingyClientYellow.routes
 
+import ch.snipy.thingyClientYellow.Token
 import ch.snipy.thingyClientYellow.User
 import io.reactivex.Observable
 import okhttp3.ResponseBody
@@ -10,16 +11,16 @@ import retrofit2.http.*
 
 interface DyrAccountService {
     @POST("register")
-    fun register(@Body body: User): Observable<User>
+    fun register(@Header("token") token: Token, @Body body: User): Observable<User>
 
     @POST("connect")
-    fun connect(@Body body: User): Observable<User>
+    fun connect(@Header("token") token: Token, @Body body: User): Observable<User>
 
     @PATCH("update/{userId}")
-    fun update(@Path("userId") userId: Int, @Body body: User): Observable<User>
+    fun update(@Header("token") token: Token, @Path("userId") userId: Int, @Body body: User): Observable<User>
 
     @DELETE("delete/{userId}")
-    fun delete(@Path("userId") userId: Int): Observable<ResponseBody>
+    fun delete(@Header("token") token: Token, @Path("userId") userId: Int): Observable<ResponseBody>
 
     companion object Factory : DyrServiceFactory {
         fun create(ipAddress: String = defaultIpAddress): DyrAccountService {
