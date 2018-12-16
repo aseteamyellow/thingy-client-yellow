@@ -2,7 +2,6 @@ package ch.snipy.thingyClientYellow.environment
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.text.Editable
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,15 +10,12 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.*
 import ch.snipy.thingyClientYellow.animal.AnimalAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.plugins.RxJavaPlugins.onError
 import io.reactivex.schedulers.Schedulers
-import okhttp3.ResponseBody
 
 class EnvironmentFragment : Fragment() {
 
@@ -67,7 +63,7 @@ class EnvironmentFragment : Fragment() {
     // Api call
     private val environmentService by lazy { ((activity) as MainActivity).environmentService }
     private val animalService by lazy { ((activity) as MainActivity).animalService }
-    private val animalTypesService by lazy { ((activity) as MainActivity).animalTypeService}
+    private val animalTypesService by lazy { ((activity) as MainActivity).animalTypeService }
     private var disposable: Disposable? = null
 
 
@@ -114,7 +110,7 @@ class EnvironmentFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_environment, container, false)
 
-        disposable = animalTypesService.getAnimalTypes()
+        disposable = animalTypesService.getAnimalTypes(token = (activity as MainActivity).userToken())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -122,7 +118,7 @@ class EnvironmentFragment : Fragment() {
                     recyclerView = rootView.findViewById<RecyclerView>(R.id.environment_recycler_view).apply {
                         setHasFixedSize(true)
                         //layoutManager = LinearLayoutManager(activity)
-                        layoutManager = GridLayoutManager(context!!,2)
+                        layoutManager = GridLayoutManager(context!!, 2)
                         adapter = AnimalAdapter(
                             dataset = animalsList,
                             context = context!!,
@@ -176,8 +172,8 @@ class EnvironmentFragment : Fragment() {
         if (!environment.piCamera.isEmpty()) camera.text = environment.piCamera
 
         val iconWithoutHeader = environment.icon!!.substring(22)
-        val imageBytes = Base64.decode(iconWithoutHeader,0)
-        val decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+        val imageBytes = Base64.decode(iconWithoutHeader, 0)
+        val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
         environmentIcon.setImageBitmap(decodedImage)
 
         when (environment.envType) {
@@ -185,7 +181,8 @@ class EnvironmentFragment : Fragment() {
             "aquarium" -> environmentTypeImage.setImageResource(R.mipmap.env_aquarium)
             "aquaterrarium" -> environmentTypeImage.setImageResource(R.mipmap.env_aquaterrarium)
         }
-        environmentTypeLabel.text = environment.envType.replaceFirst(environment.envType[0],environment.envType.get(0).toUpperCase())
+        environmentTypeLabel.text =
+                environment.envType.replaceFirst(environment.envType[0], environment.envType.get(0).toUpperCase())
 
         notifTemperature.isChecked = environment.temperatureNotification == 1
         notifAirQuality.isChecked = environment.air_qualityNotification == 1
@@ -220,6 +217,7 @@ class EnvironmentFragment : Fragment() {
     }
 
     private fun onClickViewVideo(view: View) {
+        Log.d(loggingTag, "onClick view video from the view ${view.id}")
         (activity as MainActivity).supportFragmentManager.beginTransaction()
             .replace(R.id.main_activity_frame_layout, EnvironmentVideoFragment.newInstance(environment))
             .addToBackStack(null)
@@ -244,9 +242,12 @@ class EnvironmentFragment : Fragment() {
 
     private fun onClickDeleteEnvironment(view: View) {
         Log.d(loggingTag, "On click delete environment from view : ${view.id}")
-        disposable = environmentService.deleteEnvironment(envId = environment.id ?: -1)
+        disposable = environmentService.deleteEnvironment(
+            token = (activity as MainActivity).userToken(),
+            envId = environment.id ?: -1
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({it!! ; Unit; fragmentManager?.popBackStack()}, {it!! ; Unit})
+            .subscribe({ it!!; Unit; fragmentManager?.popBackStack() }, { it!!; Unit })
     }
 }
