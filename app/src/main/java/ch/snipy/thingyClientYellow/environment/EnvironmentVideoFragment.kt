@@ -69,6 +69,7 @@ class EnvironmentVideoFragment : Fragment() {
                         start = true,
                         isDaemon = true
                     ) {
+                        Log.d(loggingTag, "receive environment inside the thread : $environment")
                         while (isOn) {
                             val result = URL("http://192.168.43.128:8080").readText()
                             Log.d(loggingTag, result)

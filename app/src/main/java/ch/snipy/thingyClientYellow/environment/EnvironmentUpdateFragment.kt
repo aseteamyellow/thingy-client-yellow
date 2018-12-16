@@ -276,7 +276,7 @@ class EnvironmentUpdateFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { environment ->
-                    Log.d(loggingTag, "environment update success")
+                    Log.d(loggingTag, "environment update success $environment")
                     Toast.makeText(activity, "environment successfully updated", Toast.LENGTH_SHORT).show()
                     fragmentManager?.popBackStack()
                     fragmentManager?.popBackStack() // quite ugly
