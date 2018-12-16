@@ -132,7 +132,7 @@ class MainActivity : UserAbstractFragmentActivity(),
         onSuccess: (ResponseBody) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        disposable = animalService.deleteAnimal(animalId = animal.id ?: -1)
+        disposable = animalService.deleteAnimal(token = userToken(), animalId = animal.id ?: -1)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onSuccess(it) }, { onError(it) })
@@ -144,7 +144,7 @@ class MainActivity : UserAbstractFragmentActivity(),
         onSuccess: (ResponseBody) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        disposable = environmentService.deleteEnvironment(envId = environment.id ?: -1)
+        disposable = environmentService.deleteEnvironment(token = userToken(), envId = environment.id ?: -1)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onSuccess(it) }, { onError(it) })
@@ -158,7 +158,9 @@ class MainActivity : UserAbstractFragmentActivity(),
 
     fun onNewToken(token: String?) {
         disposable = accountService.update(
-            userId(), User(
+            token = userToken(),
+            userId = userId(),
+            body = User(
                 email = userEmail(),
                 password = userPassword(),
                 firebaseToken = token

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import ch.snipy.thingyClientYellow.Environment
 import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
-import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -58,7 +57,10 @@ class EnvironmentVideoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isOn = true
-        disposable = environmentService.getEnvironment(environment.id ?: -1)
+        disposable = environmentService.getEnvironment(
+            token = (activity as MainActivity).userToken(),
+            envId = environment.id ?: -1
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

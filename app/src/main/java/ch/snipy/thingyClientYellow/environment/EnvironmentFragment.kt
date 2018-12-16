@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.*
 import ch.snipy.thingyClientYellow.animal.AnimalAdapter
-import ch.snipy.thingyClientYellow.routes.DyrAnimalService
-import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.plugins.RxJavaPlugins.onError
@@ -93,7 +91,10 @@ class EnvironmentFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        disposable = animalService.getAllAnimalsForAnEnvironment(environment.id ?: -1) // quite ugly...
+        disposable = animalService.getAllAnimalsForAnEnvironment(
+            token = (activity as MainActivity).userToken(),
+            environmentId = environment.id ?: -1
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

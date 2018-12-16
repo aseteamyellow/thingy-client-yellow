@@ -106,8 +106,9 @@ class AnimalUpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
         Log.d(loggingTag, "update button callback, id : ${view.id}")
 
         disposable = animalService.updateAnimal(
-            animal.id ?: -1,
-            Animal(
+            token = (activity as MainActivity).userToken(),
+            animalId = animal.id ?: -1,
+            body = Animal(
                 id = animal.id,
                 name = name.text.toString()
             )

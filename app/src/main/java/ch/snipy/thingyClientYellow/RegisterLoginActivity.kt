@@ -85,7 +85,7 @@ class RegisterLoginActivity : UserAbstractFragmentActivity() {
         bar.visibility = VISIBLE
 
         disposable =
-                accountService.connect(User(null, null, email, password))
+                accountService.connect(body = User(null, null, email, password))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

@@ -6,13 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ch.snipy.thingyClientYellow.*
-import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
+import ch.snipy.thingyClientYellow.Environment
+import ch.snipy.thingyClientYellow.EnvironmentsItemViewListener
+import ch.snipy.thingyClientYellow.MainActivity
+import ch.snipy.thingyClientYellow.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -49,7 +49,10 @@ class EnvironmentsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        disposable = environmentService.getEnvironments((activity as MainActivity).userId())
+        disposable = environmentService.getEnvironments(
+            token = (activity as MainActivity).userToken(),
+            userId = (activity as MainActivity).userId()
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

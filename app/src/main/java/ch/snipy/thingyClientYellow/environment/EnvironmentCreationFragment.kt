@@ -201,8 +201,9 @@ class EnvironmentCreationFragment : Fragment() {
 
 
         disposable = environmentService.createEnvironment(
-            (activity as MainActivity).userId(),
-            Environment(
+            token = (activity as MainActivity).userToken(),
+            userId = (activity as MainActivity).userId(),
+            body = Environment(
                 name = name.text.toString(),
                 envType = when (radioGroup.checkedRadioButtonId) {
                     R.id.environment_creation_aquaterrarium_button -> "aquaterrarium"

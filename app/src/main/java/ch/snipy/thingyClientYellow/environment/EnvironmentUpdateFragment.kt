@@ -18,8 +18,6 @@ import androidx.fragment.app.Fragment
 import ch.snipy.thingyClientYellow.Environment
 import ch.snipy.thingyClientYellow.MainActivity
 import ch.snipy.thingyClientYellow.R
-import ch.snipy.thingyClientYellow.animal.AnimalAdapter
-import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -143,11 +141,12 @@ class EnvironmentUpdateFragment : Fragment() {
 
         if (!environment.name.isEmpty()) name.text = Editable.Factory.getInstance().newEditable(environment.name)
         if (!environment.thingy.isEmpty()) thingy.text = Editable.Factory.getInstance().newEditable(environment.thingy)
-        if (!environment.piCamera.isEmpty()) camera.text = Editable.Factory.getInstance().newEditable(environment.piCamera)
+        if (!environment.piCamera.isEmpty()) camera.text =
+                Editable.Factory.getInstance().newEditable(environment.piCamera)
 
         val iconWithoutHeader = environment.icon!!.substring(22)
-        val imageBytes = Base64.decode(iconWithoutHeader,0)
-        val decodedImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.size)
+        val imageBytes = Base64.decode(iconWithoutHeader, 0)
+        val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
         environmentIcon.setImageBitmap(decodedImage)
 
         minTemperature = rootView.findViewById(R.id.min_update_temperature)
@@ -161,16 +160,26 @@ class EnvironmentUpdateFragment : Fragment() {
         minLight = rootView.findViewById(R.id.min_update_light)
         maxLight = rootView.findViewById(R.id.max_update_light)
 
-        if (environment.temperature_min !== null) minTemperature.text = Editable.Factory.getInstance().newEditable("" + environment.temperature_min)
-        if (environment.temperature_max !== null) maxTemperature.text = Editable.Factory.getInstance().newEditable("" + environment.temperature_max)
-        if (environment.air_quality_min !== null) minAirQuality.text = Editable.Factory.getInstance().newEditable("" + environment.air_quality_min)
-        if (environment.air_quality_max !== null) maxAirQuality.text = Editable.Factory.getInstance().newEditable("" + environment.air_quality_max)
-        if (environment.humidity_min !== null) minHumidity.text = Editable.Factory.getInstance().newEditable("" + environment.humidity_min)
-        if (environment.humidity_max !== null) maxHumidity.text = Editable.Factory.getInstance().newEditable("" + environment.humidity_max)
-        if (environment.air_pressure_min !== null) minAirPressure.text = Editable.Factory.getInstance().newEditable("" + environment.air_pressure_min)
-        if (environment.air_pressure_max !== null) maxAirPressure.text = Editable.Factory.getInstance().newEditable("" + environment.air_pressure_max)
-        if (environment.light_min !== null) minLight.text = Editable.Factory.getInstance().newEditable("" + environment.light_min)
-        if (environment.light_max !== null) maxLight.text = Editable.Factory.getInstance().newEditable("" + environment.light_max)
+        if (environment.temperature_min !== null) minTemperature.text =
+                Editable.Factory.getInstance().newEditable("" + environment.temperature_min)
+        if (environment.temperature_max !== null) maxTemperature.text =
+                Editable.Factory.getInstance().newEditable("" + environment.temperature_max)
+        if (environment.air_quality_min !== null) minAirQuality.text =
+                Editable.Factory.getInstance().newEditable("" + environment.air_quality_min)
+        if (environment.air_quality_max !== null) maxAirQuality.text =
+                Editable.Factory.getInstance().newEditable("" + environment.air_quality_max)
+        if (environment.humidity_min !== null) minHumidity.text =
+                Editable.Factory.getInstance().newEditable("" + environment.humidity_min)
+        if (environment.humidity_max !== null) maxHumidity.text =
+                Editable.Factory.getInstance().newEditable("" + environment.humidity_max)
+        if (environment.air_pressure_min !== null) minAirPressure.text =
+                Editable.Factory.getInstance().newEditable("" + environment.air_pressure_min)
+        if (environment.air_pressure_max !== null) maxAirPressure.text =
+                Editable.Factory.getInstance().newEditable("" + environment.air_pressure_max)
+        if (environment.light_min !== null) minLight.text =
+                Editable.Factory.getInstance().newEditable("" + environment.light_min)
+        if (environment.light_max !== null) maxLight.text =
+                Editable.Factory.getInstance().newEditable("" + environment.light_max)
 
         notifTemperature.isChecked = environment.temperatureNotification == 1
         notifAirQuality.isChecked = environment.air_qualityNotification == 1
@@ -183,19 +192,28 @@ class EnvironmentUpdateFragment : Fragment() {
     }
 
     private fun EditText.onChange() {
-        this.addTextChangedListener(object: TextWatcher {
+        this.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 updateButton.isEnabled = name.text.isNotEmpty() && thingy.text.isNotEmpty()
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
 
-    private fun checkListener(switch:Switch, view: View) {
+    private fun checkListener(switch: Switch, view: View) {
         switch.setOnCheckedChangeListener { buttonView: CompoundButton, isChecked: Boolean ->
-            val minId = resources.getIdentifier("min_update_" + switch.text.toString().replace(' ','_').toLowerCase(), "id", context!!.packageName)
-            val maxId = resources.getIdentifier("max_update_" + switch.text.toString().replace(' ','_').toLowerCase(), "id", context!!.packageName)
+            val minId = resources.getIdentifier(
+                "min_update_" + switch.text.toString().replace(' ', '_').toLowerCase(),
+                "id",
+                context!!.packageName
+            )
+            val maxId = resources.getIdentifier(
+                "max_update_" + switch.text.toString().replace(' ', '_').toLowerCase(),
+                "id",
+                context!!.packageName
+            )
             view.findViewById<EditText>(minId).isEnabled = isChecked
             view.findViewById<EditText>(maxId).isEnabled = isChecked
         }
@@ -203,7 +221,7 @@ class EnvironmentUpdateFragment : Fragment() {
 
     private fun onClickEnvironmentIcon(view: View) {
         val intent = Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT)   // TODO Change to png
-        startActivityForResult(Intent.createChooser(intent,""),888)
+        startActivityForResult(Intent.createChooser(intent, ""), 888)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -226,8 +244,9 @@ class EnvironmentUpdateFragment : Fragment() {
         Log.d(loggingTag, "update button callback, id : ${view.id}")
 
         disposable = environmentService.updateEnvironment(
-            environment.id ?: -1,
-            environment.copy(
+            token = (activity as MainActivity).userToken(),
+            envId = environment.id ?: -1,
+            body = environment.copy(
                 name = name.text.toString(),
                 envType = when (radioGroup.checkedRadioButtonId) {
                     R.id.environment_update_aquaterrarium_button -> "aquaterrarium"

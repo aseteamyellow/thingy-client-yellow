@@ -69,7 +69,7 @@ class AnimalCreationFragment : Fragment(), AdapterView.OnItemSelectedListener {
         createButton.setOnClickListener(::onClickCreateAnimal)
 
 
-        disposable = animalTypeService.getAnimalTypes()
+        disposable = animalTypeService.getAnimalTypes(token = (activity as MainActivity).userToken())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -108,7 +108,9 @@ class AnimalCreationFragment : Fragment(), AdapterView.OnItemSelectedListener {
         Log.d(loggingTag, "create button callback, id : ${view.id}")
 
         disposable = animalService.createAnimal(
-            environment.id ?: -1, Animal(
+            token = (activity as MainActivity).userToken(),
+            environmentId = environment.id ?: -1,
+            body = Animal(
                 name = name.text.toString(),
                 animalTypeId = spinner.selectedItemPosition
             )
