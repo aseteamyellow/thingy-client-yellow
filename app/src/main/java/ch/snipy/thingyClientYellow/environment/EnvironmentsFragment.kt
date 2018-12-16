@@ -48,6 +48,7 @@ class EnvironmentsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         disposable = environmentService.getEnvironments((activity as MainActivity).userId())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -61,6 +62,7 @@ class EnvironmentsFragment : Fragment() {
                     Log.e(TAG, error.toString())
                 }
             )
+
     }
 
     @SuppressLint("SetTextI18n")
