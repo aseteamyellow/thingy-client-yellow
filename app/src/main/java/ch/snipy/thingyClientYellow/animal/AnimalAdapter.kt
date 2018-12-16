@@ -39,6 +39,8 @@ class AnimalAdapter (
     override fun onBindViewHolder(holder: AnimalAdapter.ViewHolder, position: Int) {
 
         holder.nameTextView.text = dataset[position].name
+        holder.image.setImageResource(R.drawable.ic_android_red_64dp)
+
         holder.animal = dataset[position]
 
         val iconWithoutHeader = animalTypes[dataset[position].animalTypeId].icon!!.substring(22)
