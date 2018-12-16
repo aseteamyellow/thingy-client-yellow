@@ -117,7 +117,7 @@ class AnimalUpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { animal ->
-                    Log.d(loggingTag, "animal update success")
+                    Log.d(loggingTag, "animal update success : $animal")
                     Toast.makeText(activity, "Animal successfully updated", Toast.LENGTH_SHORT).show()
                     fragmentManager?.popBackStack()
                     fragmentManager?.popBackStack() // quite ugly
