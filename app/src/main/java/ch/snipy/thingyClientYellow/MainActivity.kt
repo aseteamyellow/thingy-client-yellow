@@ -44,7 +44,7 @@ class MainActivity : UserAbstractFragmentActivity(),
 
         // filter the broadcast
         LocalBroadcastManager.getInstance(this).registerReceiver(
-            mainActivityBroacastReceiver,
+            mainActivityBroadcastReceiver,
             IntentFilter(getString(R.string.firebaseData))
         )
 
@@ -177,7 +177,7 @@ class MainActivity : UserAbstractFragmentActivity(),
             )
     }
 
-    private val mainActivityBroacastReceiver = object : BroadcastReceiver() {
+    private val mainActivityBroadcastReceiver = object : BroadcastReceiver() {
         // From broadcastReceiver
         override fun onReceive(context: Context?, intent: Intent?) {
             onNewToken(
