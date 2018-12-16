@@ -11,10 +11,10 @@ import retrofit2.http.*
 
 interface DyrAccountService {
     @POST("register")
-    fun register(@Header("token") token: Token, @Body body: User): Observable<User>
+    fun register(@Body body: User): Observable<User>
 
     @POST("connect")
-    fun connect(@Header("token") token: Token, @Body body: User): Observable<User>
+    fun connect(@Body body: User): Observable<User>
 
     @PATCH("update/{userId}")
     fun update(@Header("token") token: Token, @Path("userId") userId: Int, @Body body: User): Observable<User>
