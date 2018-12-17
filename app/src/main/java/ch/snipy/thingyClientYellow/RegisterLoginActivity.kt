@@ -119,7 +119,7 @@ class RegisterLoginActivity : UserAbstractFragmentActivity() {
         assert(password1 == password2)
 
         disposable =
-                accountService.register(User(null, null, email, password1))
+                accountService.register(User(null, null, email, password1, firebaseToken = "undefined"))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
