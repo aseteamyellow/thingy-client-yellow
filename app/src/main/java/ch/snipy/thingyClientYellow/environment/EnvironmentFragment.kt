@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.*
 import ch.snipy.thingyClientYellow.animal.AnimalAdapter
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -59,6 +62,9 @@ class EnvironmentFragment : Fragment() {
     private lateinit var updateEnvironmentButton: ImageButton
     private lateinit var deleteEnvironmentButton: ImageButton
     private lateinit var viewVideoButton: Button
+
+    // graph
+    private lateinit var graph: GraphView
 
     // Api call
     private val environmentService by lazy { ((activity) as MainActivity).environmentService }
@@ -110,12 +116,14 @@ class EnvironmentFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_environment, container, false)
 
+        recyclerView = rootView.findViewById(R.id.environment_recycler_view)
+
         disposable = animalTypesService.getAnimalTypes(token = (activity as MainActivity).userToken())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { results ->
-                    recyclerView = rootView.findViewById<RecyclerView>(R.id.environment_recycler_view).apply {
+                    recyclerView.apply {
                         setHasFixedSize(true)
                         //layoutManager = LinearLayoutManager(activity)
                         layoutManager = GridLayoutManager(context!!, 2)
@@ -182,7 +190,10 @@ class EnvironmentFragment : Fragment() {
             "aquaterrarium" -> environmentTypeImage.setImageResource(R.mipmap.env_aquaterrarium)
         }
         environmentTypeLabel.text =
-                crtEnvironment.envType.replaceFirst(crtEnvironment.envType[0], crtEnvironment.envType.get(0).toUpperCase())
+                crtEnvironment.envType.replaceFirst(
+                    crtEnvironment.envType[0],
+                    crtEnvironment.envType.get(0).toUpperCase()
+                )
 
         notifTemperature.isChecked = crtEnvironment.temperatureNotification == 1
         notifAirQuality.isChecked = crtEnvironment.air_qualityNotification == 1
@@ -212,6 +223,37 @@ class EnvironmentFragment : Fragment() {
 
         deleteEnvironmentButton = rootView.findViewById(R.id.environment_delete_button)
         deleteEnvironmentButton.setOnClickListener(::onClickDeleteEnvironment)
+
+        graph = rootView.findViewById(R.id.graph)
+
+        val series: LineGraphSeries<DataPoint> = LineGraphSeries(
+            arrayOf(
+                DataPoint(1.0, 2.0),
+                DataPoint(2.0, 3.0),
+                DataPoint(3.0, 4.0),
+                DataPoint(4.0, 5.0)
+            )
+        )
+        graph.addSeries(series)
+
+        /*
+        disposable = environmentService.getSensorsData(
+            token = (activity as MainActivity).userToken(),
+            thingyId = crtEnvironment.thingy ?: "yellow"
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    Log.d(loggingTag, "get sensor data : $result")
+
+
+                },
+                { error ->
+                    Log.e(loggingTag, "get sensor data : ${error.message}")
+                }
+            )
+            */
 
         return rootView
     }
