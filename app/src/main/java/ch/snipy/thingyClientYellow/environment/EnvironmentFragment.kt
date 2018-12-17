@@ -67,8 +67,8 @@ class EnvironmentFragment : Fragment() {
     private var disposable: Disposable? = null
 
 
-    // The current environment
-    private lateinit var environment: Environment
+    // The current crtEnvironment
+    private lateinit var crtEnvironment: Environment
 
     // data container for the animalsList
     private val animalsList: MutableList<Animal> = mutableListOf()
@@ -79,7 +79,7 @@ class EnvironmentFragment : Fragment() {
             animalsItemViewListener: AnimalsItemViewListener
         ): EnvironmentFragment {
             val fragment = EnvironmentFragment()
-            fragment.environment = environment // TODO do we need to call the api service ?
+            fragment.crtEnvironment = environment // TODO do we need to call the api service ?
             fragment.listener = animalsItemViewListener
             return fragment
         }
@@ -89,7 +89,7 @@ class EnvironmentFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         disposable = animalService.getAllAnimalsForAnEnvironment(
             token = (activity as MainActivity).userToken(),
-            environmentId = environment.id ?: -1
+            environmentId = crtEnvironment.id ?: -1
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -167,39 +167,39 @@ class EnvironmentFragment : Fragment() {
         minLight = rootView.findViewById(R.id.min_environment_light)
         maxLight = rootView.findViewById(R.id.max_environment_light)
 
-        if (!environment.name.isEmpty()) name.text = environment.name
-        if (!environment.thingy.isEmpty()) thingy.text = environment.thingy
-        if (!environment.piCamera.isEmpty()) camera.text = environment.piCamera
+        if (!crtEnvironment.name.isEmpty()) name.text = crtEnvironment.name
+        if (!crtEnvironment.thingy.isEmpty()) thingy.text = crtEnvironment.thingy
+        if (!crtEnvironment.piCamera.isEmpty()) camera.text = crtEnvironment.piCamera
 
-        val iconWithoutHeader = environment.icon!!.substring(22)
+        val iconWithoutHeader = crtEnvironment.icon!!.substring(22)
         val imageBytes = Base64.decode(iconWithoutHeader, 0)
         val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
         environmentIcon.setImageBitmap(decodedImage)
 
-        when (environment.envType) {
+        when (crtEnvironment.envType) {
             "terrarium" -> environmentTypeImage.setImageResource(R.mipmap.env_terrarium)
             "aquarium" -> environmentTypeImage.setImageResource(R.mipmap.env_aquarium)
             "aquaterrarium" -> environmentTypeImage.setImageResource(R.mipmap.env_aquaterrarium)
         }
         environmentTypeLabel.text =
-                environment.envType.replaceFirst(environment.envType[0], environment.envType.get(0).toUpperCase())
+                crtEnvironment.envType.replaceFirst(crtEnvironment.envType[0], crtEnvironment.envType.get(0).toUpperCase())
 
-        notifTemperature.isChecked = environment.temperatureNotification == 1
-        notifAirQuality.isChecked = environment.air_qualityNotification == 1
-        notifHumidity.isChecked = environment.humidityNotification == 1
-        notifAirPressure.isChecked = environment.air_pressureNotification == 1
-        notifLight.isChecked = environment.lightNotification == 1
+        notifTemperature.isChecked = crtEnvironment.temperatureNotification == 1
+        notifAirQuality.isChecked = crtEnvironment.air_qualityNotification == 1
+        notifHumidity.isChecked = crtEnvironment.humidityNotification == 1
+        notifAirPressure.isChecked = crtEnvironment.air_pressureNotification == 1
+        notifLight.isChecked = crtEnvironment.lightNotification == 1
 
-        if (environment.temperature_min !== null) minTemperature.text = environment.temperature_min.toString()
-        if (environment.temperature_max !== null) maxTemperature.text = environment.temperature_max.toString()
-        if (environment.air_quality_min !== null) minAirQuality.text = environment.air_quality_min.toString()
-        if (environment.air_quality_max !== null) maxAirQuality.text = environment.air_quality_max.toString()
-        if (environment.humidity_min !== null) minHumidity.text = environment.humidity_min.toString()
-        if (environment.humidity_max !== null) maxHumidity.text = environment.humidity_max.toString()
-        if (environment.air_pressure_min !== null) minAirPressure.text = environment.air_pressure_min.toString()
-        if (environment.air_pressure_max !== null) maxAirPressure.text = environment.air_pressure_max.toString()
-        if (environment.light_min !== null) minLight.text = environment.light_min.toString()
-        if (environment.light_max !== null) maxLight.text = environment.light_max.toString()
+        if (crtEnvironment.temperature_min !== null) minTemperature.text = crtEnvironment.temperature_min.toString()
+        if (crtEnvironment.temperature_max !== null) maxTemperature.text = crtEnvironment.temperature_max.toString()
+        if (crtEnvironment.air_quality_min !== null) minAirQuality.text = crtEnvironment.air_quality_min.toString()
+        if (crtEnvironment.air_quality_max !== null) maxAirQuality.text = crtEnvironment.air_quality_max.toString()
+        if (crtEnvironment.humidity_min !== null) minHumidity.text = crtEnvironment.humidity_min.toString()
+        if (crtEnvironment.humidity_max !== null) maxHumidity.text = crtEnvironment.humidity_max.toString()
+        if (crtEnvironment.air_pressure_min !== null) minAirPressure.text = crtEnvironment.air_pressure_min.toString()
+        if (crtEnvironment.air_pressure_max !== null) maxAirPressure.text = crtEnvironment.air_pressure_max.toString()
+        if (crtEnvironment.light_min !== null) minLight.text = crtEnvironment.light_min.toString()
+        if (crtEnvironment.light_max !== null) maxLight.text = crtEnvironment.light_max.toString()
 
         addAnimalButton = rootView.findViewById(R.id.environment_add_animal_button)
         addAnimalButton.setOnClickListener(::onClickCreateAnimal)
@@ -219,32 +219,32 @@ class EnvironmentFragment : Fragment() {
     private fun onClickViewVideo(view: View) {
         Log.d(loggingTag, "onClick view video from the view ${view.id}")
         (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.main_activity_frame_layout, EnvironmentVideoFragment.newInstance(environment))
+            .replace(R.id.main_activity_frame_layout, EnvironmentVideoFragment.newInstance(crtEnvironment))
             .addToBackStack(null)
             .commit()
     }
 
     private fun onClickCreateAnimal(view: View) {
         Log.d(loggingTag, "create animal button callback, id : ${view.id}")
-        (activity as MainActivity).onClickCreateAnimalNavigation(environment)
+        (activity as MainActivity).onClickCreateAnimalNavigation(crtEnvironment)
     }
 
     private fun onClickUpdateEnvironment(view: View) {
-        Log.d(loggingTag, "On click update environment from view : ${view.id}")
+        Log.d(loggingTag, "On click update crtEnvironment from view : ${view.id}")
         (activity as MainActivity).supportFragmentManager.beginTransaction()
             .replace(
                 R.id.main_activity_frame_layout,
-                EnvironmentUpdateFragment.newInstance(environment)
+                EnvironmentUpdateFragment.newInstance(crtEnvironment)
             )
             .addToBackStack(null)
             .commit()
     }
 
     private fun onClickDeleteEnvironment(view: View) {
-        Log.d(loggingTag, "On click delete environment from view : ${view.id}")
+        Log.d(loggingTag, "On click delete crtEnvironment from view : ${view.id}")
         disposable = environmentService.deleteEnvironment(
             token = (activity as MainActivity).userToken(),
-            envId = environment.id ?: -1
+            envId = crtEnvironment.id ?: -1
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
