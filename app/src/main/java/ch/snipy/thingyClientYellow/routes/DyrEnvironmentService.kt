@@ -30,6 +30,9 @@ interface DyrEnvironmentService {
     @PUT("enableNotif/{envId}")
     fun enableNotification(@Header("token") token: Token, @Path("envId") envId: Id, @Body body: Map<String, String>): Observable<String>
 
+    @GET("sensors/{thingyId}")
+    fun getSensorsData(@Header("token") token: Token, @Path("thingyId") thingyId: String): Observable<Map<String, Any>>
+
     companion object Factory : DyrServiceFactory {
         fun create(ipAddress: String = defaultIpAddress): DyrEnvironmentService {
             val retrofit = Retrofit.Builder()
