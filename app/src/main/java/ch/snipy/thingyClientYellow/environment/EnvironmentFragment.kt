@@ -165,7 +165,7 @@ class EnvironmentFragment : Fragment() {
         minAirPressure = rootView.findViewById(R.id.min_environment_air_pressure)
         maxAirPressure = rootView.findViewById(R.id.max_environment_air_pressure)
         minLight = rootView.findViewById(R.id.min_environment_light)
-        maxLight = rootView.findViewById(R.id.max_environment_temperature)
+        maxLight = rootView.findViewById(R.id.max_environment_light)
 
         if (!environment.name.isEmpty()) name.text = environment.name
         if (!environment.thingy.isEmpty()) thingy.text = environment.thingy
