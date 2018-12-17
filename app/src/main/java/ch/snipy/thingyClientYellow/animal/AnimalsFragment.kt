@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Animal
 import ch.snipy.thingyClientYellow.AnimalsItemViewListener
@@ -70,7 +69,7 @@ class AnimalsFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_environment_animals, container, false)
 
-        disposable = animalTypesService.getAnimalTypes()
+        disposable = animalTypesService.getAnimalTypes(token = (activity as MainActivity).userToken())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -78,7 +77,7 @@ class AnimalsFragment : Fragment() {
                     recyclerView = rootView.findViewById<RecyclerView>(R.id.animals_recycler_view).apply {
                         setHasFixedSize(true)
                         //layoutManager = LinearLayoutManager(activity)
-                        layoutManager = GridLayoutManager(context!!,3)
+                        layoutManager = GridLayoutManager(context!!, 3)
                         adapter = AnimalAdapter(
                             dataset = animals,
                             context = context!!,

@@ -15,7 +15,6 @@ import ch.snipy.thingyClientYellow.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import android.widget.ArrayAdapter
 
 class AnimalUpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -68,7 +67,7 @@ class AnimalUpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         name.onChange()
 
-        disposable = animalTypeService.getAnimalTypes()
+        disposable = animalTypeService.getAnimalTypes(token = (activity as MainActivity).userToken())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -93,10 +92,11 @@ class AnimalUpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun EditText.onChange() {
-        this.addTextChangedListener(object: TextWatcher {
+        this.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 updateButton.isEnabled = name.text.isNotEmpty()
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })

@@ -65,7 +65,7 @@ class AnimalFragment : Fragment() {
 
         name.text = animal.name
 
-        disposable = animalTypeService.getAnimalTypes()
+        disposable = animalTypeService.getAnimalTypes(token = (activity as MainActivity).userToken())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -97,9 +97,13 @@ class AnimalFragment : Fragment() {
 
     private fun onClickDeleteAnimal(view: View) {
         Log.d(loggingTag, "On click delete animal from view : ${view.id}")
-        disposable = animalService.deleteAnimal(animalId = animal.id ?: -1)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({it!! ; Unit; fragmentManager?.popBackStack()}, {it!! ; Unit})
+        disposable =
+                animalService.deleteAnimal(
+                    token = (activity as MainActivity).userToken(),
+                    animalId = animal.id ?: -1
+                )
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ it!!; Unit; fragmentManager?.popBackStack() }, { it!!; Unit })
     }
 }
