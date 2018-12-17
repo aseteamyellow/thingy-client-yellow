@@ -1,6 +1,8 @@
 package ch.snipy.thingyClientYellow.animal
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +12,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import ch.snipy.thingyClientYellow.Animal
-import ch.snipy.thingyClientYellow.AnimalsItemViewListener
-import ch.snipy.thingyClientYellow.R
+import ch.snipy.thingyClientYellow.*
 import kotlinx.android.synthetic.main.animal_list_item.view.*
 
-class AnimalAdapter(
+class AnimalAdapter (
     private val dataset: MutableList<Animal>,
     private val context: Context,
-    private val listener: AnimalsItemViewListener
+    private val listener: AnimalsItemViewListener,
+    private val animalTypes: List<AnimalType>
 ) :
         RecyclerView.Adapter<AnimalAdapter.ViewHolder>() {
 
@@ -36,9 +37,16 @@ class AnimalAdapter(
     override fun getItemCount(): Int = dataset.size
 
     override fun onBindViewHolder(holder: AnimalAdapter.ViewHolder, position: Int) {
+
         holder.nameTextView.text = dataset[position].name
         holder.animal = dataset[position]
-        holder.deleteButton.setOnClickListener { view ->
+
+        val iconWithoutHeader = animalTypes[dataset[position].animalTypeId].icon!!.substring(22)
+        val imageBytes = Base64.decode(iconWithoutHeader, 0)
+        val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        holder.image.setImageBitmap(decodedImage)
+
+        /*holder.deleteButton.setOnClickListener { view ->
             listener.onAnimalItemDeleteClick(
                 view,
                 dataset[position],
@@ -53,7 +61,7 @@ class AnimalAdapter(
                     Toast.makeText(context, "Can't remove item : ${dataset[position]}", Toast.LENGTH_SHORT).show()
                 }
             )
-        }
+        }*/
     }
 
     class ViewHolder(
@@ -67,7 +75,7 @@ class AnimalAdapter(
 
         val nameTextView: TextView = view.animal_item_name
         val image: ImageView = view.animal_item_logo
-        val deleteButton: ImageButton = view.animal_list_item_delete_button
+        //val deleteButton: ImageButton = view.animal_list_item_delete_button
 
         init {
             view.setOnClickListener(this)

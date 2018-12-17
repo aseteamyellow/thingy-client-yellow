@@ -5,20 +5,20 @@ import okhttp3.ResponseBody
 
 interface EnvironmentsItemViewListener {
     fun onEnvironmentItemClick(view: View, environment: Environment)
-    fun onEnvironmentItemDeleteClick(
+    /*fun onEnvironmentItemDeleteClick(
         view: View,
         environment: Environment,
         onSuccess: (ResponseBody) -> Unit,
         onError: (Throwable) -> Unit
-    )
+    )*/
 }
 
 interface AnimalsItemViewListener {
     fun onAnimalItemClick(view: View, animal: Animal)
-    fun onAnimalItemDeleteClick(
+    /*fun onAnimalItemDeleteClick(
         view: View,
         animal: Animal,
         onSuccess: (ResponseBody) -> Unit,
         onError: (Throwable) -> Unit
-    )
+    )*/
 }

@@ -2,6 +2,5 @@
              android:layout_height="match_parent"
              android:layout_width="match_parent"
              android:id="@+id/register_login_activity_frame_layout"
-            style="@style/Theme.MaterialComponents.AppDyr"
-        >
+            style="@style/Theme.MaterialComponents.AppDyr">
 </FrameLayout>

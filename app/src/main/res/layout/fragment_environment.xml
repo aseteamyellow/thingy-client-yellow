@@ -1,89 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
-                                                   android:orientation="vertical"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
+                                                   android:orientation="vertical"
                                                    android:id="@+id/environment_constraint_layout"
-                                                   tools:context="ch.snipy.thingyClientYellow.environment.EnvironmentFragment">
+                                                   tools:context="ch.snipy.thingyClientYellow.environment.EnvironmentFragment"
+>
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fragment_environment_name"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:text="@string/animal_name_example"/>
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fragment_environment_type"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_environment_name"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/animal_type_example"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/environment_recycler_view"
-            android:scrollbars="vertical"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_environment_type"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/environment_add_animal_button"/>
-
-    <Button
-            android:text="@string/add_animal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/environment_add_animal_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/Widget.AppCompat.Button.Colored"
-            app:layout_constraintStart_toEndOf="@+id/environment_fragment_view_video_button"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/environment_recycler_view"/>
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0">
 
-    <ImageButton
-            android:src="@android:drawable/ic_menu_edit"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/environment_fragment_update_button"
-            android:background="@color/colorPrimary"
-            android:contentDescription="@string/todo"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.04000002"/>
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
+            <androidx.gridlayout.widget.GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" app:columnCount="2" app:rowCount="4"
+                    android:layout_gravity="center">
 
-    <Button
-            android:text="@string/view_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/environment_fragment_view_video_button"
-            app:layout_constraintEnd_toStartOf="@+id/environment_add_animal_button"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/Widget.AppCompat.Button.Colored"
-            />
+                <TextView
+                        android:text="@string/environment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/environment_title"
+                        android:textSize="18sp" app:layout_column="0" app:layout_row="0"/>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:layout_column="1" app:layout_row="0"
+                        app:layout_gravity="right">
+                    <ImageButton
+                            android:src="@android:drawable/ic_menu_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/environment_update_button"
+                            android:background="@color/colorPrimary"
+                            android:contentDescription="@string/todo"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_column="1" app:layout_row="0"/>
+                    <ImageButton
+                            android:src="@android:drawable/ic_menu_delete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/environment_delete_button"
+                            android:background="@color/red"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:contentDescription="@string/todo"
+                            app:layout_column="1" app:layout_row="0"/>
+                </LinearLayout>
+                <FrameLayout
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        app:layout_row="1"
+                        app:layout_column="0" app:layout_rowSpan="3" app:layout_gravity="bottom|center">
+                    <ImageView
+                            android:src="@mipmap/icon_environment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/environment_icon"
+                            app:layout_row="1"
+                            app:layout_column="0" app:layout_rowSpan="3" app:layout_gravity="center"
+                            android:adjustViewBounds="true"/>
+                </FrameLayout>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/environment_name" android:hint="@string/name"
+                        android:inputType="none" android:textAlignment="textEnd" app:layout_row="1"
+                        app:layout_column="1" app:layout_gravity="right" android:textSize="18sp"
+                        android:paddingTop="10dp"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/environment_thingy" android:hint="@string/thingy"
+                        android:inputType="none" android:textAlignment="textEnd" app:layout_row="2"
+                        app:layout_column="1" app:layout_gravity="right" android:textSize="18sp"
+                        android:paddingTop="10dp"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/environment_camera" android:hint="@string/ip_camera"
+                        android:inputType="none" android:textAlignment="textEnd" app:layout_row="3"
+                        app:layout_column="1" app:layout_gravity="right" android:textSize="18sp"
+                        android:paddingTop="10dp"/>
+            </androidx.gridlayout.widget.GridLayout>
+        </TableRow>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View android:layout_width="fill_parent" android:layout_height="2dp"
+              android:background="@color/black"
+              android:layout_marginTop="15dp"
+              android:layout_marginBottom="5dp"/>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:gravity="center">
+                <TextView
+                        android:text="@string/env_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/environment_envType"
+                        app:layout_row="0" android:textSize="18sp" app:layout_column="0" android:layout_gravity="left"/>
+                <ImageView
+                        android:layout_width="230dp"
+                        android:layout_height="194dp"
+                        android:id="@+id/environment_image"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/todo"
+                        android:src="@mipmap/env_aquaterrarium"
+                        android:visibility="visible" app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_row="1" app:layout_gravity="center_vertical|center_horizontal|center"/>
+                <TextView
+                        android:text="@string/aquaterrarium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/environment_type_name"
+                        android:textSize="18sp"/>
+
+            </LinearLayout>
+        </TableRow>
+
+        <View android:layout_width="fill_parent" android:layout_height="2dp"
+              android:background="@color/black"
+              android:layout_marginTop="15dp"
+              android:layout_marginBottom="5dp"/>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+                        android:text="@string/animals"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/environment_animals"
+                        android:textSize="18sp" app:layout_column="0" app:layout_row="0"/>
+                <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp" android:fillViewport="true">
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/environment_recycler_view"
+                            android:scrollbars="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"/>
+                </androidx.core.widget.NestedScrollView>
+            </LinearLayout>
+
+        </TableRow>
+
+        <View android:layout_width="fill_parent" android:layout_height="2dp"
+              android:background="@color/black"
+              android:layout_marginTop="15dp"
+              android:layout_marginBottom="5dp"/>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
+            <androidx.gridlayout.widget.GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" app:columnCount="1" app:rowCount="2">
+
+                <TextView
+                        android:text="@string/sensors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/environment_sensors"
+                        app:layout_column="0"
+                        app:layout_row="0" android:textSize="18sp"/>
+                <TableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/environment_notifs_sensors"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/environment_name"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_gravity="center">
+
+                    <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
+                    >
+                        <Switch
+                                android:text="@string/temperature"
+                                android:layout_width="163dp"
+                                android:layout_height="35dp" android:id="@+id/notif_environment_temperature"
+                                android:textSize="18sp" android:enabled="false"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/min_environment_temperature"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/min"
+                                android:enabled="false" android:layout_gravity="center" android:gravity="center"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/max_environment_temperature"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/max"
+                                tools:layout_editor_absoluteX="313dp" android:enabled="false" android:gravity="center"
+                                android:layout_gravity="center"/>
+                    </TableRow>
+                    <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                        <Switch
+                                android:text="@string/air_quality"
+                                android:layout_width="163dp"
+                                android:layout_height="35dp" android:id="@+id/notif_environment_air_quality"
+                                android:textSize="18sp" android:enabled="false"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/min_environment_air_quality"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/min"
+                                android:enabled="false" android:layout_gravity="center" android:gravity="center"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/max_environment_air_quality"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/max"
+                                tools:layout_editor_absoluteX="293dp" android:enabled="false"
+                                android:layout_gravity="center" android:gravity="center"/>
+                    </TableRow>
+                    <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                        <Switch
+                                android:text="@string/humidity"
+                                android:layout_width="163dp"
+                                android:layout_height="35dp" android:id="@+id/notif_environment_humidity"
+                                android:textSize="18sp" android:enabled="false"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/min_environment_humidity"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/min"
+                                android:enabled="false" android:layout_gravity="center" android:gravity="center"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/max_environment_humidity"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/max"
+                                tools:layout_editor_absoluteX="293dp"
+                                android:enabled="false" android:layout_gravity="center" android:gravity="center"/>
+                    </TableRow>
+                    <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                        <Switch
+                                android:text="@string/air_pressure"
+                                android:layout_width="163dp"
+                                android:layout_height="35dp" android:id="@+id/notif_environment_air_pressure"
+                                android:textSize="18sp" android:enabled="false"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/min_environment_air_pressure"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/min"
+                                android:enabled="false" android:layout_gravity="center" android:gravity="center"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/max_environment_air_pressure"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/max"
+                                tools:layout_editor_absoluteX="293dp" android:enabled="false"
+                                android:layout_gravity="center" android:gravity="center"/>
+                    </TableRow>
+                    <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+                        <Switch
+                                android:text="@string/light"
+                                android:layout_width="163dp"
+                                android:layout_height="35dp" android:id="@+id/notif_environment_light"
+                                android:textSize="18sp" android:enabled="false"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/min_environment_light"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/min"
+                                android:enabled="false" android:layout_gravity="center" android:gravity="center"/>
+                        <TextView
+                                android:layout_width="71dp"
+                                android:layout_height="35dp"
+                                android:ems="10"
+                                android:id="@+id/max_environment_light"
+                                android:importantForAutofill="no"
+                                tools:ignore="LabelFor"
+                                android:textSize="12sp" android:textAlignment="center"
+                                android:hint="@string/max"
+                                tools:layout_editor_absoluteX="313dp" android:enabled="false"
+                                android:layout_gravity="center" android:gravity="center"/>
+                    </TableRow>
+                </TableLayout>
+            </androidx.gridlayout.widget.GridLayout>
+        </TableRow>
+
+        <View android:layout_width="fill_parent" android:layout_height="2dp"
+              android:background="@color/black"
+              android:layout_marginTop="15dp"
+              android:layout_marginBottom="5dp"/>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
+            <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:weightSum="2" android:id="@+id/environment_environment_buttons"
+                    app:layout_constraintHorizontal_bias="0.5">
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_weight="1">
+
+                    <Button
+                            android:text="@string/view_video"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/environment_view_video_button"
+                            tools:layout_editor_absoluteX="28dp" tools:layout_editor_absoluteY="511dp"
+                            android:layout_gravity="center"/>
+
+                </FrameLayout>
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_weight="1">
+
+                    <Button
+                            android:text="@string/add_animal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/environment_add_animal_button"
+                            tools:layout_editor_absoluteY="511dp" tools:layout_editor_absoluteX="260dp"
+                            android:layout_gravity="center"/>
+
+                </FrameLayout>
+            </TableRow>
+        </TableRow>
+    </TableLayout>
+
+</androidx.core.widget.NestedScrollView>

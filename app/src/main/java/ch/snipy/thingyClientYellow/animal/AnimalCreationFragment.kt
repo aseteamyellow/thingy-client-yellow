@@ -3,6 +3,8 @@ package ch.snipy.thingyClientYellow.animal
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -56,7 +58,9 @@ class AnimalCreationFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         name = rootView.findViewById(R.id.animal_creation_name)
         image = rootView.findViewById(R.id.animal_creation_image)
-        spinner = rootView.findViewById(R.id.spinner_animal_type)
+        spinner = rootView.findViewById(R.id.spinner_creation_animal_type)
+
+        name.onChange()
 
         cancelButton = rootView.findViewById(R.id.animal_creation_cancel_button)
         cancelButton.setOnClickListener { _ -> fragmentManager?.popBackStack() }
@@ -90,6 +94,16 @@ class AnimalCreationFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     // TODO add a progress bar
 
+    private fun EditText.onChange() {
+        this.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                createButton.isEnabled = name.text.isNotEmpty()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
     private fun onClickCreateAnimal(view: View) {
         Log.d(loggingTag, "create button callback, id : ${view.id}")
 
@@ -121,7 +135,6 @@ class AnimalCreationFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val type = animalsTypes[position]
         Log.d(loggingTag, type.icon.substring("data:image/png;base64,".length))
         val bytes = Base64.decode(type.icon.substring("data:image/png;base64,".length), Base64.DEFAULT)
-        image.setBackgroundColor(Color.WHITE)
         image.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
     }
 }

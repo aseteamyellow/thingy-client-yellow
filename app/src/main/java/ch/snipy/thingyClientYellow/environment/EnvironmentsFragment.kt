@@ -1,17 +1,17 @@
 package ch.snipy.thingyClientYellow.environment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ch.snipy.thingyClientYellow.Environment
-import ch.snipy.thingyClientYellow.EnvironmentsItemViewListener
-import ch.snipy.thingyClientYellow.MainActivity
-import ch.snipy.thingyClientYellow.R
+import ch.snipy.thingyClientYellow.*
 import ch.snipy.thingyClientYellow.routes.DyrEnvironmentService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -63,14 +63,18 @@ class EnvironmentsFragment : Fragment() {
             )
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
         val rootView = inflater.inflate(R.layout.fragment_environments, container, false)
 
+        ((activity) as MainActivity).setUserMenu()
+
         recyclerView = rootView.findViewById<RecyclerView>(R.id.environments_recycler_view).apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(activity)
+            //layoutManager = LinearLayoutManager(activity)
+            layoutManager = GridLayoutManager(context!!, 2)
             adapter = EnvironmentAdapter(
                 dataset = environments,
                 context = context!!,
@@ -79,4 +83,5 @@ class EnvironmentsFragment : Fragment() {
         }
         return rootView
     }
+
 }

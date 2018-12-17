@@ -1,5 +1,6 @@
 package ch.snipy.thingyClientYellow
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -9,10 +10,7 @@ import android.util.Log
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,7 +23,6 @@ class RegisterLoginActivity : UserAbstractFragmentActivity() {
         // For network access
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
-
 
         setContentView(R.layout.activity_register_login)
         supportFragmentManager.beginTransaction()
@@ -77,6 +74,7 @@ class RegisterLoginActivity : UserAbstractFragmentActivity() {
         disposable?.dispose()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun connect(email: String, password: String) {
         if (!isNetworkAvailable()) {
             Toast.makeText(applicationContext, getString(R.string.internet_error), Toast.LENGTH_SHORT).show()

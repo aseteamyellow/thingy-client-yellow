@@ -15,6 +15,9 @@ import ch.snipy.thingyClientYellow.EnvironmentsItemViewListener
 import ch.snipy.thingyClientYellow.R
 import ch.snipy.thingyClientYellow.environment.EnvironmentAdapter.EnvironmentItemViewHolder
 import kotlinx.android.synthetic.main.environment_list_item.view.*
+import android.graphics.BitmapFactory
+import android.util.Base64
+
 
 class EnvironmentAdapter(
     private val dataset: MutableList<Environment>,
@@ -39,14 +42,18 @@ class EnvironmentAdapter(
 
     override fun onBindViewHolder(holder: EnvironmentItemViewHolder, position: Int) {
         holder.nameTextView.text = dataset[position].name
+        val iconWithoutHeader = dataset[position].icon!!.substring(22)
+        val imageBytes = Base64.decode(iconWithoutHeader, 0)
+        val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        holder.image.setImageBitmap(decodedImage)
         holder.environment = dataset[position]
-        holder.deleteButton.setOnClickListener { view ->
+        /*holder.deleteButton.setOnClickListener { view ->
             listener.onEnvironmentItemDeleteClick(
                 view,
                 dataset[position],
                 { response ->
                     Log.d(loggingTag, response.string())
-                    Toast.makeText(context, "Animal successfully removed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Environment successfully removed", Toast.LENGTH_SHORT).show()
                     dataset.removeAt(position)
                     notifyDataSetChanged()
                 },
@@ -55,7 +62,7 @@ class EnvironmentAdapter(
                     Toast.makeText(context, "Can't remove item : ${dataset[position]}", Toast.LENGTH_SHORT).show()
                 }
             )
-        }
+        }*/
     }
 
     class EnvironmentItemViewHolder(
@@ -68,7 +75,7 @@ class EnvironmentAdapter(
 
         val nameTextView: TextView = view.environment_item_name
         val image: ImageView = view.environment_item_logo
-        val deleteButton: ImageButton = view.environment_list_item_delete_button
+        //val deleteButton: ImageButton = view.environment_list_item_delete_button
 
         init {
             view.setOnClickListener(this)

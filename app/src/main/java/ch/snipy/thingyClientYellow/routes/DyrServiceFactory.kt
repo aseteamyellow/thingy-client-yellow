@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 
 interface DyrServiceFactory {
     val defaultIpAddress: String
-        get() = "163.172.130.246:8080" // VPS @ UniFR
+        get() = "10.0.2.2:8080"//"163.172.130.246:8080" // VPS @ UniFR
     val client: OkHttpClient
         get() {
             val logging = HttpLoggingInterceptor()

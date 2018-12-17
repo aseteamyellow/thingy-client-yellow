@@ -16,15 +16,6 @@
                 />
     </group>
     <group
-            android:id="@+id/nav_menu_group_favorites"
-            >
-        <item
-                android:id="@+id/nav_slideshow"
-                android:title="@string/favEnvEntry1"
-                android:checkable="true"
-                />
-    </group>
-    <group
             android:id="@+id/nav_menu_group_settings"
             >
         <item
@@ -34,4 +25,14 @@
                 android:checkable="true"
                 />
     </group>
+    <group
+            android:id="@+id/nav_menu_group_disconnection"
+            >
+        <item
+                android:id="@+id/nav_menu_item_disconnection"
+                android:title="@string/disconnection"
+                android:checkable="true"
+                />
+    </group>
+
 </menu>

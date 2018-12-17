@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.snipy.thingyClientYellow.Animal
@@ -32,6 +33,7 @@ class AnimalsFragment : Fragment() {
 
     // Api call
     private val animalService by lazy { ((activity) as MainActivity).animalService }
+    private val animalTypesService by lazy { ((activity) as MainActivity).animalTypeService }
     private var disposable: Disposable? = null
 
     companion object {
@@ -65,17 +67,39 @@ class AnimalsFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_environment_animals, container, false)
 
+        disposable = animalTypesService.getAnimalTypes()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    recyclerView = rootView.findViewById<RecyclerView>(R.id.animals_recycler_view).apply {
+                        setHasFixedSize(true)
+                        //layoutManager = LinearLayoutManager(activity)
+                        layoutManager = GridLayoutManager(context!!,3)
+                        adapter = AnimalAdapter(
+                            dataset = animals,
+                            context = context!!,
+                            listener = listener,
+                            animalTypes = result
+                        )
+                    }
+                },
+                { error ->
+                    Log.e(loggingTag, error.toString())
+                }
+            )
 
-        recyclerView = rootView.findViewById<RecyclerView>(R.id.animals_recycler_view).apply {
+
+        /*recyclerView = rootView.findViewById<RecyclerView>(R.id.animals_recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = AnimalAdapter(
                 dataset = animals,
                 context = context!!,
-                listener = listener
-
+                listener = listener,
+                animalTypes =
             )
-        }
+        }*/
         return rootView
     }
 }

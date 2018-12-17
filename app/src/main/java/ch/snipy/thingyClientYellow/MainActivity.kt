@@ -1,11 +1,13 @@
 package ch.snipy.thingyClientYellow
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.drawerlayout.widget.DrawerLayout
 import ch.snipy.thingyClientYellow.animal.AnimalCreationFragment
 import ch.snipy.thingyClientYellow.animal.AnimalFragment
@@ -75,6 +77,9 @@ class MainActivity : UserAbstractFragmentActivity(),
                     .replace(R.id.main_activity_frame_layout, SettingsFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
+            R.id.nav_menu_item_disconnection ->
+                {val intent = Intent(this, RegisterLoginActivity::class.java)
+                startActivity(intent)}
         }
 
         return true
@@ -112,7 +117,7 @@ class MainActivity : UserAbstractFragmentActivity(),
             .commit()
     }
 
-    override fun onAnimalItemDeleteClick(
+    /*override fun onAnimalItemDeleteClick(
         view: View,
         animal: Animal,
         onSuccess: (ResponseBody) -> Unit,
@@ -122,9 +127,9 @@ class MainActivity : UserAbstractFragmentActivity(),
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onSuccess(it) }, { onError(it) })
-    }
+    }*/
 
-    override fun onEnvironmentItemDeleteClick(
+    /*override fun onEnvironmentItemDeleteClick(
         view: View,
         environment: Environment,
         onSuccess: (ResponseBody) -> Unit,
@@ -134,7 +139,12 @@ class MainActivity : UserAbstractFragmentActivity(),
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ onSuccess(it) }, { onError(it) })
-    }
+    }*/
 
+    @SuppressLint("SetTextI18n")
+    fun setUserMenu() {
+        //findViewById<TextView>(R.id.header_title).text = "Connected as " + userId().toString()
+        navigationView.getHeaderView(0).findViewById<TextView>(R.id.header_title).text = "Connected as " + userEmail()
+    }
 
 }
