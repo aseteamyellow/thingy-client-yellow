@@ -3,9 +3,9 @@ package ch.snipy.thingyClientYellow.environment
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -20,10 +20,8 @@ import ch.snipy.thingyClientYellow.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.io.File
-import java.util.*
-import android.provider.MediaStore
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 class EnvironmentCreationFragment : Fragment() {
@@ -154,19 +152,28 @@ class EnvironmentCreationFragment : Fragment() {
     }
 
     private fun EditText.onChange() {
-        this.addTextChangedListener(object: TextWatcher {
+        this.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 createButton.isEnabled = name.text.isNotEmpty() && thingy.text.isNotEmpty()
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
 
-    private fun checkListener(switch:Switch, view: View) {
+    private fun checkListener(switch: Switch, view: View) {
         switch.setOnCheckedChangeListener { buttonView: CompoundButton, isChecked: Boolean ->
-            val minId = resources.getIdentifier("min_creation_" + switch.text.toString().replace(' ','_').toLowerCase(), "id", context!!.packageName)
-            val maxId = resources.getIdentifier("max_creation_" + switch.text.toString().replace(' ','_').toLowerCase(), "id", context!!.packageName)
+            val minId = resources.getIdentifier(
+                "min_creation_" + switch.text.toString().replace(' ', '_').toLowerCase(),
+                "id",
+                context!!.packageName
+            )
+            val maxId = resources.getIdentifier(
+                "max_creation_" + switch.text.toString().replace(' ', '_').toLowerCase(),
+                "id",
+                context!!.packageName
+            )
             view.findViewById<EditText>(minId).isEnabled = isChecked
             view.findViewById<EditText>(maxId).isEnabled = isChecked
         }
@@ -176,7 +183,7 @@ class EnvironmentCreationFragment : Fragment() {
 
     private fun onClickEnvironmentIcon(view: View) {
         val intent = Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT)   // TODO Change to png
-        startActivityForResult(Intent.createChooser(intent,""),888)
+        startActivityForResult(Intent.createChooser(intent, ""), 888)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -211,6 +218,7 @@ class EnvironmentCreationFragment : Fragment() {
                     R.id.environment_creation_terrarium_button -> "terrarium"
                     else -> "no-type"
                 },
+                piCamera = camera.text.toString(),
                 icon = base64EnvironmentIcon,
                 temperatureNotification = if (notifTemperature.isChecked) 1 else 0,
                 air_qualityNotification = if (notifAirQuality.isChecked) 1 else 0,

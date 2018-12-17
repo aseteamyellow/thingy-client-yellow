@@ -254,6 +254,7 @@ class EnvironmentUpdateFragment : Fragment() {
                     R.id.environment_update_terrarium_button -> "terrarium"
                     else -> "no-type"
                 },
+                piCamera = camera.text.toString(),
                 animals = null,
                 icon = if (!base64EnvironmentIcon.isEmpty()) base64EnvironmentIcon else null,
                 temperatureNotification = if (notifTemperature.isChecked) 1 else 0,
