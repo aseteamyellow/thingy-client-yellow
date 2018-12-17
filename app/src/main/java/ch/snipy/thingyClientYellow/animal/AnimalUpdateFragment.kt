@@ -110,7 +110,8 @@ class AnimalUpdateFragment : Fragment(), AdapterView.OnItemSelectedListener {
             animalId = animal.id ?: -1,
             body = Animal(
                 id = animal.id,
-                name = name.text.toString()
+                name = name.text.toString(),
+                animalTypeId = spinner.selectedItemPosition
             )
         )
             .subscribeOn(Schedulers.io())
