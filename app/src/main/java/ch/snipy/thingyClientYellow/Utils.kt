@@ -44,6 +44,6 @@ object Thingy {
 
 // Raspeberry pi 3 IP
 object Raspberry {
-    val ip: IP = Tuple(172, 22, 22, 1)
+    val ip: IP = Tuple(192, 168, 43, 128)
     val ipString: String = "${ip._1}.${ip._2}.${ip._3}.${ip._4}"
 }
